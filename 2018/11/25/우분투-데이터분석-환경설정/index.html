@@ -10,17 +10,17 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="ubuntu">
+        <meta name="keywords" content="Ubuntu">
     
     <meta name="description" content="우분투 버전: Ubuntu 18.04.1 LTS 이 글은 데이터 분석을 공부하면서 window 사용자가 우분투에 데이터 분석 환경 설정 하며 겪은 시행착오와 그 단계들을 모아둔 글입니다. 오류와 path충돌 때문에 눈물을 머금고 우분투를 4번 정도 다시 깔면서 다음에 다시 설치해야 할 상황이 왔을 때 참고하기 위한 글이고, 우분투로 처음 데이터 분석 환경">
-<meta name="keywords" content="ubuntu">
+<meta name="keywords" content="Ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="우분투 데이터분석 환경설정">
 <meta property="og:url" content="https://p829911.github.io/2018/11/25/우분투-데이터분석-환경설정/index.html">
 <meta property="og:site_name" content="data science study blog">
 <meta property="og:description" content="우분투 버전: Ubuntu 18.04.1 LTS 이 글은 데이터 분석을 공부하면서 window 사용자가 우분투에 데이터 분석 환경 설정 하며 겪은 시행착오와 그 단계들을 모아둔 글입니다. 오류와 path충돌 때문에 눈물을 머금고 우분투를 4번 정도 다시 깔면서 다음에 다시 설치해야 할 상황이 왔을 때 참고하기 위한 글이고, 우분투로 처음 데이터 분석 환경">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-24T17:35:27.003Z">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-24T18:12:21.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="우분투 데이터분석 환경설정">
 <meta name="twitter:description" content="우분투 버전: Ubuntu 18.04.1 LTS 이 글은 데이터 분석을 공부하면서 window 사용자가 우분투에 데이터 분석 환경 설정 하며 겪은 시행착오와 그 단계들을 모아둔 글입니다. 오류와 path충돌 때문에 눈물을 머금고 우분투를 4번 정도 다시 깔면서 다음에 다시 설치해야 할 상황이 왔을 때 참고하기 위한 글이고, 우분투로 처음 데이터 분석 환경">
@@ -70,13 +70,13 @@
                         <ul id="main-nav">
                             
                                 <li class="main-nav-list-item">
-                                    <a class="main-nav-list-link" href="/">Inici</a>
+                                    <a class="main-nav-list-link" href="/">Home</a>
                                 </li>
                             
-                                        
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
                                     
                                 <li class="main-nav-list-item">
-                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
+                                    <a class="main-nav-list-link" href="https://about.me/p829911">About</a>
                                 </li>
                             
                         </ul>
@@ -84,7 +84,7 @@
                             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -105,8 +105,8 @@
         TRANSLATION: {
             POSTS: 'Posts',
             PAGES: 'Pages',
-            CATEGORIES: 'categories',
-            TAGS: 'etiquetes',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
@@ -132,7 +132,7 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    Sense categoria
+    <a class="page-title-link" href="/categories/Ubuntu/">Ubuntu</a>
     </h1>
 </div>
 
@@ -164,7 +164,7 @@
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/ubuntu/">ubuntu</a>
+        <a class="tag-link" href="/tags/Ubuntu/">Ubuntu</a>
     </div>
 
             </div>
@@ -197,7 +197,7 @@
 
 
 
-    <a data-url="https://p829911.github.io/2018/11/25/우분투-데이터분석-환경설정/" data-id="cjovqk4ul00014xoxhzx6l64u" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="https://p829911.github.io/2018/11/25/우분투-데이터분석-환경설정/" data-id="cjovrzac00001vzox9tkfcc3g" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -278,7 +278,7 @@
                     <aside id="sidebar">
     <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
     <div class="sidebar-top">
-        <p>seguir:</p>
+        <p>follow:</p>
         <ul class="social-links">
             
                 
@@ -307,7 +307,7 @@
             
                 
                 <li>
-                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank" rel="noopener">
+                    <a class="social-tooltip" title="github" href="https://github.com/p829911" target="_blank" rel="noopener">
                         <i class="icon fa fa-github"></i>
                     </a>
                 </li>
@@ -335,9 +335,19 @@
         
 <nav id="article-nav">
     
+        <a href="/2018/11/25/우분투-한글-입력기-설치/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            우분투 한글 입력기 설치
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
     
         <a href="/2018/11/25/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">antic</strong>
+        <strong class="article-nav-caption">older</strong>
         <p class="article-nav-title">Hello World</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
@@ -360,7 +370,16 @@
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Ubuntu/">Ubuntu</a></p>
+                            <p class="item-title"><a href="/2018/11/25/우분투-한글-입력기-설치/" class="title">우분투 한글 입력기 설치</a></p>
+                            <p class="item-date"><time datetime="2018-11-24T18:14:50.000Z" itemprop="datePublished">2018-11-25</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Ubuntu/">Ubuntu</a></p>
                             <p class="item-title"><a href="/2018/11/25/우분투-데이터분석-환경설정/" class="title">우분투 데이터분석 환경설정</a></p>
                             <p class="item-date"><time datetime="2018-11-24T17:25:25.000Z" itemprop="datePublished">2018-11-25</time></p>
                         </div>
@@ -381,13 +400,10 @@
 
             
                 
-
-            
-                
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">arxius</h3>
+        <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -395,9 +411,19 @@
             
                 
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">etiquetes</h3>
+        <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -405,9 +431,9 @@
             
                 
     <div class="widget-wrap widget-float">
-        <h3 class="widget-title">etiqueta cloud</h3>
+        <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a>
+            <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a>
         </div>
     </div>
 
