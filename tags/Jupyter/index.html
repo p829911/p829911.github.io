@@ -6,24 +6,17 @@
     
 
     
-    <title>우분투 데이터분석 환경설정 | data science study blog</title>
+    <title>Tag: Jupyter | data science study blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="Ubuntu">
-    
-    <meta name="description" content="우분투 버전: Ubuntu 18.04.1 LTS 이 글은 데이터 분석을 공부하면서 window 사용자가 우분투에 데이터 분석 환경 설정 하며 겪은 시행착오와 그 단계들을 모아둔 글입니다. 오류와 path충돌 때문에 눈물을 머금고 우분투를 4번 정도 다시 깔면서 다음에 다시 설치해야 할 상황이 왔을 때 참고하기 위한 글이고, 우분투로 처음 데이터 분석 환경">
-<meta name="keywords" content="Ubuntu">
-<meta property="og:type" content="article">
-<meta property="og:title" content="우분투 데이터분석 환경설정">
-<meta property="og:url" content="https://p829911.github.io/2018/11/25/우분투-데이터분석-환경설정/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="data science study blog">
+<meta property="og:url" content="https://p829911.github.io/tags/Jupyter/index.html">
 <meta property="og:site_name" content="data science study blog">
-<meta property="og:description" content="우분투 버전: Ubuntu 18.04.1 LTS 이 글은 데이터 분석을 공부하면서 window 사용자가 우분투에 데이터 분석 환경 설정 하며 겪은 시행착오와 그 단계들을 모아둔 글입니다. 오류와 path충돌 때문에 눈물을 머금고 우분투를 4번 정도 다시 깔면서 다음에 다시 설치해야 할 상황이 왔을 때 참고하기 위한 글이고, 우분투로 처음 데이터 분석 환경">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-24T18:12:21.696Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="우분투 데이터분석 환경설정">
-<meta name="twitter:description" content="우분투 버전: Ubuntu 18.04.1 LTS 이 글은 데이터 분석을 공부하면서 window 사용자가 우분투에 데이터 분석 환경 설정 하며 겪은 시행착오와 그 단계들을 모아둔 글입니다. 오류와 path충돌 때문에 눈물을 머금고 우분투를 4번 정도 다시 깔면서 다음에 다시 설치해야 할 상황이 왔을 때 참고하기 위한 글이고, 우분투로 처음 데이터 분석 환경">
+<meta name="twitter:title" content="data science study blog">
     
 
     
@@ -132,144 +125,92 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/Ubuntu/">Ubuntu</a>
+    <i class="icon fa fa-tag"></i>Tag: <em>Jupyter</em>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-우분투-데이터분석-환경설정" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
+                            
+
+    
+    
         
-            <header class="article-header">
-                
+        
+        <section class="archives-wrap">
+            <div class="archive-year-wrap">
+                <a href="/archives/2018" class="archive-year"><i class="icon fa fa-calendar-o"></i>2018</a>
+            </div>
+            <div class="archives">
+    
+    
+    
+        <div class="article-row">
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
+        
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Python/">Python</a>
+            </div>
+            <div class="date"><time datetime="2018-11-26T13:25:40.000Z" itemprop="datePublished">2018-11-26</time></div>
+        </div>
+        
     
         <h1 class="article-title" itemprop="name">
-        우분투 데이터분석 환경설정
+        <a href="/2018/11/26/Jupyber-notebook-matplotlib-한글-설정/">Jupyber notebook matplotlib 한글 설정</a>
         </h1>
     
 
-            </header>
-        
-        
-            <div class="article-meta">
-                
-    <div class="article-date">
-        <a href="/2018/11/25/우분투-데이터분석-환경설정/" class="article-date">
-            <time datetime="2018-11-24T17:25:25.000Z" itemprop="datePublished">2018-11-25</time>
-        </a>
-    </div>
-
-		
-
-                
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Ubuntu/">Ubuntu</a>
-    </div>
-
-            </div>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-            <p><strong>우분투 버전: Ubuntu 18.04.1 LTS</strong></p>
-<p>이 글은 데이터 분석을 공부하면서 window 사용자가 우분투에 데이터 분석 환경 설정 하며 겪은 시행착오와 그 단계들을 모아둔 글입니다.</p>
-<p>오류와 path충돌 때문에 눈물을 머금고 우분투를 4번 정도 다시 깔면서 다음에 다시 설치해야 할 상황이 왔을 때 참고하기 위한 글이고, 우분투로 처음 데이터 분석 환경 설정을 하려고 하는 분들을 위해 정리하는 글입니다.</p>
-<p>이 포스트와 다음과 같은 내용이 포함되어 있습니다.</p>
-<ul>
-<li>한글 입력기 설치</li>
-<li>root 비밀번호 설정</li>
-<li>패키지 관리 툴 apt 사용법</li>
-<li>슬랙 설치</li>
-<li>vim 설치</li>
-<li>git 설치 </li>
-<li>python3 설치 및 기본 설정</li>
-<li>python3 데이터 분석 관련 패키지 설치</li>
-<li>markdown 편집기 typora 설치</li>
-<li>Atom &amp; Atom package 설치</li>
-<li>mysql &amp; mysql workbench 설치</li>
-<li>AWS(Amazon Web Services) 가입 및 접속</li>
-<li>AWS와 파일 주고 받기를 할 수 있는 FileZilla 설치 및 사용법</li>
-</ul>
-
-        </div>
-        <footer class="article-footer">
-            
-
-
-
-    <a data-url="https://p829911.github.io/2018/11/25/우분투-데이터분석-환경설정/" data-id="cjoyfisx0000feyoxun3smm9x" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
+        <p class="article-excerpt">
+            우분투 폰트 경로 /usr/share/fonts/
+나눔 글꼴 또는 다른 폰트도 /usr/share/fonts/ 폴더에 복사에서 사용가능하다.
+나눔글꼴 설치
+12sudo apt-get install fonts-nanum*sudo fc-cache -fv
+apt-get 명령으로 나눔글꼴 설치 후, fc-cache 명령으로 폰트 캐시 삭제
+다른 ttf 폰트
+12s
+        </p>
     </div>
 </article>
-
-    <section id="comments">
     
+
+    
+    
+    
+    
+        <article class="article article-summary">
+    <div class="article-summary-inner">
         
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
-
+        <div class="article-meta">
+            <div class="category">
+            <a class="article-category-link" href="/categories/Python/">Python</a>
+            </div>
+            <div class="date"><time datetime="2018-11-26T10:51:23.000Z" itemprop="datePublished">2018-11-26</time></div>
+        </div>
+        
     
-    </section>
+        <h1 class="article-title" itemprop="name">
+        <a href="/2018/11/26/Jupyter-notebook-글꼴-설정/">Jupyter notebook 글꼴 설정</a>
+        </h1>
+    
+
+        <p class="article-excerpt">
+            D2Coding 설치
+
+12345cd /home/username/.jupytermkdir customcd customtouch custom.cssvi custom.css
+만약 custom.css에 쓰기 권한이 없으면 chmod명령으로 파일 권한을 바꿔준다.
+1sudo chmod 777 custom.css
+vi 편집기로 custom.css 파일을 연 후 다음
+        </p>
+    </div>
+</article>
+    
+        </div>
+    
+
+
+    </div></section>
 
 
 
@@ -331,29 +272,6 @@
             
         </ul>
     </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2018/11/25/우분투-한글-입력기-설치/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            우분투 한글 입력기 설치
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
-    
-    
-        <a href="/2018/11/25/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">Hello World</p>
-        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
-        </a>
-    
-</nav>
-
     
     <div class="widgets-container">
         
@@ -507,13 +425,11 @@
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://p829911.github.io/2018/11/25/우분투-데이터분석-환경설정/';
-    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
