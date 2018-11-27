@@ -12,18 +12,20 @@
     
         <meta name="keywords" content="Math">
     
-    <meta name="description" content="선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다. 분산 분석(ANOVA: Analysis of Variance)은 종속변수의 분산과 독립변수의 분산간의 관계를 사용하여 선형회귀분석의 성능을 평">
+    <meta name="description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다. 분산">
 <meta name="keywords" content="Math">
 <meta property="og:type" content="article">
 <meta property="og:title" content="분산 분석">
 <meta property="og:url" content="https://p829911.github.io/2018/11/26/분산-분석/index.html">
 <meta property="og:site_name" content="data science study blog">
-<meta property="og:description" content="선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다. 분산 분석(ANOVA: Analysis of Variance)은 종속변수의 분산과 독립변수의 분산간의 관계를 사용하여 선형회귀분석의 성능을 평">
+<meta property="og:description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다. 분산">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-26T14:34:35.276Z">
+<meta property="og:image" content="https://p829911.github.io/images/1543299373849.png">
+<meta property="og:updated_time" content="2018-11-27T06:16:41.472Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="분산 분석">
-<meta name="twitter:description" content="선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다. 분산 분석(ANOVA: Analysis of Variance)은 종속변수의 분산과 독립변수의 분산간의 관계를 사용하여 선형회귀분석의 성능을 평">
+<meta name="twitter:description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다. 분산">
+<meta name="twitter:image" content="https://p829911.github.io/images/1543299373849.png">
     
 
     
@@ -173,7 +175,10 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p>선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다.</p>
+            <p>이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다.</p>
+<p><a href="https://datascienceschool.net/view-notebook/661128713b654edc928ecb455a826b1d/" target="_blank" rel="noopener">데이터 사이언스 스쿨</a></p>
+<p><img src="/images/1543299373849.png" alt=""></p>
+<p>선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다.</p>
 <p>분산 분석(ANOVA: Analysis of Variance)은 종속변수의 분산과 독립변수의 분산간의 관계를 사용하여 선형회귀분석의 성능을 평가하고자 하는 방법이다. 분산 분석은 서로 다른 두 개의 선형회귀분석의 성능 비교에 응용할 수 있으며 독립변수가 카테고리 변수인 경우 각 카테고리 값에 따른 영향을 정량적으로 분석하는데도 사용된다.</p>
 <p>$\hat{y}$를 종속변수 $y$의 샘플 평균이라고 하자.</p>
 <script type="math/tex; mode=display">
@@ -253,11 +258,31 @@ R^2 \equiv 1- \dfrac{\text{RSS}}{\text{TSS}} = \dfrac{\text{ESS}}{\text{TSS}}</s
 <td style="text-align:center">$\dfrac{\text{ESS}}{\text{TSS}}$</td>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
-<td style="text-align:center"></td>
 </tr>
 </tbody>
 </table>
 </div>
+<p><strong>결정 계수와  상관 계수</strong></p>
+<p>$y$와 $\hat{y}$의 샘플 상관계수 $r$의 제곱은 결정 계수 $R^2$와 같다.</p>
+<p><strong>상수항이 없는 모형의 경우</strong></p>
+<p>모형에서 상수항을 지정하지 않은 경우에는 결정계수의 정의에 사용되는 TSS의 정의가 다음과 같이 달라진다.</p>
+<script type="math/tex; mode=display">
+\text{TSS} = \sum_{i=1}^{N}y_i^2 = y^Ty</script><p>즉, 실제 샘플평균과 상관없이 $\bar{y} = 0$ 이라는 가정하에 TSS를 계산한다.</p>
+<p>이렇게 정의하지 않으면 TSS = RSS + ESS 관계식이 성립하지 않아서 결정계수의 값이 1보다 커지게 된다.</p>
+<p>따라서 모형의 결정계수를 비교할 때 상수항이 없는 모형과 상수항이 있는 모형은 직접 비교하면 안된다.</p>
+<p><strong>F 검정을 이용한 모형 비교</strong></p>
+<p>F 검정을 이용하면 다음과 같이 포함관계에 있는 두 모형의 성능을 비교할 수 있다.</p>
+<ul>
+<li>전체 모형(Full Model):<script type="math/tex; mode=display">
+y = w_0 + w_1x_1 + w_2x_2 + w_3x_3</script></li>
+</ul>
+<ul>
+<li>축소 모형(Reduced Model):<script type="math/tex; mode=display">
+y = w_0 + w_1x_1</script></li>
+</ul>
+<p>다음과 같은 귀무가설을 검정하는 것은 위의 두 모형이 실질적으로 같은 모형이라는 가설을 검정하는 것과 같다.</p>
+<script type="math/tex; mode=display">
+H_0 : w_2 = w_3 = 0</script><p>이 검정도 F검정을 사용하여 할 수 있다. StatsModels에서는 <code>anova_lm</code>명령에 두 모형의 result 객체를 인수로 넣어주면 이러한 검정을 할 수 있다. 인수를 넣어줄 때는 축소 모형(reduced model), 전체 모형(full model)의 순서로 넣어준다.</p>
 
         </div>
         <footer class="article-footer">
@@ -265,7 +290,7 @@ R^2 \equiv 1- \dfrac{\text{RSS}}{\text{TSS}} = \dfrac{\text{ESS}}{\text{TSS}}</s
 
 
 
-    <a data-url="https://p829911.github.io/2018/11/26/분산-분석/" data-id="cjoyfisww000aeyoxzhfqy8qn" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://p829911.github.io/2018/11/26/분산-분석/" data-id="cjp00bigo000gx6ox07g02wlv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -398,9 +423,27 @@ R^2 \equiv 1- \dfrac{\text{RSS}}{\text{TSS}} = \dfrac{\text{ESS}}{\text{TSS}}</s
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Git/">Git</a></p>
-                            <p class="item-title"><a href="/2018/11/26/hexo-mathjax/" class="title">hexo mathjax</a></p>
-                            <p class="item-date"><time datetime="2018-11-26T14:36:53.000Z" itemprop="datePublished">2018-11-26</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a></p>
+                            <p class="item-title"><a href="/2018/11/27/스케일링과-변수-변환/" class="title">스케일링과 변수 변환</a></p>
+                            <p class="item-date"><time datetime="2018-11-27T08:45:45.000Z" itemprop="datePublished">2018-11-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Ubuntu/">Ubuntu</a></p>
+                            <p class="item-title"><a href="/2018/11/27/ubuntu-permission/" class="title">ubuntu permission</a></p>
+                            <p class="item-date"><time datetime="2018-11-27T08:44:04.000Z" itemprop="datePublished">2018-11-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Ubuntu/">Ubuntu</a></p>
+                            <p class="item-title"><a href="/2018/11/27/ubuntu-apt-명령어/" class="title">ubuntu apt 명령어</a></p>
+                            <p class="item-date"><time datetime="2018-11-27T07:50:51.000Z" itemprop="datePublished">2018-11-27</time></p>
                         </div>
                     </li>
                 
@@ -408,26 +451,8 @@ R^2 \equiv 1- \dfrac{\text{RSS}}{\text{TSS}} = \dfrac{\text{ESS}}{\text{TSS}}</s
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a></p>
-                            <p class="item-title"><a href="/2018/11/26/분산-분석/" class="title">분산 분석</a></p>
-                            <p class="item-date"><time datetime="2018-11-26T14:21:57.000Z" itemprop="datePublished">2018-11-26</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Python/">Python</a></p>
-                            <p class="item-title"><a href="/2018/11/26/Jupyber-notebook-matplotlib-한글-설정/" class="title">Jupyber notebook matplotlib 한글 설정</a></p>
-                            <p class="item-date"><time datetime="2018-11-26T13:25:40.000Z" itemprop="datePublished">2018-11-26</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Python/">Python</a></p>
-                            <p class="item-title"><a href="/2018/11/26/Jupyter-notebook-글꼴-설정/" class="title">Jupyter notebook 글꼴 설정</a></p>
-                            <p class="item-date"><time datetime="2018-11-26T10:51:23.000Z" itemprop="datePublished">2018-11-26</time></p>
+                            <p class="item-title"><a href="/2018/11/27/교차-검증/" class="title">교차 검증</a></p>
+                            <p class="item-date"><time datetime="2018-11-27T06:32:01.000Z" itemprop="datePublished">2018-11-27</time></p>
                         </div>
                     </li>
                 
@@ -435,8 +460,8 @@ R^2 \equiv 1- \dfrac{\text{RSS}}{\text{TSS}} = \dfrac{\text{ESS}}{\text{TSS}}</s
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Git/">Git</a></p>
-                            <p class="item-title"><a href="/2018/11/26/git-blog-관리하기/" class="title">git blog 관리하기</a></p>
-                            <p class="item-date"><time datetime="2018-11-26T10:50:56.000Z" itemprop="datePublished">2018-11-26</time></p>
+                            <p class="item-title"><a href="/2018/11/26/hexo-mathjax/" class="title">hexo mathjax</a></p>
+                            <p class="item-date"><time datetime="2018-11-26T14:36:53.000Z" itemprop="datePublished">2018-11-26</time></p>
                         </div>
                     </li>
                 
@@ -449,7 +474,7 @@ R^2 \equiv 1- \dfrac{\text{RSS}}{\text{TSS}} = \dfrac{\text{ESS}}{\text{TSS}}</s
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">3</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">5</span></li></ul>
         </div>
     </div>
 
@@ -459,7 +484,7 @@ R^2 \equiv 1- \dfrac{\text{RSS}}{\text{TSS}} = \dfrac{\text{ESS}}{\text{TSS}}</s
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">9</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">13</span></li></ul>
         </div>
     </div>
 
@@ -469,7 +494,7 @@ R^2 \equiv 1- \dfrac{\text{RSS}}{\text{TSS}} = \dfrac{\text{ESS}}{\text{TSS}}</s
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">3</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">5</span></li></ul>
         </div>
     </div>
 
@@ -479,7 +504,7 @@ R^2 \equiv 1- \dfrac{\text{RSS}}{\text{TSS}} = \dfrac{\text{ESS}}{\text{TSS}}</s
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 15px;">Jupyter</a> <a href="/tags/Math/" style="font-size: 10px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/Ubuntu/" style="font-size: 20px;">Ubuntu</a>
+            <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 13.33px;">Jupyter</a> <a href="/tags/Math/" style="font-size: 16.67px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Ubuntu/" style="font-size: 20px;">Ubuntu</a>
         </div>
     </div>
 
