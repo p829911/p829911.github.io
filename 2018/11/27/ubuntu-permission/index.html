@@ -12,15 +12,20 @@
     
         <meta name="keywords" content="Ubuntu">
     
-    <meta name="keywords" content="Ubuntu">
+    <meta name="description" content="파일 정보 보기 ls -al: 현재 위치에 있는 파일들을 자세히 보여주는 명령     파일 Type 퍼미션정보 링크수 소유자 소유그룹 용량 생성날짜 파일이름     d rwxr-xr-x 28 p829911 p829911 4096 11월 27 20:30 .ipython      파일 Type: d (디렉토리), ㅣ (링크파일), - (일반파일) 퍼미션정보:">
+<meta name="keywords" content="Ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu permission">
 <meta property="og:url" content="https://p829911.github.io/2018/11/27/ubuntu-permission/index.html">
 <meta property="og:site_name" content="data science study blog">
+<meta property="og:description" content="파일 정보 보기 ls -al: 현재 위치에 있는 파일들을 자세히 보여주는 명령     파일 Type 퍼미션정보 링크수 소유자 소유그룹 용량 생성날짜 파일이름     d rwxr-xr-x 28 p829911 p829911 4096 11월 27 20:30 .ipython      파일 Type: d (디렉토리), ㅣ (링크파일), - (일반파일) 퍼미션정보:">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-27T08:45:05.793Z">
+<meta property="og:image" content="https://p829911.github.io/images/1543396256153.png">
+<meta property="og:updated_time" content="2018-11-28T09:35:45.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu permission">
+<meta name="twitter:description" content="파일 정보 보기 ls -al: 현재 위치에 있는 파일들을 자세히 보여주는 명령     파일 Type 퍼미션정보 링크수 소유자 소유그룹 용량 생성날짜 파일이름     d rwxr-xr-x 28 p829911 p829911 4096 11월 27 20:30 .ipython      파일 Type: d (디렉토리), ㅣ (링크파일), - (일반파일) 퍼미션정보:">
+<meta name="twitter:image" content="https://p829911.github.io/images/1543396256153.png">
     
 
     
@@ -72,7 +77,7 @@
                                     <a class="main-nav-list-link" href="/">Home</a>
                                 </li>
                             
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Regression/">Regression</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
                                     
                                 <li class="main-nav-list-item">
                                     <a class="main-nav-list-link" href="https://about.me/p829911">About</a>
@@ -170,7 +175,80 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            
+            <p>파일 정보 보기</p>
+<p><img src="/images/1543396256153.png" alt=""><br><code>ls -al</code>: 현재 위치에 있는 파일들을 자세히 보여주는 명령</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>파일 Type</th>
+<th>퍼미션정보</th>
+<th>링크수</th>
+<th>소유자</th>
+<th>소유그룹</th>
+<th>용량</th>
+<th>생성날짜</th>
+<th>파일이름</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d</td>
+<td>rwxr-xr-x</td>
+<td>28</td>
+<td>p829911</td>
+<td>p829911</td>
+<td>4096</td>
+<td>11월 27 20:30</td>
+<td>.ipython</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>파일 Type: <code>d</code> (디렉토리), <code>ㅣ</code> (링크파일), <code>-</code> (일반파일)</li>
+<li>퍼미션정보: 해당 파일에 어떠한 퍼미션이 부여되어 있는지</li>
+<li>링크수: 해당 파일이 링크된 수, 윈도우의 바로가기와 같다. <code>in [대상파일][링크파일]</code>명령으로 만든다.</li>
+<li>소유자: 해당 파일의 소유자 이름</li>
+<li>소유그룹: 해당 파일을 소유한 그룹이름</li>
+<li>용량: 파일의 용량</li>
+<li>생성날짜: 파일이 생성된 날짜</li>
+<li>파일이름: 파일의 이름</li>
+</ul>
+<p><strong>퍼미션 정보</strong></p>
+<ul>
+<li>앞에서 두번째부터 아홉번째까지 퍼미션 정보이다.</li>
+<li><code>rwxr-xr-x</code></li>
+</ul>
+<p><strong>퍼미션 종류</strong></p>
+<ul>
+<li>r : 파일의 읽기 권한</li>
+<li>w : 파일의 쓰기 권한</li>
+<li>x : 파일의 실행 권한</li>
+</ul>
+<p><strong>퍼미션의 사용자지정</strong></p>
+<ul>
+<li>소유자: 소유자에 대한 퍼미션 지정 <code>rwx</code></li>
+<li>그룹: 소유그룹에 대한 퍼미션 지정 <code>r-x</code></li>
+<li>공개: 모든 사용자들에 대한 퍼미션 지정 <code>r-x</code></li>
+<li><code>-</code>:  그 퍼미션은 없다</li>
+</ul>
+<p><strong>소유자는 읽기, 쓰기, 실행을 허용하고 파일의 소유그룹에 속하고 있는 사용자들은 읽기 실행만 허용하고 이외에 나머지 모든 사용자들도 읽기, 실행만 허용한다.</strong></p>
+<h2 id="퍼미션-변경하기"><a href="#퍼미션-변경하기" class="headerlink" title="퍼미션 변경하기"></a>퍼미션 변경하기</h2><p><code>chmod  [변경될 퍼미션값][변경할 파일]</code></p>
+<ul>
+<li>각 퍼미션 기호를 숫자로 변환한다. ( r = 4, w = 2, x = 1)<br>ex) r - x = 4 0 1</li>
+<li>변환한 숫자를 합산한다.<br>ex) 4 0 1 = 5</li>
+<li><p><code>rwxr-xr-x</code>  = 755</p>
+</li>
+<li><p><code>chmod 775 [변경할 파일]</code> : 변경할 파일이 755에 해당되는 퍼미션으로 변경된다.</p>
+</li>
+<li>디렉토리의 경우 <code>-R</code> 옵션을 사용하면 하위 디렉토리의 모든 디렉토리 및 파일의 퍼미션이 변경된다.<br>ex) <code>chmod -R 777 [변경할 디렉토리]</code></li>
+</ul>
+<h2 id="소유자-변경하기"><a href="#소유자-변경하기" class="headerlink" title="소유자 변경하기"></a>소유자 변경하기</h2><p><code>chown [변경할 소유자][변경할 파일]</code></p>
+<p>이 명령으로 소유자뿐만 아니라 소유그룹도 변경할 수 있다.</p>
+<p><code>[변경할 소유자]</code>에 <code>.그룹이름</code> 형식으로 입력하면 된다.</p>
+<p>ex) p829911.text 파일의 소유자를 p829911 소유그룹을 p829911로 동시에 변경할 경우<br><code>chown p829911.p829911 p829911.text</code></p>
+
         </div>
         <footer class="article-footer">
             
@@ -275,16 +353,6 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/11/27/스케일링과-변수-변환/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            스케일링과 변수 변환
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
-    
     
         <a href="/2018/11/27/ubuntu-apt-명령어/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
@@ -310,15 +378,6 @@
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a></p>
-                            <p class="item-title"><a href="/2018/11/27/스케일링과-변수-변환/" class="title">스케일링과 변수 변환</a></p>
-                            <p class="item-date"><time datetime="2018-11-27T08:45:45.000Z" itemprop="datePublished">2018-11-27</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Ubuntu/">Ubuntu</a></p>
                             <p class="item-title"><a href="/2018/11/27/ubuntu-permission/" class="title">ubuntu permission</a></p>
                             <p class="item-date"><time datetime="2018-11-27T08:44:04.000Z" itemprop="datePublished">2018-11-27</time></p>
@@ -337,7 +396,7 @@
                     <li>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Regression/">Regression</a></p>
                             <p class="item-title"><a href="/2018/11/27/교차-검증/" class="title">교차 검증</a></p>
                             <p class="item-date"><time datetime="2018-11-27T06:32:01.000Z" itemprop="datePublished">2018-11-27</time></p>
                         </div>
@@ -352,6 +411,15 @@
                         </div>
                     </li>
                 
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Regression/">Regression</a></p>
+                            <p class="item-title"><a href="/2018/11/26/분산-분석/" class="title">분산 분석</a></p>
+                            <p class="item-date"><time datetime="2018-11-26T14:21:57.000Z" itemprop="datePublished">2018-11-26</time></p>
+                        </div>
+                    </li>
+                
             </ul>
         </div>
     </div>
@@ -361,7 +429,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">5</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Regression/">Regression</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">5</span></li></ul>
         </div>
     </div>
 
@@ -371,7 +439,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">13</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">11</span></li></ul>
         </div>
     </div>
 
@@ -381,7 +449,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">5</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">5</span></li></ul>
         </div>
     </div>
 
@@ -391,7 +459,7 @@
     <div class="widget-wrap widget-float">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 13.33px;">Jupyter</a> <a href="/tags/Math/" style="font-size: 16.67px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Ubuntu/" style="font-size: 20px;">Ubuntu</a>
+            <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 15px;">Jupyter</a> <a href="/tags/Math/" style="font-size: 15px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/Ubuntu/" style="font-size: 20px;">Ubuntu</a>
         </div>
     </div>
 
