@@ -21,7 +21,7 @@
 <meta property="og:description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다. 분산">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://p829911.github.io/images/1543299373849.png">
-<meta property="og:updated_time" content="2018-11-28T10:00:33.638Z">
+<meta property="og:updated_time" content="2018-12-02T11:13:26.259Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="분산 분석">
 <meta name="twitter:description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  선형회귀분석의 결과가 얼마나 좋은지는 단순히 잔차제곱합(RSS: Residual sum of square)으로 평가할 수 없다. 변수의 단위 즉, 스케일이 달라지면 회귀분석과 상관없이 잔차제곱합도 달라지기 때문이다. 분산">
@@ -184,7 +184,7 @@
 <script type="math/tex; mode=display">
 \hat{y} = \frac{1}{N} \sum_{i=1}^N y_i</script><p><strong>TSS (total sum of squares)</strong></p>
 <script type="math/tex; mode=display">
-\text{TSS} = \sum_{i=1}^N (y_i-\hat{y})^2 = (y-\hat{y})^T(y-\hat{y})</script><p>종속변수값의 움직임의 범위를 나타낸다.</p>
+\text{TSS} = \sum_{i=1}^N (y_i-\bar{y})^2 = (y-\bar{y})^T(y-\bar{y})</script><p>종속변수값의 움직임의 범위를 나타낸다.</p>
 <p><strong>ESS(explained sum of squares)</strong></p>
 <script type="math/tex; mode=display">
 \text{ESS} = \sum_{i=1}^N (\hat{y_i}-\bar{\hat{y}})^2 = (\hat{y}-\bar{\hat{y}})^T(\hat{y}-\bar{\hat{y}})</script><p>회귀 분석에 의해 예측한 값 $\hat{y}$의 분산을 나타낸다.</p>
