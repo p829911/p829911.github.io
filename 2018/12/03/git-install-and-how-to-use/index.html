@@ -12,18 +12,18 @@
     
         <meta name="keywords" content="Git,Ubuntu">
     
-    <meta name="description" content="git은 터미널에서 다음과 같은 명렁어로 설치 할 수 있다. 1sudo apt-get install git 설치가 완료 되었으면 1git --version  git config 설정 1234git config --global user.name &quot;username&quot;git config --global user.email &quot;github email address&quot;">
+    <meta name="description" content="git은 터미널에서 다음과 같은 명렁어로 설치 할 수 있다.1sudo apt-get install git 설치가 완료 되었으면 1git --version git config 설정 1234git config --global user.name &quot;username&quot;git config --global user.email &quot;github email address&quot;git">
 <meta name="keywords" content="Git,Ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git 설치 &amp; 사용법">
 <meta property="og:url" content="https://p829911.github.io/2018/12/03/git-install-and-how-to-use/index.html">
 <meta property="og:site_name" content="data science study blog">
-<meta property="og:description" content="git은 터미널에서 다음과 같은 명렁어로 설치 할 수 있다. 1sudo apt-get install git 설치가 완료 되었으면 1git --version  git config 설정 1234git config --global user.name &quot;username&quot;git config --global user.email &quot;github email address&quot;">
+<meta property="og:description" content="git은 터미널에서 다음과 같은 명렁어로 설치 할 수 있다.1sudo apt-get install git 설치가 완료 되었으면 1git --version git config 설정 1234git config --global user.name &quot;username&quot;git config --global user.email &quot;github email address&quot;git">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-03T13:12:06.314Z">
+<meta property="og:updated_time" content="2018-12-03T14:34:41.550Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 설치 &amp; 사용법">
-<meta name="twitter:description" content="git은 터미널에서 다음과 같은 명렁어로 설치 할 수 있다. 1sudo apt-get install git 설치가 완료 되었으면 1git --version  git config 설정 1234git config --global user.name &quot;username&quot;git config --global user.email &quot;github email address&quot;">
+<meta name="twitter:description" content="git은 터미널에서 다음과 같은 명렁어로 설치 할 수 있다.1sudo apt-get install git 설치가 완료 되었으면 1git --version git config 설정 1234git config --global user.name &quot;username&quot;git config --global user.email &quot;github email address&quot;git">
     
 
     
@@ -173,17 +173,12 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            <ol>
-<li><p>git은 터미널에서 다음과 같은 명렁어로 설치 할 수 있다.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
+            <h3 id="git은-터미널에서-다음과-같은-명렁어로-설치-할-수-있다"><a href="#git은-터미널에서-다음과-같은-명렁어로-설치-할-수-있다" class="headerlink" title="git은 터미널에서 다음과 같은 명렁어로 설치 할 수 있다."></a>git은 터미널에서 다음과 같은 명렁어로 설치 할 수 있다.</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
 <p>설치가 완료 되었으면</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>git config 설정</p>
+<p>git config 설정</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"username"</span></span><br><span class="line">git config --global user.email <span class="string">"github email address"</span></span><br><span class="line">git config --global core.editor <span class="string">"vim"</span></span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>local에 있는 폴더와 git 저장소 연동시키기</p>
-<ul>
+<h3 id="local에-있는-폴더와-git-저장소-연동시키기"><a href="#local에-있는-폴더와-git-저장소-연동시키기" class="headerlink" title="local에 있는 폴더와 git 저장소 연동시키기"></a>local에 있는 폴더와 git 저장소 연동시키기</h3><ul>
 <li>폴더 생성 후 git init 해주기</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add.</span><br><span class="line">git commit -m <span class="string">"contents"</span></span><br></pre></td></tr></table></figure>
@@ -195,22 +190,13 @@
 <li>위의 코드에서 origin이라는 부분은 사용자가 지정할 수 있지만, 보통 origin이라고 써줌</li>
 <li>git 에서 저장소를 clone 할 때는 자동적으로 origin이라고 지정 된다.</li>
 </ul>
-</li>
-</ol>
-<ol>
-<li><p>git 저장소 local 폴더로 복제하기</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/username/repo.git</span><br></pre></td></tr></table></figure>
+<h3 id="git-저장소-local-폴더로-복제하기"><a href="#git-저장소-local-폴더로-복제하기" class="headerlink" title="git 저장소 local 폴더로 복제하기"></a>git 저장소 local 폴더로 복제하기</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/username/repo.git</span><br></pre></td></tr></table></figure>
 <p>개인적으로는 git remote 보다 git clone해서 사용하는 것이 더 편하다.</p>
-</li>
-</ol>
-<ol>
-<li><p>branch<br>소프트웨어를 개발할 때 개발자들은 동일한 소스코드를 함께 공유한다. 동일한 소스코드 위에서 서로 다른 작업을 할 때는 각각 서로 다른 버전의 코드가 만들어 질 수 밖에 없다.<br>이럴 때, 여러 개발자들이 동시에 다양한 작업을 할 수 있게 만들어 주는 기능이 바로 ‘브랜치(Branch)’이다.<br>이렇게 분리된 작업 영역에서 변경된 내용은 나중에 원래의 버전과 비교해서 하나의 새로운 버전으로 만들어 낼 수 있다. </p>
+<h3 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h3><p>소프트웨어를 개발할 때 개발자들은 동일한 소스코드를 함께 공유한다. 동일한 소스코드 위에서 서로 다른 작업을 할 때는 각각 서로 다른 버전의 코드가 만들어 질 수 밖에 없다.<br>이럴 때, 여러 개발자들이 동시에 다양한 작업을 할 수 있게 만들어 주는 기능이 바로 ‘브랜치(Branch)’이다.<br>이렇게 분리된 작업 영역에서 변경된 내용은 나중에 원래의 버전과 비교해서 하나의 새로운 버전으로 만들어 낼 수 있다. </p>
 <p>브랜치란 독립적으로 어떤 작업을 진행하기 위한 개념이다. 필요에 의해 만들어지는 각각의 브랜치는 다른 브랜치의 영향을 받지 않기 때문에, 여러 작업을 동시에 진행할 수 있다.</p>
 <p>또한 이렇게 만들어진 브랜치는 다른 브랜치와 병합(Merge)함으로써, 작업한 내용을 다시 새로운 하나의 브랜치로 모을 수 있다.</p>
 <p>저장소를 처음 만들면, Git은 바로 ‘master’라는 이름의 브랜치를 만들어 준다. 이 새로운 저장소에 새로운 파일을 추가한다거나 추가한 파일의 내용을 변경하여 그 내용을 저장(커밋, commit)하는 것은 모두 ‘master’라는 이름의 브랜치를 통해 처리할 수 있다.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git branch &lt;branchname&gt; <span class="comment"># 브랜치 생성</span></span><br><span class="line">git branch <span class="comment"># 브랜치 확인</span></span><br><span class="line">git branch -r <span class="comment"># remote 브랜치 확인</span></span><br><span class="line">git branch -a <span class="comment"># 모든 사용가능한 브랜치 확인</span></span><br><span class="line">git chechout &lt;branchname&gt; <span class="comment"># 브랜치 지정</span></span><br><span class="line">git checkout -b &lt;branchname&gt; <span class="comment"># 브랜치 생성, 체크아웃</span></span><br><span class="line">git merge &lt;commit&gt; <span class="comment"># 브랜치 병합</span></span><br><span class="line">git branch -d &lt;branchname&gt; <span class="comment"># 브랜치 삭제</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
 <p><strong>참고</strong></p>
 <ul>
 <li><a href="https://backlog.com/git-tutorial/kr/stepup/stepup1_1.html" target="_blank" rel="noopener">https://backlog.com/git-tutorial/kr/stepup/stepup1_1.html</a></li>
@@ -223,7 +209,7 @@
 
 
 
-    <a data-url="https://p829911.github.io/2018/12/03/git-install-and-how-to-use/" data-id="cjp8bw4ke0005jeoxnf5of4vf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://p829911.github.io/2018/12/03/git-install-and-how-to-use/" data-id="cjp8eymvi0004mvoxbp3czcz3" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
