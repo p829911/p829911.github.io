@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>다중 선형 회귀 | data science study blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="regression,math">
+    
+    <meta name="description" content="다중 선형 회귀 설명변수들 $X_1, X_2, \cdots, X_p$ 중 적어도 하나는 반응변수를 예측하는데 유용한가? $Y$를 설명하는 데 모든 설명변수들이 도움이 되는가? 또는 설명변수들의 일부만이 유용한가? 모델은 데이터에 얼마나 잘 맞는가? 주어진 설명변수 값들에 대해 어떤 반응변수 값을 예측해야 하고 그 예측은 얼마나 정확한가?  1. 반응변수와">
+<meta name="keywords" content="regression,math">
+<meta property="og:type" content="article">
+<meta property="og:title" content="다중 선형 회귀">
+<meta property="og:url" content="https://p829911.github.io/2018/12/06/regression/index.html">
+<meta property="og:site_name" content="data science study blog">
+<meta property="og:description" content="다중 선형 회귀 설명변수들 $X_1, X_2, \cdots, X_p$ 중 적어도 하나는 반응변수를 예측하는데 유용한가? $Y$를 설명하는 데 모든 설명변수들이 도움이 되는가? 또는 설명변수들의 일부만이 유용한가? 모델은 데이터에 얼마나 잘 맞는가? 주어진 설명변수 값들에 대해 어떤 반응변수 값을 예측해야 하고 그 예측은 얼마나 정확한가?  1. 반응변수와">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://p829911.github.io/images/1544098777530.png">
+<meta property="og:updated_time" content="2018-12-06T12:42:57.749Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="다중 선형 회귀">
+<meta name="twitter:description" content="다중 선형 회귀 설명변수들 $X_1, X_2, \cdots, X_p$ 중 적어도 하나는 반응변수를 예측하는데 유용한가? $Y$를 설명하는 데 모든 설명변수들이 도움이 되는가? 또는 설명변수들의 일부만이 유용한가? 모델은 데이터에 얼마나 잘 맞는가? 주어진 설명변수 값들에 대해 어떤 반응변수 값을 예측해야 하고 그 예측은 얼마나 정확한가?  1. 반응변수와">
+<meta name="twitter:image" content="https://p829911.github.io/images/1544098777530.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">DS Study Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Regression/">Regression</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="https://about.me/p829911">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Math/Regression/">Regression</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-regression" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        다중 선형 회귀
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/12/06/regression/" class="article-date">
+            <time datetime="2018-12-06T12:33:47.000Z" itemprop="datePublished">2018-12-06</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/math/">math</a>, <a class="tag-link" href="/tags/regression/">regression</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h3 id="다중-선형-회귀"><a href="#다중-선형-회귀" class="headerlink" title="다중 선형 회귀"></a>다중 선형 회귀</h3><ol>
+<li>설명변수들 $X_1, X_2, \cdots, X_p$ 중 적어도 하나는 반응변수를 예측하는데 유용한가?</li>
+<li>$Y$를 설명하는 데 모든 설명변수들이 도움이 되는가? 또는 설명변수들의 일부만이 유용한가?</li>
+<li>모델은 데이터에 얼마나 잘 맞는가?</li>
+<li>주어진 설명변수 값들에 대해 어떤 반응변수 값을 예측해야 하고 그 예측은 얼마나 정확한가?</li>
+</ol>
+<p><strong>1. 반응변수와 설명변수 사이에 상관관계가 있는가?</strong></p>
+<p>단순선형회귀에서 반응변수와 설명변수 사이에 상관관계가 있는지는 단순히 $\beta_1 = 0$인지 검사하면 결정할 수 있다. $p$개 설명변수가 있는 다중회귀에서는 모든 회귀계수들이 영인지, 즉 $\beta_1 = \beta_2 = \cdots = \beta_p =0$인지를 검사해야 한다. 단순선형회귀에서와 같이 이 질문에 답하기 위해 가설검정을 사용한다.</p>
+<p>귀무가설</p>
+<script type="math/tex; mode=display">
+H_0 : \beta_1 = \beta_2 = \cdots = \beta_p = 0</script><p>대립가설</p>
+<script type="math/tex; mode=display">
+H_a: \text{적어도 하나의 }\beta_j\text{는 영이 아니다.}</script><p>이러한 가설 검정은 $F$-통계량을 계산함으로써 이루어진다.</p>
+<script type="math/tex; mode=display">
+F = \dfrac{(\text{TSS} - \text{RSS})/p}{\text{RSS}/(n-p-1)}</script><p>단순선형회귀에서와 같이 $\text{TSS} = \sum(y_i-\bar{y})^2$ 이고 $\text{RSS} = \sum(y_i - \hat{y_i})^2$이다. 만약 선형 모델의 가정이 같다면 다음이 성립함을 보여줄 것이다.</p>
+<script type="math/tex; mode=display">
+E[\,\text{RSS}\, / \,(n-p-1)\,] = \sigma^2</script><p>또한 귀무가설 $H_0$이 참이면 다음이 성립함을 보여줄 수도 있다.</p>
+<script type="math/tex; mode=display">
+E[\,(\text{TSS} - \text{RSS})\,/\,p\,] = \sigma^2</script><p>그러므로, 반응변수와 설명변수들 사이에 상관관계가 없는 경우(RSS가 커질때 TSS와 거의 가까움) $F$- 통계량이 1에 매우 가까운 값이라고 기대할 수 있을 것이다. 반면에 만약 대립가설 $H_a$가 참이면 $E[\,(\text{TSS}-\text{RSS})\,/\, p\,] &gt; \sigma^2$이고 그래서 $F$의 기대값은 1보다 크다.</p>
+<p>$H_0$<strong>을 기각하고 상관관계가 있다고 결론을 내릴 수 있으면 $F$-통계량이 얼마나 커야될까?</strong></p>
+<ul>
+<li>$n\text{과} p$값에 따라 다르다.</li>
+<li>$n$이 큰 경우에는 $F$-통계량이 1보다 약간만 크면 $H_0$에 반하는 증거가 된다.</li>
+<li>$n$이 작은 경우 $H_0$를 기각하려면 더 큰 $F$-통계량이 필요하다.</li>
+</ul>
+<p><strong>2. 중요 변수의 결정</strong></p>
+<p>모든 설명변수가 반응변수와 상관성이 있을 수도 있다. 하지만 대부분의 경우 설명변수들의 일부(서브셋)만이 반응변수와 상관관계가 있다. 상관성이 있는 설명변수만으로 모델 적합을 수행하기 위해 어느 설명변수가 반응변수와 상관성이 있는지 결정하는 것을 변수선택이라고 한다.</p>
+<p>모델의 질 평가</p>
+<ul>
+<li>맬로우즈(Mallows) $C_p$</li>
+<li>AIC (Akaike information criterion)</li>
+<li>BIC (Bayesian information criterion)</li>
+<li>수정된 $R^2$</li>
+</ul>
+<p>$p$개 변수들의 일부를 포함하는 총 모델의 경우의 수는 $2^p$개에 이른다. 심지어 $p$가 크지 않더라도 모든 가능한 설명변수들의 부분집합을 다 시험해 보는 것은 현실적으로 어렵다. 예를 들어 $p = 2$인 경우 $2^2 = 4$모델을 고려하면 된다. 그러나 $p=30$이면 고려해야 하는 모델 수는 $2^{30} = 1,073,741,824$개로 늘어나 현실적으로 불가능에 가깝다. 그러므로 $p$가 아주 작은 경우가 아니면 $2^p$개 모델 모두를 고려할 수는 없고, 대신에 더 작은 수의 고려할 모델 집합을 선택하는 자동화되고 효과적인 기법이 필요하다. 이 목적을 위한 3가지 고전적인 기법은 아래와 같다.</p>
+<ul>
+<li>전진선택: 이 방법은 절편만 포함하고 설명변수는 없는 영모델(null model)을 가지고 시작한다. $p$개의 단순 선형 회귀를 적합하여 가장 낮은 $RSS$가 발생되는 변수를 영모델에 추가한다. 그런 다음 새로운 새로운 2-변수 모델에 대해 가장 낮은 $RSS$가 생기는 변수를 모델에 추가한다. 이런 방식으로 어떤 정지규칙(stopping rule)을 만족할 때까지 계속된다.</li>
+<li>후진선택(Backward selection): 이 방법은 모델의 모든 변수를 가지고 시작하여 가장 큰 $p$-값을 가지는 변수, 즉 통계적으로 중요도가 가장 낮은 변수를 제외한다. 그 다음에 새로운 (p-1)-변수의 모델을 적합하고 $p$-값이 가장 큰 변수를 제외한다. 이 과정을 정지 규칙이 만족될 때까지 계속한다. 예를 들어 모든 남아있는 변수들의 $p$-값이 어떤 임계치보다 작으면 이 과정을 중지한다.</li>
+<li>혼합선택(Mixed selection): 이것은 전진선택과 후진선택을 결합한 것이다. 전진선택처럼 변수가 없는 모델로 시작하여 최상의 적합을 제공하는 변수를 하나씩 추가한다. 새로운 설명변수들이 모델에 추가됨에 따라 변수들에 대한 $p$-값이 커질 수 있다. 그러므로 모델의 변수들 중 어느 하나에 대한 $p$-값이 어떤 임계치보다 커지면 그 변수를 모델에서 제외한다. 이러한 전진선택 및 후진선택 단계를 계속하여 모델에 포함되는 모든 변수들은 충분히 작은 $p$-값을 가지고 모델에서 제외된 변수들은 만약 모델에 추가될 경우 $p$-값이 크게 될 때 중지한다.</li>
+</ul>
+<p>후진 선택법은 만약 p &gt; n 이면 사용할 수 없지만 전진선택법은 항상 사용할 수 있다. 전진선택법은 그리디(greedy)방식이다. 그래서 초기에 포함된 변수들이 나중에는 유효하지 않을 수 있다. 이 문제는 혼합선택법으로 선택할 수 있다.</p>
+<p><strong>3. 모델 적합</strong></p>
+<p>모델 적합의 수치적 측도로 가장 흔히 사용되는 두가지는 $RSE$와 $R^2$(설명되는 분산의 비율)이다. 이 값들은 단순선형회귀에서와 같은 방식으로 계산되고 해석된다.</p>
+<p>단순회귀에서 $R^2$은 반응변수와 설명변수의 상관계수의 곱이다. 다중 선형회귀에서 이것은 반응변수와 적합된 선형모델 사이의 상관계수의 제곱인 $Cor(Y,\hat{Y})^2$과 동일하다. 사실 적합된 선형모델은 모든 가능한 선형모델 중에서 이 상관계수가 최대로 되는 것이다.</p>
+<p>1에 가까운 $R^2$값은 모델이 반응변수 내 분산의 많은 부분을 설명한다는 것을 나타낸다.</p>
+<p>모델에 더 많은 변수가 추가되면 비록 추가된 변수와 반응변수의 상관관계가 아주 약하더라도 $R^2$은 항상 증가할 것이다. 이것은 최소제곱 방정식에 변수를 추가하면 훈련 데이터(반드시 검정 데이터일 필요는 없다.)를 더 정확하게 적합할 수 있다는 사실 때문이다. 특정 독립 변수를 추가했을 때 $R^2$이 약간만 증가한다는 사실은 그 독립 변수가 모델에서 제외될 수 있다는 추가적인 증거가 된다. 모델에 그 독렵변수를 포함하는 것은 독립적인 검정표본에 대한 과적합으로 인해 좋지 않은 결과를 초래할 가능성이 높을 것이다.</p>
+<p><strong>4. 예측</strong></p>
+<p>다중선형모델 적합을 수행하였으면 $\hat{y} = \hat{\beta_0} + \hat{\beta_1}x_1 + \hat{\beta_2}x_2 +  \cdots  + \hat{\beta_p}x_p$을 적용하여 설명변수 $X_1, X_2, \cdots, X_p$의 값에 기초하여 반응 변수 $Y$를 예측하는 것은 어렵지 않다. 하지만, 이러한 예측에는 세 가지 명확하지 않은 것이 연관되어 있다.</p>
+<ol>
+<li><p>계수추정 $\hat{\beta_0}, \hat{\beta_1}, \cdots, \hat{\beta_p}$는 $\beta_0,\beta_1,\cdots, \beta_p$에 대한 추정값이다. 즉 아래 최소제곱평면은</p>
+<script type="math/tex; mode=display">
+\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + \cdots + \hat{\beta_p}X_p</script><p>다음의 실제 모회귀평면에 대한 추정값이다.</p>
+<script type="math/tex; mode=display">
+f(X) = \beta_0 + \beta_1X_1 + \cdots + \beta_pX_p</script><p>계수추정의 부정확도는 2장의 축소가능 오차(reducible error)와 관련된다. 신뢰구간을 계산하여 $\hat{Y}$가 $f(x)$에 얼마나 가까운지 결정할 수 있다.</p>
+</li>
+<li><p>물론, 실제로 $f(x)$에 대해 선형 모델을 가정하는 것은 거의 항상 현실에 대한 근사이다. 따라서 모델 편향(model bias)이라고 하는 잠재적으로 축소가능한 오차의 또 다른 출처가 있다. 그러므로 선형모델을 사용할 때 실제 표면에 대한 최상의 선형 근사를 추정하는 것이다. 하지만, 여기서는 이러한 차이를 무시하고 마치 선형 모델이 올바른 것으로 간주한다.</p>
+</li>
+<li><p>심지어 $f(x)$를 알아도 - $\beta_0, \beta_1, \cdots, \beta_p$에 대한 실제 값을 알아도 - 모델의 랜덤오차 때문에 반응변수 값을 완벽하게 예측할 수는 없다. 2장에서 이 오차를 축소불가능 오차(irreducible error)라고 하였다. </p>
+</li>
+</ol>
+<h3 id="선형-모델의-확장"><a href="#선형-모델의-확장" class="headerlink" title="선형 모델의 확장"></a>선형 모델의 확장</h3><p>표준선형회귀모델 $Y = \beta_0 + \beta_1X1 + \beta_2X2 + \cdots + \beta_pX_p + \epsilon$ 는 해석이 가능한 결과를 제공하며 많은 현실적인 문제에 대해서도 잘 동작한다. 하지만 이것은 실제로는 성립되지 않는 몇 가지 아주 제한적인 가정을 사용한다. 가장 중요한 가정 중 두 가지는 설명변수와 반응변수 사이의 관계는 가산적(additive)이고 선형적이라는 것이다.</p>
+<ul>
+<li>가산성 가정: 설명변수 $X_j$의 변화가 반응변수 $Y$에 미치는 영향은 다른 설명변수 값에 독립적이다.</li>
+<li>선형성 가정: $X_j$의 한 유닛 변화로 인한 $Y$의 변화는 $X_j$의 값에 관계없이 상수이다.</li>
+</ul>
+<p><strong>가산성 가정의 제거</strong></p>
+<p>Advertising 자료 분석에서 TV와 radio 둘 다 sales와 상관관계가 있다고 결론지었다. 이러한 결론의 근거가 되는 선형모델들은 한 광고매체의 지출 증가가 sales에 미치는 영향은 다른 매체에 대한 지출과 무관하다고(독립적이라고) 가정한다. 하지만, 이런 단순한 모델은 맞지 않을 수 있다. 라디오 광고 지출이 실제로 TV 광고의 효과를 증가시켜 TV에 대한 기울기 항이 라디오 지출이 늘어남에 따라 증가해야 한다고 해보자. 이러한 경우, 주어진 10만 달러의 고정 광고예산을 라디오와 TV에 절반씩 지출하는 것이 전체 예산을 TV 또는 라디오 어느 한쪽에 모두 사용하는 것보다 판매량 증가가 더 클 수 있다. 이것을 마케팅에서는 <em>시너지 효과</em> 라 하고 통계학에서는 <em>상호작용 효과</em> 라 한다. </p>
+<p>두 개의 변수를 가지는 표준 선형회귀모델을 고려해보자</p>
+<script type="math/tex; mode=display">
+Y = \beta_0+\beta_1X_1+\beta_2X_2+\epsilon</script><p>이 모델에 따르면 $X_1$이 한 유닛 증가하면 $Y$는 평균 $\beta_1$유닛만큼 증가할 것이다. $X_2$의 존재는 이 사실을 변경하지 않는다. 즉, $X_2$의 값에 관계없이 $X_1$이 한 유닛 증가하면 $Y$는 $\beta_1$ 유닛 증가할 것이다. 상호작용 효과를 포함하도록 이 모델을 확장하는 한 가지 방법은 상호작용 항이라 불리는 세 번째 설명변수를 포함하는 것이다. 상호작용 항은 $X_1$과 $X_2$의 곱으로 구성된다. 그러면 결과 모델은 다음과 같이 표현 된다.</p>
+<script type="math/tex; mode=display">
+Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_1X_2 + \epsilon</script><p>위의 식은 아래와 같이 다시 쓸 수 있다.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+Y &=& \beta_0 + (\beta_1 + \beta_3X_2)X_1 + \beta_2X_2 + \epsilon\\
+&=& \beta_0 + \tilde{\beta_1}X_1 + \beta_2X_2 + \epsilon
+\end{eqnarray}</script><p>여기서 $\tilde{\beta_1} = \beta_1 + \beta_3X_2$이다. $\tilde{\beta_1}$은  $X_2$에 따라 변하므로 $Y$에 대한 $X_1$의 효과는 더이상 상수가 아니다. $X_2$를 조정하면 $Y$에 대한 $X_1$의 효과가 변할 것이다.</p>
+<p>이것은 실제 상관관계는 가산적이지 않다는 것이 명백하다.</p>
+<p>가끔씩 상호작용 항은 매우 작은 $p$-값을 가지지만 관련된 주효과는 그렇지 않은 경우도 있다. <strong><em>계층적 원리</em> 에 의하면, 만약 모델에 상호작용을 포함하면 주효과는 그 계수와 연관된 $p$-값이 유의하지 않더라도 모델에 포함해야 한다.</strong> 다시 말해, 만약 $X_1$과 $X_2$사이의 상호작용이 중요한 것 같으면 $X_1$과 $X_2$의 계수 추정치가 큰 $p$-값을 가져도 모델에 $X_1$과 $X_2$를 포함해야 한다. 이유는 만약 $X_1 \times X_2 $가 반응변수와 상관관계가 있으면 $X_1$또는 $X_2$의 계수가 영인지는 관심이 없다. 또한 $X_1 \times X_2$는 보통 $X_1$ 및 $X_2$와 상관되어 있어 이들을 제외하는 것은 상호작용의 의미를 바꾸는 경향이 있다. </p>
+<p>상호작용의 개념은 질적 변수 또는 양적 변수와 질적 변수의 조합에도 적용된다. 사실, 질적 변수와 양적 변수 사이의 상호작용을 해석하기는 특히 쉽다. </p>
+<p>상호작용 항이 없을 경우 모델은 다음 형태를 가진다.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+\text{balance}_i &\approx& \beta_0 + \beta_1 \times \text{income}_i + \begin{cases}\beta_2 & i\text{번째 사람이 학생인 경우} \\ 0 & i\text{번째 사람이 학생이 아닌 경우} \end{cases} \\\\
+&=& \beta_1 \times \text{income}_i + \begin{cases}\beta_0 + \beta_2 & i\text{번째 사람이 학생인 경우} \\ \beta_0 & i\text{번째 사람이 학생이 아닌 경우}\end{cases}
+\end{eqnarray}</script><p>이것은 두 개의 평행한 직선을 데이터에 적합하는 것이다. </p>
+<p><img src="/images/1544098777530.png" alt=""></p>
+<p>학생과 학생이 아닌 사람에 대한 두 직선은 다른 절편 $\beta_0 + \beta_2$와 $\beta_0$을 가지지만 동일한 기울기 $\beta_1$을 가진다. 두 직선이 평행하다는 사실이 의미하는 것은 income의 한 유닛 증가가 balance에 미치는 평균 효과는 그 사람이 학생인지 아닌지에 의존적이지 않다는 것을 의미한다. 이것은 모델이 잠재적으로 심각한 한계가 있음을 나타낸다. 왜냐하면 소득의 변화는 학생과 학생이 아닌 사람의 신용카드 대금에 아주 다른 효과를 줄 수 있기 때문이다.</p>
+<p>이 한계는 income을 student에 대한 가변수와 곱하여 얻은 상호작용 변수를 추가함으로써 해결할 수 있다. 그러면 모델은다음과 같이 표현된다.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+\text{balance}_i &\approx& \beta_0 + \beta_1 \times \text{income}_i + \begin{cases}\beta_2 + \beta_3 \times \text{income}_i & \text{학생인 경우}\\ 0 & \text{학생이 아닌 경우}\end{cases}\\ \\
+&=& \begin{cases}(\beta_0 + \beta_2) + (\beta_1 + \beta_3) \times \text{income}_i & 학생인 경우 \\ \beta_0 + \beta_1 \times \text{income}_i & \text{학생이 아닌 경우}\end{cases}
+\end{eqnarray}</script><p>이 경우에도 학생과 학생이 아닌 사람에 대한 회귀 직선이 다르다. 그러나 이번에는 두 직선의 절편 뿐만 아니라 기울기도 다르다. 학생인 경우, 회귀직선의 절편은 $\beta_0 + \beta_2$, 기울기는 $\beta_1 + \beta_3$이다. 학생이 아닌 경우에는 절편은 $\beta_0$, 기울기는 $\beta_1$이다. 이것은 소득 변화가 신용카드 대금에 미치는 영향이 학생인지의 여부에 따라 다를 수 있게 한다.</p>
+<p><img src="/images/1544099478385.png" alt=""></p>
+<p>학생에 대한 기울의 기울기가 학생이 아닌 경우에 대한 것보다 작은데, 이것은 소득 증가에 따른 카드 대금의 증가가 학생인 경우 학생이 아닌 사람보다 낮다는 것을 시사한다.</p>
+<p><strong>비선형 상관관계</strong></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://p829911.github.io/2018/12/06/regression/" data-id="cjpcldx0n00095toxj3ew8gi1" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/p829911" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/12/03/git-install-and-how-to-use/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">git 설치 &amp; 사용법</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Regression/">Regression</a></p>
+                            <p class="item-title"><a href="/2018/12/06/regression/" class="title">다중 선형 회귀</a></p>
+                            <p class="item-date"><time datetime="2018-12-06T12:33:47.000Z" itemprop="datePublished">2018-12-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Git/">Git</a></p>
+                            <p class="item-title"><a href="/2018/12/03/git-install-and-how-to-use/" class="title">git 설치 &amp; 사용법</a></p>
+                            <p class="item-date"><time datetime="2018-12-03T12:58:52.000Z" itemprop="datePublished">2018-12-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Ubuntu/">Ubuntu</a></p>
+                            <p class="item-title"><a href="/2018/11/27/ubuntu-permission/" class="title">ubuntu permission</a></p>
+                            <p class="item-date"><time datetime="2018-11-27T08:44:04.000Z" itemprop="datePublished">2018-11-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Ubuntu/">Ubuntu</a></p>
+                            <p class="item-title"><a href="/2018/11/27/ubuntu-apt-명령어/" class="title">ubuntu apt 명령어</a></p>
+                            <p class="item-date"><time datetime="2018-11-27T07:50:51.000Z" itemprop="datePublished">2018-11-27</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Regression/">Regression</a></p>
+                            <p class="item-title"><a href="/2018/11/27/교차-검증/" class="title">교차 검증</a></p>
+                            <p class="item-date"><time datetime="2018-11-27T06:32:01.000Z" itemprop="datePublished">2018-11-27</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Regression/">Regression</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/math/">math</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regression/">regression</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 13.33px;">Jupyter</a> <a href="/tags/Math/" style="font-size: 13.33px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/Ubuntu/" style="font-size: 20px;">Ubuntu</a> <a href="/tags/math/" style="font-size: 10px;">math</a> <a href="/tags/regression/" style="font-size: 10px;">regression</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 Seungwoo Hyun</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://p829911.github.io/2018/12/06/regression/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
