@@ -12,20 +12,20 @@
     
         <meta name="keywords" content="Math,Classification">
     
-    <meta name="description" content="엔트로피의 정의$Y = 0$ 또는 $Y=1$인 두 가지 값을 가지는 확률 분포가 다음과 같이 세 종류가 있다고 하자  확률 분포 $Y_1$: $P(Y=0) = 0.5, P(Y=1) = 0.5$ 확률 분포 $Y_2$: $P(Y=0) = 0.8, P(Y=1) = 0.2$ 확률 분포 $Y_3$ : $P(Y=0) = 0.8, P(Y=1) = 0.2$  이 확률 값">
+    <meta name="description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  엔트로피의 정의$Y = 0$ 또는 $Y=1$인 두 가지 값을 가지는 확률 분포가 다음과 같이 세 종류가 있다고 하자  확률 분포 $Y_1$: $P(Y=0) = 0.5, P(Y=1) = 0.5$ 확률 분포 $Y_2$: $P(">
 <meta name="keywords" content="Math,Classification">
 <meta property="og:type" content="article">
 <meta property="og:title" content="entropy">
 <meta property="og:url" content="https://p829911.github.io/2018/12/13/entropy/index.html">
 <meta property="og:site_name" content="data science study blog">
-<meta property="og:description" content="엔트로피의 정의$Y = 0$ 또는 $Y=1$인 두 가지 값을 가지는 확률 분포가 다음과 같이 세 종류가 있다고 하자  확률 분포 $Y_1$: $P(Y=0) = 0.5, P(Y=1) = 0.5$ 확률 분포 $Y_2$: $P(Y=0) = 0.8, P(Y=1) = 0.2$ 확률 분포 $Y_3$ : $P(Y=0) = 0.8, P(Y=1) = 0.2$  이 확률 값">
+<meta property="og:description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  엔트로피의 정의$Y = 0$ 또는 $Y=1$인 두 가지 값을 가지는 확률 분포가 다음과 같이 세 종류가 있다고 하자  확률 분포 $Y_1$: $P(Y=0) = 0.5, P(Y=1) = 0.5$ 확률 분포 $Y_2$: $P(">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://user-images.githubusercontent.com/17154958/49933594-6510eb00-ff0f-11e8-9374-5703a6859381.png">
-<meta property="og:updated_time" content="2018-12-13T11:22:29.595Z">
+<meta property="og:image" content="https://p829911.github.io/images/1543299373849.png">
+<meta property="og:updated_time" content="2018-12-13T11:26:03.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="entropy">
-<meta name="twitter:description" content="엔트로피의 정의$Y = 0$ 또는 $Y=1$인 두 가지 값을 가지는 확률 분포가 다음과 같이 세 종류가 있다고 하자  확률 분포 $Y_1$: $P(Y=0) = 0.5, P(Y=1) = 0.5$ 확률 분포 $Y_2$: $P(Y=0) = 0.8, P(Y=1) = 0.2$ 확률 분포 $Y_3$ : $P(Y=0) = 0.8, P(Y=1) = 0.2$  이 확률 값">
-<meta name="twitter:image" content="https://user-images.githubusercontent.com/17154958/49933594-6510eb00-ff0f-11e8-9374-5703a6859381.png">
+<meta name="twitter:description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  엔트로피의 정의$Y = 0$ 또는 $Y=1$인 두 가지 값을 가지는 확률 분포가 다음과 같이 세 종류가 있다고 하자  확률 분포 $Y_1$: $P(Y=0) = 0.5, P(Y=1) = 0.5$ 확률 분포 $Y_2$: $P(">
+<meta name="twitter:image" content="https://p829911.github.io/images/1543299373849.png">
     
 
     
@@ -177,7 +177,10 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h3 id="엔트로피의-정의"><a href="#엔트로피의-정의" class="headerlink" title="엔트로피의 정의"></a>엔트로피의 정의</h3><p>$Y = 0$ 또는 $Y=1$인 두 가지 값을 가지는 확률 분포가 다음과 같이 세 종류가 있다고 하자</p>
+            <p>이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다.</p>
+<p><a href="https://datascienceschool.net/view-notebook/661128713b654edc928ecb455a826b1d/" target="_blank" rel="noopener">데이터 사이언스 스쿨</a></p>
+<p><img src="/images/1543299373849.png" alt=""></p>
+<h3 id="엔트로피의-정의"><a href="#엔트로피의-정의" class="headerlink" title="엔트로피의 정의"></a>엔트로피의 정의</h3><p>$Y = 0$ 또는 $Y=1$인 두 가지 값을 가지는 확률 분포가 다음과 같이 세 종류가 있다고 하자</p>
 <ul>
 <li>확률 분포 $Y_1$: $P(Y=0) = 0.5, P(Y=1) = 0.5$</li>
 <li>확률 분포 $Y_2$: $P(Y=0) = 0.8, P(Y=1) = 0.2$</li>
