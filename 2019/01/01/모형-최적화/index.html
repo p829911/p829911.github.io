@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>모형 최적화 | data science study blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Math,Classification">
+    
+    <meta name="description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  머신 러닝 모형이 완성된 후에는 최적화 과정을 통해 예측 성능을 향상시킨다. Scikit-Learn 의 모형 하이퍼 파라미터 튜닝 도구Scikit-Learn에서는 다음과 같은 모형 최적화 도구를 지원한다.  validati">
+<meta name="keywords" content="Math,Classification">
+<meta property="og:type" content="article">
+<meta property="og:title" content="모형 최적화">
+<meta property="og:url" content="https://p829911.github.io/2019/01/01/모형-최적화/index.html">
+<meta property="og:site_name" content="data science study blog">
+<meta property="og:description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  머신 러닝 모형이 완성된 후에는 최적화 과정을 통해 예측 성능을 향상시킨다. Scikit-Learn 의 모형 하이퍼 파라미터 튜닝 도구Scikit-Learn에서는 다음과 같은 모형 최적화 도구를 지원한다.  validati">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17154958/50571272-33da5b00-0de9-11e9-9575-8c60326e8bb9.png">
+<meta property="og:updated_time" content="2019-01-01T08:21:50.409Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="모형 최적화">
+<meta name="twitter:description" content="이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다. 데이터 사이언스 스쿨  머신 러닝 모형이 완성된 후에는 최적화 과정을 통해 예측 성능을 향상시킨다. Scikit-Learn 의 모형 하이퍼 파라미터 튜닝 도구Scikit-Learn에서는 다음과 같은 모형 최적화 도구를 지원한다.  validati">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17154958/50571272-33da5b00-0de9-11e9-9575-8c60326e8bb9.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/images/icon.png">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Data Science Study Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Classification/">Classification</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Regression/">Regression</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Mysql/">Mysql</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="https://about.me/p829911">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Math/Classification/">Classification</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-모형-최적화" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        모형 최적화
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/01/01/모형-최적화/" class="article-date">
+            <time datetime="2019-01-01T08:13:29.000Z" itemprop="datePublished">2019-01-01</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Classification/">Classification</a>, <a class="tag-link" href="/tags/Math/">Math</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다.</p>
+<p><a href="https://datascienceschool.net/view-notebook/661128713b654edc928ecb455a826b1d/" target="_blank" rel="noopener">데이터 사이언스 스쿨</a></p>
+<p><img src="https://user-images.githubusercontent.com/17154958/50571272-33da5b00-0de9-11e9-9575-8c60326e8bb9.png" alt="image"></p>
+<p>머신 러닝 모형이 완성된 후에는 최적화 과정을 통해 예측 성능을 향상시킨다.</p>
+<h3 id="Scikit-Learn-의-모형-하이퍼-파라미터-튜닝-도구"><a href="#Scikit-Learn-의-모형-하이퍼-파라미터-튜닝-도구" class="headerlink" title="Scikit-Learn 의 모형 하이퍼 파라미터 튜닝 도구"></a>Scikit-Learn 의 모형 하이퍼 파라미터 튜닝 도구</h3><p>Scikit-Learn에서는 다음과 같은 모형 최적화 도구를 지원한다.</p>
+<ul>
+<li>validation_curve<ul>
+<li>단일 하이퍼 파라미터 최적화</li>
+</ul>
+</li>
+<li>GridSearchCV<ul>
+<li>그리드를 사용한 복수 하이퍼 파라미터 최적화</li>
+</ul>
+</li>
+<li>ParameterGrid<ul>
+<li>복수 파라미터 최적화용 그리드</li>
+</ul>
+</li>
+</ul>
+<h3 id="validation-curve"><a href="#validation-curve" class="headerlink" title="validation_curve"></a><code>validation_curve</code></h3><p><code>validation_curve</code> 함수는 최적화할 파라미터 이름과 범위, 그리고 성능 기준을 <code>param_name</code>, <code>param_range</code>, <code>scoring</code> 인수로 받아 파라미터 범위의 모든 경우에 대해 성능 기준을 계산한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> validation_curve</span><br><span class="line"></span><br><span class="line">digits = load_digits()</span><br><span class="line">X, y = digits.data, digits.target</span><br><span class="line"></span><br><span class="line">param_range = np.logspace(<span class="number">-6</span>, <span class="number">-1</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">train_scores, test_scores = \</span><br><span class="line">	validation_curve(SVC(), X, y,</span><br><span class="line">                    param_name=<span class="string">"gamma"</span>, param_range=param_range,</span><br><span class="line">                    cv=<span class="number">10</span>, scoring=<span class="string">"accuracy"</span>, n_jobs=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">train_scores_mean = np.mean(train_scores, axis=<span class="number">1</span>)</span><br><span class="line">train_scores_std = np.std(train_scores, axis=<span class="number">1</span>)</span><br><span class="line">test_scores_mean = np.mean(test_scores, axis=<span class="number">1</span>)</span><br><span class="line">test_scores_std = np.std(test_scores, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">mpl.rcParams[<span class="string">"font.family"</span>] = <span class="string">'DejaVu Sans'</span></span><br><span class="line">plt.semilogx(param_range, train_scores_mean, label=<span class="string">"Training score"</span>, color=<span class="string">"r"</span>)</span><br><span class="line">plt.fill_between(param_range, train_scores_mean - train_scores_std,</span><br><span class="line">                 train_scores_mean + train_scores_std, alpha=<span class="number">0.2</span>, color=<span class="string">"r"</span>)</span><br><span class="line">plt.semilogx(param_range, test_scores_mean, label=<span class="string">"Cross-validation score"</span>, color=<span class="string">"g"</span>)</span><br><span class="line">plt.fill_between(param_range, test_scores_mean - test_scores_std,</span><br><span class="line">                 test_scores_mean + test_scores_std, alpha=<span class="number">0.2</span>, color=<span class="string">"g"</span>)</span><br><span class="line">plt.legend(loc=<span class="string">"best"</span>)</span><br><span class="line">plt.title(<span class="string">"Validation Curve with SVM"</span>)</span><br><span class="line">plt.xlabel(<span class="string">"$\gamma$"</span>)</span><br><span class="line">plt.ylabel(<span class="string">"Score"</span>)</span><br><span class="line">plt.ylim(<span class="number">0.0</span>, <span class="number">1.1</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/50571288-99c6e280-0de9-11e9-987b-74a488da75ad.png" alt="image"></p>
+<h3 id="GridSearchCV"><a href="#GridSearchCV" class="headerlink" title="GridSearchCV"></a><code>GridSearchCV</code></h3><p><code>GridSearchCV</code> 클래스는 <code>validation_curve</code> 함수와 달리 모형 래퍼(Wrapper) 성격의 클래스이다.  클래스 객체에 <code>fit</code> 메서드를 호출하면 grid search를 사용하여 자동으로 복수개의 내부 모형을 생성하고 이를 모두 실행시켜서 최적 파라미터를 찾아준다. 생성된 복수개와 내부 모형과 실행 결과는 다음 속성에 저장된다.</p>
+<ul>
+<li><code>grid_scores_</code><ul>
+<li>param_grid 의 모든 파라미터 조합에 대한 성능 결과. 각각의 원소는 다음 요소로 이루어진 튜플이다.</li>
+<li>parameters: 사용된 파라미터</li>
+<li>mean_validation_score: 교차 검증(cross-validation) 결과의 평균값</li>
+<li>cv_validation_scores: 모든 교차 검증(cross-validation) 결과</li>
+</ul>
+</li>
+<li><code>best_score_</code><ul>
+<li>최고 점수</li>
+</ul>
+</li>
+<li><code>best_params_</code><ul>
+<li>최고 점수를 낸 파라미터</li>
+</ul>
+</li>
+<li><code>best_estimator_</code><ul>
+<li>최고 점수를 낸 파라미터를 가진 모형</li>
+</ul>
+</li>
+</ul>
+<p></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</span><br><span class="line"></span><br><span class="line">pipe_svc = Pipeline([(<span class="string">'scl'</span>, StandardScaler()), (<span class="string">'clf'</span>, SVC(random_state=<span class="number">1</span>))])</span><br><span class="line"></span><br><span class="line">param_range = [<span class="number">0.0001</span>, <span class="number">0.001</span>, <span class="number">0.01</span>, <span class="number">0.1</span>, <span class="number">1.0</span>, <span class="number">10.0</span>, <span class="number">100.0</span>, <span class="number">1000.0</span>]</span><br><span class="line">param_grid = [</span><br><span class="line">    &#123;<span class="string">'clf__C'</span>: param_range, <span class="string">'clf__kernel'</span>: [<span class="string">'linear'</span>]&#125;,</span><br><span class="line">    &#123;<span class="string">'clf__C'</span>: param_range, <span class="string">'clf__gamma'</span>: param_range, <span class="string">'clf__kernel'</span>: [<span class="string">'rbf'</span>]&#125;]</span><br><span class="line"></span><br><span class="line">gs = GridSearchCV(estimator=pipe_svc, param_grid=param_grid, scoring=<span class="string">'accuracy'</span>, cv=<span class="number">10</span>, n_jobs=<span class="number">1</span>)</span><br><span class="line">%time gs = gs.fit(X, y)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gs.cv_results_[<span class="string">"params"</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gs.cv_results_[<span class="string">"mean_test_score"</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(gs.best_score_)</span><br><span class="line">print(gs.best_params_)</span><br></pre></td></tr></table></figure>
+<h3 id="ParameterGrid"><a href="#ParameterGrid" class="headerlink" title="ParameterGrid"></a><code>ParameterGrid</code></h3><p>때로는 scikit-learn 이 제공하는 GridSearchCV 이외의 방법으로 그리드 탐색을 해야하는 경우도 있다. 이 경우 파라미터를 조합하여 탐색 그리드를 생성해 주는 명령어가 <code>ParameterGrid</code> 이다. <code>ParameterGrid</code> 는 탐색을 위한 iterator 역할을 한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> ParameterGrid</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">param_grid = &#123;<span class="string">'a'</span>: [<span class="number">1</span>, <span class="number">2</span>], <span class="string">'b'</span>: [<span class="keyword">True</span>, <span class="keyword">False</span>]&#125;</span><br><span class="line">list(ParameterGrid(param_grid))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">param_grid = [&#123;<span class="string">'kernel'</span>: [<span class="string">'linear'</span>]&#125;, &#123;<span class="string">'kernel'</span>: [<span class="string">'rbf'</span>], <span class="string">'gamma'</span>: [<span class="number">1</span>, <span class="number">10</span>]&#125;]</span><br><span class="line">list(ParameterGrid(param_grid))</span><br></pre></td></tr></table></figure>
+<h3 id="병렬-처리"><a href="#병렬-처리" class="headerlink" title="병렬 처리"></a>병렬 처리</h3><p><code>GridSearchCV</code> 명령에는 <code>n_jobs</code> 라는 인수가 있다. 디폴트 값은 1인데 이 값을 증가시키면 내부적으로 멀티 프로세서를 사용하여 그리드서치를 수행한다. 만약 CPU 코어의 수가 충분하다면 <code>n_jobs</code> 를 늘릴수록 속도가 증가한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">param_grid = &#123;<span class="string">"gamma"</span>: np.logspace(<span class="number">-6</span>, <span class="number">-1</span>, <span class="number">10</span>)&#125;</span><br><span class="line">gs1 = GridSearchCV(estimator=SVC(), param_grid=param_grid, scoring=<span class="string">'accuracy'</span>, cv=<span class="number">5</span>, n_jobs=<span class="number">1</span>)</span><br><span class="line">gs2 = GridSearchCV(estimator=SVC(), param_grid=param_grid, scoring=<span class="string">'accuracy'</span>, cv=<span class="number">5</span>, n_jobs=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">gs1.fit(X, y)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">gs2.fit(X, y)</span><br></pre></td></tr></table></figure>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://p829911.github.io/2019/01/01/모형-최적화/" data-id="cjqdhimu3002pef2xfjdwn8j7" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/p829911" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/12/13/hexo-테마-변경하기/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">hexo 테마 변경하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Classification/">Classification</a></p>
+                            <p class="item-title"><a href="/2019/01/01/모형-최적화/" class="title">모형 최적화</a></p>
+                            <p class="item-date"><time datetime="2019-01-01T08:13:29.000Z" itemprop="datePublished">2019-01-01</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Git/">Git</a></p>
+                            <p class="item-title"><a href="/2018/12/13/hexo-테마-변경하기/" class="title">hexo 테마 변경하기</a></p>
+                            <p class="item-date"><time datetime="2018-12-13T14:05:43.000Z" itemprop="datePublished">2018-12-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Classification/">Classification</a></p>
+                            <p class="item-title"><a href="/2018/12/13/entropy/" class="title">entropy</a></p>
+                            <p class="item-date"><time datetime="2018-12-13T11:18:47.000Z" itemprop="datePublished">2018-12-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Mysql/">Mysql</a></p>
+                            <p class="item-title"><a href="/2018/12/06/mysql-install/" class="title">mysql install</a></p>
+                            <p class="item-date"><time datetime="2018-12-06T12:52:38.000Z" itemprop="datePublished">2018-12-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Regression/">Regression</a></p>
+                            <p class="item-title"><a href="/2018/12/06/regression/" class="title">다중 선형 회귀</a></p>
+                            <p class="item-date"><time datetime="2018-12-06T12:33:47.000Z" itemprop="datePublished">2018-12-06</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Classification/">Classification</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Regression/">Regression</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mysql/">Mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classification/">Classification</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regression/">Regression</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Blog/" style="font-size: 14px;">Blog</a> <a href="/tags/Classification/" style="font-size: 12px;">Classification</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 12px;">Jupyter</a> <a href="/tags/Math/" style="font-size: 18px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Python/" style="font-size: 12px;">Python</a> <a href="/tags/Regression/" style="font-size: 14px;">Regression</a> <a href="/tags/Ubuntu/" style="font-size: 20px;">Ubuntu</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Seungwoo Hyun</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://p829911.github.io/2019/01/01/모형-최적화/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
