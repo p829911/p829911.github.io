@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>K-means | data science study blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Math,Clustering">
+    
+    <meta name="description" content="K-MeansK-Means 클러스터링 알고리즘은 가장 단순하고 빠른 클러스터링 알고리즘의 하나이다. 다음과 같은 목적함수 값이 최소화될 때까지 클러스터의 중심(centroid)의 위치와 각 데이터가 소속될 클러스터를 반복해서 찾는다. 이 값을 inertia라고도 한다.  J = \sum_{k=1}^K\sum_{i \in C_k} d(x_i, u_k)이 식에">
+<meta name="keywords" content="Math,Clustering">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K-means">
+<meta property="og:url" content="https://p829911.github.io/2019/01/10/K-means/index.html">
+<meta property="og:site_name" content="data science study blog">
+<meta property="og:description" content="K-MeansK-Means 클러스터링 알고리즘은 가장 단순하고 빠른 클러스터링 알고리즘의 하나이다. 다음과 같은 목적함수 값이 최소화될 때까지 클러스터의 중심(centroid)의 위치와 각 데이터가 소속될 클러스터를 반복해서 찾는다. 이 값을 inertia라고도 한다.  J = \sum_{k=1}^K\sum_{i \in C_k} d(x_i, u_k)이 식에">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17154958/50965456-579e4f00-1515-11e9-8167-b50a52c5e4ee.png">
+<meta property="og:updated_time" content="2019-01-10T11:34:35.975Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="K-means">
+<meta name="twitter:description" content="K-MeansK-Means 클러스터링 알고리즘은 가장 단순하고 빠른 클러스터링 알고리즘의 하나이다. 다음과 같은 목적함수 값이 최소화될 때까지 클러스터의 중심(centroid)의 위치와 각 데이터가 소속될 클러스터를 반복해서 찾는다. 이 값을 inertia라고도 한다.  J = \sum_{k=1}^K\sum_{i \in C_k} d(x_i, u_k)이 식에">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17154958/50965456-579e4f00-1515-11e9-8167-b50a52c5e4ee.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/images/icon.png">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Data Science Study Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Classification/">Classification</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Clustering/">Clustering</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Regression/">Regression</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Mysql/">Mysql</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="https://about.me/p829911">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Math/Clustering/">Clustering</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-K-means" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        K-means
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/01/10/K-means/" class="article-date">
+            <time datetime="2019-01-10T11:31:21.000Z" itemprop="datePublished">2019-01-10</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Clustering/">Clustering</a>, <a class="tag-link" href="/tags/Math/">Math</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h3 id="K-Means"><a href="#K-Means" class="headerlink" title="K-Means"></a>K-Means</h3><p>K-Means 클러스터링 알고리즘은 가장 단순하고 빠른 클러스터링 알고리즘의 하나이다. 다음과 같은 목적함수 값이 최소화될 때까지 클러스터의 중심(centroid)의 위치와 각 데이터가 소속될 클러스터를 반복해서 찾는다. 이 값을 inertia라고도 한다.</p>
+<script type="math/tex; mode=display">
+J = \sum_{k=1}^K\sum_{i \in C_k} d(x_i, u_k)</script><p>이 식에서 $K$ 는 클러스터의 갯수이고 $C_k$ 는 $k$ 번째 클러스터에 속하는 데이터의 집합, $u_k$ 는 $k$ 번째 클러스터의 중심위치, $d$ 는 $x_i, u_k$ 두 데이터 사이의 거리(distance) 혹은 비유사도(dissimilarity)로 정의한다. 만약 유클리드 거리를 사용한다면 다음과 같다.</p>
+<script type="math/tex; mode=display">
+d(x_i, u_k) = || x_i - u_k || ^ 2</script><p>세부 알고리즘은 다음과 같다.</p>
+<ol>
+<li>임의의 중심값 $u_k$ 를 고른다. 보통 데이터 샘플 중에서 $K$개를 선택한다.</li>
+<li>중심에서 각 데이터까지의 거리를 계산</li>
+<li>각 데이터에서 가장 가까운 중심을 선택하여 클러스터 갱신</li>
+<li>다시 만들어진 클러스터에 대해 중심을 다시 계산하고 1~4를 반복한다.</li>
+</ol>
+<p>scikit-learn의 cluster 서브패키지는 Means 클러스터링을 위한 <code>KMeans</code> 클래스를 제공한다. 다음과 같은 인수를 받을 수 있다.</p>
+<ul>
+<li><code>n_clusters</code>: 클러스터의 갯수</li>
+<li><code>init</code>: 초기화 방법. <code>&quot;random&quot;</code> 이면 무작위, <code>&quot;K-means++&quot;</code> 이면 K-means++ 방법. 또는 각 데이터의 클러스터 라벨</li>
+<li><code>n_init</code>:  초기 중심값 시도 횟수. 디폴트는 10이고 10개의 무작위 중심값 목록 중 가장 좋은 값을 선택한다.</li>
+<li><code>max_iter</code>: 최대 반복 횟수.</li>
+<li><code>random_state</code>: 시드값.</li>
+</ul>
+<p>다음은 <code>make_blobs</code> 명령으로 만든 데이터를 2개로 K-means 클러스터링하는 과정을 나타낸 것이다. 마커(marker)의 모양은 클러스터를 나타내고 크기가 큰 마커가 중심값 위치이다. 각 단계에서 중심값은 전단계의 클러스터의 평균으로 다시 계산된다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> make_blobs</span><br><span class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans</span><br><span class="line"></span><br><span class="line">X, _ = make_blobs(n_samples=<span class="number">20</span>, random_state=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_KMeans</span><span class="params">(n)</span>:</span></span><br><span class="line">    model = KMeans(n_clusters=<span class="number">2</span>, init=<span class="string">"random"</span>, n_init=<span class="number">1</span>, max_iter=n, random_state=<span class="number">8</span>).fit(X)</span><br><span class="line">    c0, c1 = model.cluster_centers_</span><br><span class="line">    plt.scatter(X[model.labels_ == <span class="number">0</span>, <span class="number">0</span>], X[model.labels_ == <span class="number">0</span>, <span class="number">1</span>], marker=<span class="string">'v'</span>, facecolor=<span class="string">'r'</span>, edgecolors=<span class="string">'k'</span>)</span><br><span class="line">    plt.scatter(X[model.labels_ == <span class="number">1</span>, <span class="number">0</span>], X[model.labels_ == <span class="number">1</span>, <span class="number">1</span>], marker=<span class="string">'^'</span>, facecolor=<span class="string">'y'</span>, edgecolors=<span class="string">'k'</span>)</span><br><span class="line">    plt.scatter(c0[<span class="number">0</span>], c0[<span class="number">1</span>], marker=<span class="string">'v'</span>, c=<span class="string">"r"</span>, s=<span class="number">200</span>)</span><br><span class="line">    plt.scatter(c1[<span class="number">0</span>], c1[<span class="number">1</span>], marker=<span class="string">'^'</span>, c=<span class="string">"y"</span>, s=<span class="number">200</span>)</span><br><span class="line">    plt.grid(<span class="keyword">False</span>)</span><br><span class="line">    plt.title(<span class="string">"iteration=&#123;&#125;, score=&#123;:5.2f&#125;"</span>.format(n, model.score(X)))</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>, <span class="number">8</span>))</span><br><span class="line">plt.subplot(<span class="number">321</span>)</span><br><span class="line">plot_KMeans(<span class="number">1</span>)</span><br><span class="line">plt.subplot(<span class="number">322</span>)</span><br><span class="line">plot_KMeans(<span class="number">2</span>)</span><br><span class="line">plt.subplot(<span class="number">323</span>)</span><br><span class="line">plot_KMeans(<span class="number">3</span>)</span><br><span class="line">plt.subplot(<span class="number">324</span>)</span><br><span class="line">plot_KMeans(<span class="number">4</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/50965456-579e4f00-1515-11e9-8167-b50a52c5e4ee.png" alt=""></p>
+<h3 id="K-Means-1"><a href="#K-Means-1" class="headerlink" title="K-Means++"></a>K-Means++</h3><p>K-Means++ 알고리즘은 초기 중심값을 설정하기 위한 알고리즘이다. 다음과 같은 방법을 통해 되도록 멀리 떨어진 중심값 집합을 나타낸다.</p>
+<ol>
+<li>중심값을 저장할 집합 $M$ 준비</li>
+<li>일단 하나의 중심 $\mu_0$ 을 랜덤하게 선택하여 $M$ 에 넣는다.</li>
+<li>$M$ 에 속하지 않는 모든 샘플 $x_i$ 에 대해 거리 $d(M,x_i)$ 를 계산. $d(M, x_i)$ 는 $M$ 안의 모든 샘플 $\mu_k$ 에 대해 $d(u_k, x_i)$ 를 계산하여 가장 작은 값 선택</li>
+<li>$d(M, x_i)$ 에 비례한 확률로 다음 중심 $\mu$ 를 선택.</li>
+<li>$K$ 개의 중심을 선택할 때까지 반복</li>
+<li>K-Means 알고리즘 사용</li>
+</ol>
+<p>다음은 KMean 방법을 사용하여 MNIST Digit 이미지 데이터를 클러스터링한 결과이다. 각 클러스터에서 10개씩의 데이터만 표시하였다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_digits</span><br><span class="line"></span><br><span class="line">digits = load_digits()</span><br><span class="line"></span><br><span class="line">model = KMeans(init=<span class="string">"k-means++"</span>, n_clusters=<span class="number">10</span>, random_state=<span class="number">0</span>)</span><br><span class="line">model.fit(digits.data)</span><br><span class="line">y_pred = model.labels_</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_digits</span><span class="params">(images, labels)</span>:</span></span><br><span class="line">    f = plt.figure(figsize=(<span class="number">8</span>, <span class="number">2</span>))</span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; <span class="number">10</span> <span class="keyword">and</span> i &lt; images.shape[<span class="number">0</span>]):</span><br><span class="line">        ax = f.add_subplot(<span class="number">1</span>, <span class="number">10</span>, i + <span class="number">1</span>)</span><br><span class="line">        ax.imshow(images[i], cmap=plt.cm.bone)</span><br><span class="line">        ax.grid(<span class="keyword">False</span>)</span><br><span class="line">        ax.set_title(labels[i])</span><br><span class="line">        ax.xaxis.set_ticks([])</span><br><span class="line">        ax.yaxis.set_ticks([])</span><br><span class="line">        plt.tight_layout()</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_cluster</span><span class="params">(images, y_pred, cluster_number)</span>:</span></span><br><span class="line">    images = images[y_pred == cluster_number]</span><br><span class="line">    y_pred = y_pred[y_pred == cluster_number]</span><br><span class="line">    show_digits(images, y_pred)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    show_cluster(digits.images, y_pred, i)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/50965778-5588c000-1516-11e9-8106-f893180e08ab.png" alt=""></p>
+<p>이미지의 제목에 있는 숫자는 클러스터 번호에 지나지 않으므로 원래 숫자의 번호와 일치하지 않는다. 하지만 이를 예측 문제라고 가정하고 분류 결과 행렬을 만들면 다음과 같다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</span><br><span class="line"></span><br><span class="line">confusion_matrix(digits.target, y_pred)</span><br><span class="line"></span><br><span class="line">array([[  <span class="number">1</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>, <span class="number">177</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">1</span>,   <span class="number">1</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,  <span class="number">55</span>,  <span class="number">99</span>,  <span class="number">24</span>,   <span class="number">2</span>],</span><br><span class="line">       [  <span class="number">0</span>,  <span class="number">13</span>,   <span class="number">0</span>,   <span class="number">2</span>,   <span class="number">3</span>,   <span class="number">1</span>,   <span class="number">2</span>,   <span class="number">8</span>, <span class="number">148</span>,   <span class="number">0</span>],</span><br><span class="line">       [  <span class="number">0</span>, <span class="number">154</span>,   <span class="number">2</span>,  <span class="number">13</span>,   <span class="number">7</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">7</span>,   <span class="number">0</span>,   <span class="number">0</span>],</span><br><span class="line">       [<span class="number">163</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">7</span>,   <span class="number">0</span>,   <span class="number">7</span>,   <span class="number">4</span>,   <span class="number">0</span>,   <span class="number">0</span>],</span><br><span class="line">       [  <span class="number">2</span>,   <span class="number">0</span>, <span class="number">136</span>,  <span class="number">43</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">1</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">1</span>,   <span class="number">1</span>,   <span class="number">2</span>,   <span class="number">0</span>, <span class="number">177</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>, <span class="number">177</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">2</span>,   <span class="number">0</span>,   <span class="number">0</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">2</span>,   <span class="number">4</span>,  <span class="number">53</span>,   <span class="number">5</span>,   <span class="number">0</span>,   <span class="number">5</span>, <span class="number">100</span>,   <span class="number">3</span>,   <span class="number">2</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">6</span>,   <span class="number">6</span>, <span class="number">139</span>,   <span class="number">7</span>,   <span class="number">0</span>,  <span class="number">20</span>,   <span class="number">2</span>,   <span class="number">0</span>,   <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<p>이 클러스터링 결과의 adjusted Rand index와 adjusted mutual info값은 다음과 같다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics.cluster <span class="keyword">import</span> adjusted_mutual_info_score, adjusted_rand_score</span><br><span class="line"></span><br><span class="line">print(adjusted_rand_score(digits.target, y_pred))</span><br><span class="line">print(adjusted_mutual_info_score(digits.target, y_pred))</span><br><span class="line"></span><br><span class="line">array([[  <span class="number">1</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>, <span class="number">177</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">1</span>,   <span class="number">1</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,  <span class="number">55</span>,  <span class="number">99</span>,  <span class="number">24</span>,   <span class="number">2</span>],</span><br><span class="line">       [  <span class="number">0</span>,  <span class="number">13</span>,   <span class="number">0</span>,   <span class="number">2</span>,   <span class="number">3</span>,   <span class="number">1</span>,   <span class="number">2</span>,   <span class="number">8</span>, <span class="number">148</span>,   <span class="number">0</span>],</span><br><span class="line">       [  <span class="number">0</span>, <span class="number">154</span>,   <span class="number">2</span>,  <span class="number">13</span>,   <span class="number">7</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">7</span>,   <span class="number">0</span>,   <span class="number">0</span>],</span><br><span class="line">       [<span class="number">163</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">7</span>,   <span class="number">0</span>,   <span class="number">7</span>,   <span class="number">4</span>,   <span class="number">0</span>,   <span class="number">0</span>],</span><br><span class="line">       [  <span class="number">2</span>,   <span class="number">0</span>, <span class="number">136</span>,  <span class="number">43</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">1</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">1</span>,   <span class="number">1</span>,   <span class="number">2</span>,   <span class="number">0</span>, <span class="number">177</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">0</span>, <span class="number">177</span>,   <span class="number">0</span>,   <span class="number">0</span>,   <span class="number">2</span>,   <span class="number">0</span>,   <span class="number">0</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">2</span>,   <span class="number">4</span>,  <span class="number">53</span>,   <span class="number">5</span>,   <span class="number">0</span>,   <span class="number">5</span>, <span class="number">100</span>,   <span class="number">3</span>,   <span class="number">2</span>],</span><br><span class="line">       [  <span class="number">0</span>,   <span class="number">6</span>,   <span class="number">6</span>, <span class="number">139</span>,   <span class="number">7</span>,   <span class="number">0</span>,  <span class="number">20</span>,   <span class="number">2</span>,   <span class="number">0</span>,   <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://p829911.github.io/2019/01/10/K-means/" data-id="cjqqjdxcx0000pr2xfn1vhoif" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/p829911" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/01/10/clustering/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            clustering
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/01/01/dark-sky-사이트를-이용한-날씨-크롤링/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">dark sky 사이트를 이용한 날씨 크롤링</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Clustering/">Clustering</a></p>
+                            <p class="item-title"><a href="/2019/01/10/clustering/" class="title">clustering</a></p>
+                            <p class="item-date"><time datetime="2019-01-10T11:33:02.000Z" itemprop="datePublished">2019-01-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Clustering/">Clustering</a></p>
+                            <p class="item-title"><a href="/2019/01/10/K-means/" class="title">K-means</a></p>
+                            <p class="item-date"><time datetime="2019-01-10T11:31:21.000Z" itemprop="datePublished">2019-01-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Python/">Python</a></p>
+                            <p class="item-title"><a href="/2019/01/01/dark-sky-사이트를-이용한-날씨-크롤링/" class="title">dark sky 사이트를 이용한 날씨 크롤링</a></p>
+                            <p class="item-date"><time datetime="2019-01-01T09:45:00.000Z" itemprop="datePublished">2019-01-01</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Classification/">Classification</a></p>
+                            <p class="item-title"><a href="/2019/01/01/모형-최적화/" class="title">모형 최적화</a></p>
+                            <p class="item-date"><time datetime="2019-01-01T08:13:29.000Z" itemprop="datePublished">2019-01-01</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Git/">Git</a></p>
+                            <p class="item-title"><a href="/2018/12/13/hexo-테마-변경하기/" class="title">hexo 테마 변경하기</a></p>
+                            <p class="item-date"><time datetime="2018-12-13T14:05:43.000Z" itemprop="datePublished">2018-12-13</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Classification/">Classification</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Clustering/">Clustering</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Regression/">Regression</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mysql/">Mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classification/">Classification</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clustering/">Clustering</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawling/">Crawling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regression/">Regression</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/Classification/" style="font-size: 12.5px;">Classification</a> <a href="/tags/Clustering/" style="font-size: 12.5px;">Clustering</a> <a href="/tags/Crawling/" style="font-size: 10px;">Crawling</a> <a href="/tags/Git/" style="font-size: 17.5px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 12.5px;">Jupyter</a> <a href="/tags/Math/" style="font-size: 20px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/Regression/" style="font-size: 15px;">Regression</a> <a href="/tags/Ubuntu/" style="font-size: 20px;">Ubuntu</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Seungwoo Hyun</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://p829911.github.io/2019/01/10/K-means/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
