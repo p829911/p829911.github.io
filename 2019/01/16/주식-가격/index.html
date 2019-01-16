@@ -6,17 +6,24 @@
     
 
     
-    <title>Category: Math | data science study blog</title>
+    <title>주식 가격 | data science study blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="data science study blog">
-<meta property="og:url" content="https://p829911.github.io/categories/Math/index.html">
+        <meta name="keywords" content="Algorithm">
+    
+    <meta name="description" content="문제 설명초 단위로 기록된 주식가격이 담긴 배열 prices가 매개변수로 주어질 때, 가격이 유지된 기간은 몇 초인지를 return 하도록 solution 함수를 완성하세요. 제한사항 prices의 각 가격은 1 이상 10,000 이하인 자연수입니다. prices의 길이는 2 이상 100,000 이하입니다.  입출력 예    prices return">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="주식 가격">
+<meta property="og:url" content="https://p829911.github.io/2019/01/16/주식-가격/index.html">
 <meta property="og:site_name" content="data science study blog">
+<meta property="og:description" content="문제 설명초 단위로 기록된 주식가격이 담긴 배열 prices가 매개변수로 주어질 때, 가격이 유지된 기간은 몇 초인지를 return 하도록 solution 함수를 완성하세요. 제한사항 prices의 각 가격은 1 이상 10,000 이하인 자연수입니다. prices의 길이는 2 이상 100,000 이하입니다.  입출력 예    prices return">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-16T11:51:39.620Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="data science study blog">
+<meta name="twitter:title" content="주식 가격">
+<meta name="twitter:description" content="문제 설명초 단위로 기록된 주식가격이 담긴 배열 prices가 매개변수로 주어질 때, 가격이 유지된 기간은 몇 초인지를 return 하도록 solution 함수를 완성하세요. 제한사항 prices의 각 가격은 1 이상 10,000 이하인 자연수입니다. prices의 길이는 2 이상 100,000 이하입니다.  입출력 예    prices return">
     
 
     
@@ -129,365 +136,155 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-folder-open"></i>Category: <em class="page-title-link">Math</em>
+    <a class="page-title-link" href="/categories/Algorithm/">Algorithm</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-주식-가격" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2019" class="archive-year"><i class="icon fa fa-calendar-o"></i>2019</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Network/">Network</a>
-            </div>
-            <div class="date"><time datetime="2019-01-11T02:51:47.000Z" itemprop="datePublished">2019-01-11</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2019/01/11/그래프-이론-기초/">그래프 이론 기초</a>
+        주식 가격
         </h1>
     
 
-        <p class="article-excerpt">
-            그래프(graph)는 다음 그림처럼 노드(node, vertex)와 그 사이를 잇는 간선(edge)으로 이루어진 구조를 말한다.
-123456789import networkx as nxfrom IPython.core.display import Imagefrom networkx.drawing.nx_pydot import to_pydotg = nx.complet
-        </p>
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/01/16/주식-가격/" class="article-date">
+            <time datetime="2019-01-16T11:49:35.000Z" itemprop="datePublished">2019-01-16</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Algorithm/">Algorithm</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h3 id="문제-설명"><a href="#문제-설명" class="headerlink" title="문제 설명"></a>문제 설명</h3><p>초 단위로 기록된 주식가격이 담긴 배열 prices가 매개변수로 주어질 때, 가격이 유지된 기간은 몇 초인지를 return 하도록 solution 함수를 완성하세요.</p>
+<h3 id="제한사항"><a href="#제한사항" class="headerlink" title="제한사항"></a>제한사항</h3><ul>
+<li>prices의 각 가격은 1 이상 10,000 이하인 자연수입니다.</li>
+<li>prices의 길이는 2 이상 100,000 이하입니다.</li>
+</ul>
+<h3 id="입출력-예"><a href="#입출력-예" class="headerlink" title="입출력 예"></a>입출력 예</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>prices</th>
+<th>return</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[498,501,470,489]</td>
+<td>[2,1,1,0]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="입출력-예-설명"><a href="#입출력-예-설명" class="headerlink" title="입출력 예 설명"></a>입출력 예 설명</h3><ul>
+<li>1초 시점의 ₩498은 2초간 가격을 유지하고, 3초 시점에 ₩470으로 떨어졌습니다.</li>
+<li>2초 시점의 ₩501은 1초간 가격을 유지하고, 3초 시점에 ₩470으로 떨어졌습니다.</li>
+<li>3초 시점의 ₩470은 최종 시점까지 총 1초간 가격이 떨어지지 않았습니다.</li>
+<li>4초 시점의 ₩489은 최종 시점까지 총 0초간 가격이 떨어지지 않았습니다.</li>
+</ul>
+<h3 id="나의-풀이"><a href="#나의-풀이" class="headerlink" title="나의 풀이"></a>나의 풀이</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">solution</span><span class="params">(prices)</span>:</span></span><br><span class="line">    ls = []</span><br><span class="line">    <span class="keyword">for</span> i, price <span class="keyword">in</span> enumerate(prices):</span><br><span class="line">        cnt = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> prices[i+<span class="number">1</span>:]:</span><br><span class="line">            cnt += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> price &gt; p:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        ls.append(cnt)</span><br><span class="line">    <span class="keyword">return</span> ls</span><br></pre></td></tr></table></figure>
+<h4 id="효율성-줄이기-실패…"><a href="#효율성-줄이기-실패…" class="headerlink" title="효율성 줄이기 실패…"></a>효율성 줄이기 실패…</h4><h3 id="정답"><a href="#정답" class="headerlink" title="정답"></a>정답</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">solution</span><span class="params">(prices)</span>:</span></span><br><span class="line">    answer = [<span class="number">0</span>] * len(prices)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(prices)<span class="number">-1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i, len(prices)<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> prices[i] &gt; prices[j]:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                answer[i] +=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> answer</span><br></pre></td></tr></table></figure>
+<p><a href="https://ghwlchlaks.github.io/Algorithm-stockprice" target="_blank" rel="noopener">출처</a></p>
+<h4 id="나의-풀이에는-for의-iterator에-list의-값을-넣었지만"><a href="#나의-풀이에는-for의-iterator에-list의-값을-넣었지만" class="headerlink" title="나의 풀이에는 for의 iterator에 list의 값을 넣었지만"></a>나의 풀이에는 for의 iterator에 list의 값을 넣었지만</h4><h4 id="정답은-인덱스-만을-이용하여-price-list를-건드리지-않고-값을-뽑아내어-풀었다"><a href="#정답은-인덱스-만을-이용하여-price-list를-건드리지-않고-값을-뽑아내어-풀었다" class="headerlink" title="정답은 인덱스 만을 이용하여 price list를 건드리지 않고 값을 뽑아내어 풀었다."></a>정답은 인덱스 만을 이용하여 price list를 건드리지 않고 값을 뽑아내어 풀었다.</h4><h4 id="또한-list에-추가하는-것보다는-리스트의-값을-바꾸는-방식으로-효율성을-높인-것-같다"><a href="#또한-list에-추가하는-것보다는-리스트의-값을-바꾸는-방식으로-효율성을-높인-것-같다" class="headerlink" title="또한 list에 추가하는 것보다는 리스트의 값을 바꾸는 방식으로 효율성을 높인 것 같다."></a>또한 list에 추가하는 것보다는 리스트의 값을 바꾸는 방식으로 효율성을 높인 것 같다.</h4>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://p829911.github.io/2019/01/16/주식-가격/" data-id="cjqz4lod50026942x65uewpuo" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
     </div>
 </article>
-    
 
+    <section id="comments">
     
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
         
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Clustering/">Clustering</a>
-            </div>
-            <div class="date"><time datetime="2019-01-11T01:17:57.000Z" itemprop="datePublished">2019-01-11</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/01/11/Affinity-Propagation/">Affinity Propagation</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            모든 데이터가 특정한 기준에 따라 자신을 대표할 대표 데이터를 선택한다. 만약 스스로가 자기 자신을 대표하게 되면 클러스터의 중심이 된다.
-
-responsibility $r(i,k)$
-$k$ 번째 데이터가 $i$ 번째 데이터의 대표가 되어야 한다는 증거
-
-
-availability $a(i, k)$
-$i$ 번째 데이터가 $k$ 번째 데이터를 대표로 선택해야 
-        </p>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
-</article>
-    
-        </div>
-    
 
     
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Clustering/">Clustering</a>
-            </div>
-            <div class="date"><time datetime="2019-01-11T01:17:40.000Z" itemprop="datePublished">2019-01-11</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/01/11/계층적-클러스터링/">계층적 클러스터링</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            계층적 클러스터링은 하나의 데이터 샘플을 하나의 클러스터로 보고 가장 유사도가 높은 클러스터를 합치면서 클러스터 갯수를 줄여 가는 방법을 말한다.
-클러스터간의 거리 측정클러스터간의 비유사도(dissimilarity) 혹은 거리(distance)를 측정하는 방법에는 다음과 같은 것이 있다.
-비귀납적 방법centroid
-두 클러스터의 중심점(centroid)를
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Clustering/">Clustering</a>
-            </div>
-            <div class="date"><time datetime="2019-01-11T01:17:05.000Z" itemprop="datePublished">2019-01-11</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/01/11/DBSCAN/">DBSCAN</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            K-Means 클러스터링 방법은 단순하고 강력한 방법이지만 클러스터의 모양이 원형이 아닌 경우에는 잘 동작하지 않으며 클러스터의 갯수를 사용자가 지정해주어야 한다는 단점이 있다.
-DBSCAN(Density-Based Spatial Clustering of Applications with Noise) 방법은 데이터가 밀집한 정도 즉 밀도를 이용하여 클러스터의
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Clustering/">Clustering</a>
-            </div>
-            <div class="date"><time datetime="2019-01-10T11:31:21.000Z" itemprop="datePublished">2019-01-10</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/01/10/K-means/">K-means</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            K-MeansK-Means 클러스터링 알고리즘은 가장 단순하고 빠른 클러스터링 알고리즘의 하나이다. 다음과 같은 목적함수 값이 최소화될 때까지 클러스터의 중심(centroid)의 위치와 각 데이터가 소속될 클러스터를 반복해서 찾는다. 이 값을 inertia라고도 한다.
-
-J = \sum_{k=1}^K\sum_{i \in C_k} d(x_i, u_k)이 식에
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Clustering/">Clustering</a>
-            </div>
-            <div class="date"><time datetime="2019-01-05T11:30:02.000Z" itemprop="datePublished">2019-01-05</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/01/05/clustering/">clustering</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            주어진 데이터 집합을 유사한 데이터들의 그룹으로 나누는 것을 클러스터링(clustering)이라고 하고 이렇게 나누어진 유사한 데이터의 그룹을 클러스터(cluster)라 한다.
-클러스터링은 예측(prediction) 문제와 달리 특정한 독립변수와 종속변수의 구분도 없고 학습을 위한 목푯값(target value)도 필요로 하지 않는 비지도학습(unsuper
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Classification/">Classification</a>
-            </div>
-            <div class="date"><time datetime="2019-01-01T08:13:29.000Z" itemprop="datePublished">2019-01-01</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/01/01/모형-최적화/">모형 최적화</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다.
-데이터 사이언스 스쿨
-
-머신 러닝 모형이 완성된 후에는 최적화 과정을 통해 예측 성능을 향상시킨다.
-Scikit-Learn 의 모형 하이퍼 파라미터 튜닝 도구Scikit-Learn에서는 다음과 같은 모형 최적화 도구를 지원한다.
-
-validati
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-        
-            </div></div></section>
-        
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2018" class="archive-year"><i class="icon fa fa-calendar-o"></i>2018</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Classification/">Classification</a>
-            </div>
-            <div class="date"><time datetime="2018-12-13T11:18:47.000Z" itemprop="datePublished">2018-12-13</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/12/13/entropy/">entropy</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다.
-데이터 사이언스 스쿨
-
-엔트로피의 정의$Y = 0$ 또는 $Y=1$인 두 가지 값을 가지는 확률 분포가 다음과 같이 세 종류가 있다고 하자
-
-확률 분포 $Y_1$: $P(Y=0) = 0.5, P(Y=1) = 0.5$
-확률 분포 $Y_2$: $P(
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Regression/">Regression</a>
-            </div>
-            <div class="date"><time datetime="2018-12-06T12:33:47.000Z" itemprop="datePublished">2018-12-06</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/12/06/regression/">다중 선형 회귀</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            다중 선형 회귀
-설명변수들 $X_1, X_2, \cdots, X_p$ 중 적어도 하나는 반응변수를 예측하는데 유용한가?
-$Y$를 설명하는 데 모든 설명변수들이 도움이 되는가? 또는 설명변수들의 일부만이 유용한가?
-모델은 데이터에 얼마나 잘 맞는가?
-주어진 설명변수 값들에 대해 어떤 반응변수 값을 예측해야 하고 그 예측은 얼마나 정확한가?
-
-1. 반응변수와 
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Regression/">Regression</a>
-            </div>
-            <div class="date"><time datetime="2018-11-27T06:32:01.000Z" itemprop="datePublished">2018-11-27</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/11/27/교차-검증/">교차 검증</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            이 포스트는 fastcampus에서 강의를 하고 계시는 김도형 박사님의 강의록을 따라 쓰며 연습한 포스트입니다.
-데이터 사이언스 스쿨
-
-표본 내 성능과 표본 외 성능회귀분석 모형을 만들기 위해서는 모수 추정 즉 학습을 위한 데이터 집합이 필요하다. 보통 회귀분석 성능을 이야기할 때는 이 학습 데이터 집합의 종속 변수값을 얼마나 잘 예측하였는지를 결정 계수(
-        </p>
-    </div>
-</article>
-    
-
-
-    </div></div></section>
-
-
-    <nav id="page-nav">
-        <span class="pages">Page 1 of 2</span>
-        <span class="page-number current">1</span><a class="page-number" href="/categories/Math/page/2/">2</a><a class="extend next" rel="next" href="/categories/Math/page/2/">&raquo;</a>
-    </nav>
+    </section>
 
 
 
@@ -509,6 +306,19 @@ $Y$를 설명하는 데 모든 설명변수들이 도움이 되는가? 또는 �
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/01/16/문자열-내-마음대로-정렬하기/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">문자열 내 마음대로 정렬하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -662,11 +472,13 @@ $Y$를 설명하는 데 모든 설명변수들이 도움이 되는가? 또는 �
     var disqus_shortname = 'hexo-theme-hueman';
     
     
+    var disqus_url = 'https://p829911.github.io/2019/01/16/주식-가격/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
