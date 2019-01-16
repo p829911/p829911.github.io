@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>그래프 확률 모형 | data science study blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Math,Unsupervised Learning,Network">
+    
+    <meta name="description" content="여러 확률변수의 결합분포를 구해야 하는 경우를 생각하자. 예를 들어 A, B, C, 3개의 확률변수가 있고 각 확률변수가 0, 1, 2 세가지의 값만 가질 수 있는 카테고리 확률변수인 경우 이 세 확률변수의 결합분포는 다음과 같이 표로 나타낼 수 있다. 이 표는 $3^3 - 1 = 26$ 개의 모수를 가지므로 (합이 1이 되어야 하므로 하나는 다른 값들에">
+<meta name="keywords" content="Math,Unsupervised Learning,Network">
+<meta property="og:type" content="article">
+<meta property="og:title" content="그래프 확률 모형">
+<meta property="og:url" content="https://p829911.github.io/2019/01/16/그래프-확률-모형/index.html">
+<meta property="og:site_name" content="data science study blog">
+<meta property="og:description" content="여러 확률변수의 결합분포를 구해야 하는 경우를 생각하자. 예를 들어 A, B, C, 3개의 확률변수가 있고 각 확률변수가 0, 1, 2 세가지의 값만 가질 수 있는 카테고리 확률변수인 경우 이 세 확률변수의 결합분포는 다음과 같이 표로 나타낼 수 있다. 이 표는 $3^3 - 1 = 26$ 개의 모수를 가지므로 (합이 1이 되어야 하므로 하나는 다른 값들에">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17154958/51011461-f5d4f800-159b-11e9-804e-d0590b1cae0d.png">
+<meta property="og:updated_time" content="2019-01-16T12:55:03.201Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="그래프 확률 모형">
+<meta name="twitter:description" content="여러 확률변수의 결합분포를 구해야 하는 경우를 생각하자. 예를 들어 A, B, C, 3개의 확률변수가 있고 각 확률변수가 0, 1, 2 세가지의 값만 가질 수 있는 카테고리 확률변수인 경우 이 세 확률변수의 결합분포는 다음과 같이 표로 나타낼 수 있다. 이 표는 $3^3 - 1 = 26$ 개의 모수를 가지므로 (합이 1이 되어야 하므로 하나는 다른 값들에">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17154958/51011461-f5d4f800-159b-11e9-804e-d0590b1cae0d.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/images/icon.png">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Data Science Study Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Classification/">Classification</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Clustering/">Clustering</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Regression/">Regression</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Mysql/">Mysql</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Server/">Server</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="https://about.me/p829911">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Math/Network/">Network</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-그래프-확률-모형" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        그래프 확률 모형
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/01/16/그래프-확률-모형/" class="article-date">
+            <time datetime="2019-01-16T12:54:47.000Z" itemprop="datePublished">2019-01-16</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Math/">Math</a>, <a class="tag-link" href="/tags/Network/">Network</a>, <a class="tag-link" href="/tags/Unsupervised-Learning/">Unsupervised Learning</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>여러 확률변수의 결합분포를 구해야 하는 경우를 생각하자. 예를 들어 A, B, C, 3개의 확률변수가 있고 각 확률변수가 0, 1, 2 세가지의 값만 가질 수 있는 카테고리 확률변수인 경우 이 세 확률변수의 결합분포는 다음과 같이 표로 나타낼 수 있다. 이 표는 $3^3 - 1 = 26$ 개의 모수를 가지므로 (합이 1이 되어야 하므로 하나는 다른 값들에 의존한다.) 이 표를 저장하려면 26개의 저장 공간이 필요하다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>P(A, B, C)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>P(A=0,B=0,C=0)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>P(A=0,B=0,C=1)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>P(A=0,B=0,C=2)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>P(A=0,B=1,C=0)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>P(A=0,B=1,C=1)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>P(A=0,B=1,C=2)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>P(A=0,B=2,C=0)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>P(A=0,B=2,C=1)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>P(A=0,B=2,C=2)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>P(A=1,B=0,C=0)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>P(A=1,B=0,C=1)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>P(A=1,B=0,C=2)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>P(A=1,B=1,C=0)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>P(A=1,B=1,C=1)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>P(A=1,B=1,C=2)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>P(A=1,B=2,C=0)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>P(A=1,B=2,C=1)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>P(A=1,B=2,C=2)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>P(A=2,B=0,C=0)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>P(A=2,B=0,C=1)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>P(A=2,B=0,C=2)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>P(A=2,B=1,C=0)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>P(A=2,B=1,C=1)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>P(A=2,B=1,C=2)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>P(A=2,B=2,C=0)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>P(A=2,B=2,C=1)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>P(A=2,B=2,C=2)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="베이지안-네트워크-모형"><a href="#베이지안-네트워크-모형" class="headerlink" title="베이지안 네트워크 모형"></a>베이지안 네트워크 모형</h3><p>그런데 현실에서는 모든 확률변수가 서로 영향을 미치는 복잡한 경우 보다 특정한 몇개의 확률분포들이 서로 영향을 미친다. 예를 들어 A, B, C가 각각 어떤 학생의</p>
+<ul>
+<li>A: 건강 상태</li>
+<li>B: 공부 시간</li>
+<li>C: 시험 성적</li>
+</ul>
+<p>을 나타낸 것이라고 하자. 이 확률변수는 각각 $\{0, 1, 2\}$ 라는 값을 가질 수 있는데 하(0), 중(1), 상(2)의 상태를 나타낸다. 즉 $A = 0$이면 건강상태가 안좋은 것이고 $B = 1$ 이면 공부 시간이 보통이며 $C = 2$이면 시험 성적이 좋은 것이다.</p>
+<p>공부 시간 $B$는 시험 성적 $C$에 영향을 미친다. 하지만 건강 상태 $A$는 공부 시간 $B$와 인과 관계가 있지만 시험 성적 $C$와는 직접적인 인과 관계가 없다. 이렇게 다수의 확률변수 중 특정한 소수의 확률변수들이 가지는 관계를 그래프로 표현한 것을 그래프 확률모형(graphical probability model)이라고 하고 그래프 확률모형 중에서도 이렇게 인과관계가 확실하여 방향성 그래프로 표시할 수 있는 것을 베이지안 네트워크 모형이라고 한다. 위의 확률변수를 베이지안 네트워크 모형으로 그리면 다음과 같다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> networkx <span class="keyword">as</span> nx</span><br><span class="line"><span class="keyword">from</span> IPython.core.display <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> networkx.drawing.nx_pydot <span class="keyword">import</span> to_pydot</span><br><span class="line"></span><br><span class="line">g1 = nx.DiGraph()</span><br><span class="line">g1.add_path([<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>])</span><br><span class="line">d1 = to_pydot(g1)</span><br><span class="line">d1.set_dpi(<span class="number">300</span>)</span><br><span class="line">d1.set_rankdir(<span class="string">"LR"</span>)</span><br><span class="line">d1.set_margin(<span class="number">0.2</span>)</span><br><span class="line">Image(d1.create_png(), width=<span class="number">600</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51011461-f5d4f800-159b-11e9-804e-d0590b1cae0d.png" alt=""></p>
+<p>이러한 그래프를 방향성 그래프(directed graph)라고 한다. 방향성 그래프에서 확률변수는 하나의 노드(node) 또는 정점(vertex)로 나타내고 인과관계는 화살표 간선(edge, link)으로 나타낸다. 우리가 다루는 방향성 그래프는 화살표가 여러 확률변수를 거쳐 자기 자신에게 돌아오는 루프(loop)가 없는 DAG(Directed Acyclic Graph) 모형이다.</p>
+<p>방향성 그래프 모델에서는 원인과 결과가 되는 두 확률변수의 관계를 조건부 확률분포로 표현한다. 위의 모형에서처럼 A가 B의 원인이 된다면 이 두 확률변수의 관계를 $P(B \mid A)$ 로 나타내고 B가 C의 원인이 되므로 두 확률변수의 관계는 $P(C \mid B)$ 로 나타낸다.</p>
+<p>그리고 전체 확률변수들간의 관계는 이러한 조건부 확률분포를 결합하여 나타낼 수 있다. 위의 그래프에서 전체 결합분포는 다음과 같다.</p>
+<script type="math/tex; mode=display">
+P(A, B, C) = P(A)P(B \mid A)P(C \mid B)</script><p>단, 여기에서 유의해야 할 점은 A와 B는 직접적인 인과 관계가 없지만 상관관계는 있을 수 있다는 점이다. 예를 들어 A-B, B-C간의 관계가 모두 양의 상관관계면 A가 커졌을 때 B도 커지고 따라서 C도 커지므로 A와  B가 양의 상관관계를 가지게 된다. A, B, C가 의미하는 바로 해석하면 건강 상태와 시험 성적은 직접적인 인과관계는 없지만 건강상태가 좋을 때 공부 시간도 많아질 가능성이 높고 공부 시간이 많을 때 시험 성적이 좋아진다면 건강 상태와 시험 성적은 양의 상관관계를 가질 수 있다.</p>
+<p>결합확률분포를 이루는 팩터를 각각 표로 나타내면 다음과 같다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>𝑃(𝐴)P(A)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A=0</td>
+<td>𝑃(𝐴=0)P(A=0)</td>
+</tr>
+<tr>
+<td>A=1</td>
+<td>𝑃(𝐴=1)P(A=1)</td>
+</tr>
+<tr>
+<td>A=2</td>
+<td>𝑃(𝐴=2)P(A=2)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>B</th>
+<th>𝑃(𝐵\</th>
+<th>𝐴=0)P(B\</th>
+<th>A=0)</th>
+<th>𝑃(𝐵\</th>
+<th>𝐴=1)P(B\</th>
+<th>A=1)</th>
+<th>𝑃(𝐵\</th>
+<th>𝐴=2)P(B\</th>
+<th>A=2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B=0</td>
+<td>𝑃(𝐵=0\</td>
+<td>𝐴=0)P(B=0\</td>
+<td>A=0)</td>
+<td>𝑃(𝐵=0\</td>
+<td>𝐴=1)P(B=0\</td>
+<td>A=1)</td>
+<td>𝑃(𝐵=0\</td>
+<td>𝐴=2)P(B=0\</td>
+<td>A=2)</td>
+</tr>
+<tr>
+<td>B=1</td>
+<td>𝑃(𝐵=1\</td>
+<td>𝐴=0)P(B=1\</td>
+<td>A=0)</td>
+<td>𝑃(𝐵=1\</td>
+<td>𝐴=1)P(B=1\</td>
+<td>A=1)</td>
+<td>𝑃(𝐵=1\</td>
+<td>𝐴=2)P(B=1\</td>
+<td>A=2)</td>
+</tr>
+<tr>
+<td>B=2</td>
+<td>𝑃(𝐵=2\</td>
+<td>𝐴=0)P(B=2\</td>
+<td>A=0)</td>
+<td>𝑃(𝐵=2\</td>
+<td>𝐴=1)P(B=2\</td>
+<td>A=1)</td>
+<td>𝑃(𝐵=2\</td>
+<td>𝐴=2)P(B=2\</td>
+<td>A=2)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>C</th>
+<th>𝑃(𝐶\</th>
+<th>𝐵=0)P(C\</th>
+<th>B=0)</th>
+<th>𝑃(𝐶\</th>
+<th>𝐵=1)P(C\</th>
+<th>B=1)</th>
+<th>𝑃(𝐶\</th>
+<th>𝐵=2)P(C\</th>
+<th>B=2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C=0</td>
+<td>𝑃(𝐶=0\</td>
+<td>𝐵=0)P(C=0\</td>
+<td>B=0)</td>
+<td>𝑃(𝐶=0\</td>
+<td>𝐵=1)P(C=0\</td>
+<td>B=1)</td>
+<td>𝑃(𝐶=0\</td>
+<td>𝐵=2)P(C=0\</td>
+<td>B=2)</td>
+</tr>
+<tr>
+<td>C=1</td>
+<td>𝑃(𝐶=1\</td>
+<td>𝐵=0)P(C=1\</td>
+<td>B=0)</td>
+<td>𝑃(𝐶=1\</td>
+<td>𝐵=1)P(C=1\</td>
+<td>B=1)</td>
+<td>𝑃(𝐶=1\</td>
+<td>𝐵=2)P(C=1\</td>
+<td>B=2)</td>
+</tr>
+<tr>
+<td>C=2</td>
+<td>𝑃(𝐶=2\</td>
+<td>𝐵=0)P(C=2\</td>
+<td>B=0)</td>
+<td>𝑃(𝐶=2\</td>
+<td>𝐵=1)P(C=2\</td>
+<td>B=1)</td>
+<td>𝑃(𝐶=2\</td>
+<td>𝐵=2)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>이 경우에 우리가 알아야 하는 모수의 수는</p>
+<ul>
+<li>$P(A): 3- 1 = 2$</li>
+<li>$P(B \mid A): (3-1) \times 2 = 6$</li>
+<li>$P(C \mid B): (3-1) \times 2 = 6$</li>
+</ul>
+<p>따라서 총 14개이다. 변수간의 인과 관계라는 추가 정보로 인해 모수의 숫자가 26개에서 14개로 크게 감소하였다. 이렇게 우리가 알고 있는 확률변수간의 정보를 그래프를 이용하여 추가하면 문제를 더 간단하게 만들 수 있다.</p>
+<p>pgmpy 패키지를 사용하여 앞의 예제를 파이썬으로 구현해 보자. 조건부 확률 $P(A), P(B \mid A), P(C \mid B)$ 는 <code>TabularCPD</code> 클래스로 다음과 같이 구현할 수 있다. 우선 건강 상태는 나쁠(A=0) 확률이 20%, 보통(A=1)일 확률이 60%, 좋을 확률이 20%라고 하자.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pgmpy.factors.discrete <span class="keyword">import</span> TabularCPD</span><br><span class="line"></span><br><span class="line">P_A = TabularCPD(<span class="string">'A'</span>, <span class="number">3</span>, [[<span class="number">0.2</span>, <span class="number">0.6</span>, <span class="number">0.2</span>]])</span><br><span class="line">print(P_A)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51100539-e9f66980-1819-11e9-9d13-8369f63a0168.png" alt=""></p>
+<p>건강 상태가 나쁘면(A=0), 공부시간이 적거나(B=0), 보통이거나(B=1), 많을(B=2) 확률은 각각 50%, 30%, 20%이다. 건강 상태가 보통이면(A=1), 공부시간이 적거나(B=0), 보통이거나(B=1), 많을(B=2) 확률은 각각 20%, 60%, 20%이다. 건강 상태가 좋으면(A=2), 공부시간이 적거나(B=0), 보통이거나(B=1), 많을(B=2) 확률은 각각 20%, 30%, 50%이다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P_B_I_A = TabularCPD(<span class="string">'B'</span>, <span class="number">3</span>, </span><br><span class="line">    np.array([[<span class="number">0.6</span>, <span class="number">0.2</span>, <span class="number">0.2</span>], [<span class="number">0.3</span>, <span class="number">0.5</span>, <span class="number">0.2</span>], [<span class="number">0.1</span>, <span class="number">0.3</span>, <span class="number">0.6</span>]]),</span><br><span class="line">    evidence=[<span class="string">'A'</span>], evidence_card=[<span class="number">3</span>])</span><br><span class="line">print(P_B_I_A)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51100631-4063a800-181a-11e9-87f8-f556494084e1.png" alt=""></p>
+<p>비슷하게 공부시간이 적으면(B=0), 성적이 나쁘거나(C=0), 보통이거나(C=1), 좋을(C=2) 확률은 각각 80%, 10%, 10%이다. 공부시간이 보통이면(B=1), 성적이 나쁘거나(C=0), 보통이거나(C=1), 좋을(C=2) 확률은 각각 10%, 80%, 10%이다. 공부시간이 많으면(B=2), 성적이 나쁘거나(C=0), 보통이거나(C=1), 좋을(C=2) 확률은 각각 10%, 10%, 80%이다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P_C_I_B = TabularCPD(<span class="string">'C'</span>, <span class="number">3</span>, </span><br><span class="line">    np.array([[<span class="number">0.8</span>, <span class="number">0.1</span>, <span class="number">0.1</span>], [<span class="number">0.1</span>, <span class="number">0.8</span>, <span class="number">0.1</span>], [<span class="number">0.1</span>, <span class="number">0.1</span>, <span class="number">0.8</span>]]),</span><br><span class="line">    evidence=[<span class="string">'B'</span>], evidence_card=[<span class="number">3</span>])</span><br><span class="line">print(P_C_I_B)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51100675-730da080-181a-11e9-971c-8d16646d1af2.png" alt=""></p>
+<p>이 조건부 확률들을 결합하여 하나의 베이지안 네트워크로 만들려면 <code>BayesianModel</code> 클래스를 사용한다. 생성자에는 노드를 연결한 그래프 정보를 넣고 <code>add_cpds</code> 메서드로 조건부확률을 추가할 수 있다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pgmpy.models <span class="keyword">import</span> BayesianModel</span><br><span class="line"></span><br><span class="line">model = BayesianModel([(<span class="string">'A'</span>, <span class="string">'B'</span>), (<span class="string">'B'</span>, <span class="string">'C'</span>)])</span><br><span class="line">model.add_cpds(P_A, P_B_I_A, P_C_I_B)</span><br><span class="line">model.check_model()</span><br><span class="line"></span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+<p>graphviz와 pydot 패키지를 사용하여 시각화 할 수도 있다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> IPython.core.display <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> networkx.drawing.nx_pydot <span class="keyword">import</span> to_pydot</span><br><span class="line"></span><br><span class="line">d = to_pydot(model)</span><br><span class="line">d.set_dpi(<span class="number">300</span>)</span><br><span class="line">d.set_margin(<span class="number">0.2</span>)</span><br><span class="line">d.set_rankdir(<span class="string">"LR"</span>)</span><br><span class="line">Image(d.create_png(), width=<span class="number">600</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51101239-3000fc80-181d-11e9-9c04-225b8882362d.png" alt=""></p>
+<p>이렇게 만들어진 모형으로부터 여러가지 추론(inference)을 할 수 있다. 예를 들어 전체 결합확률분포 함수를 찾고 그 함수로부터 A, B, C의 marginal 확률분포를 계산하면 A, B, C의 값으로 어떤 값이 가장 확률이 높은지 알 수 있다. 분석 결과를 보면 시험 성적이 좋을 확률은 35.9%이다. 추론에 사용된  <code>VariableElimination</code> 클래스의 사용법에 대해서는 곧 학습한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pgmpy.inference <span class="keyword">import</span> VariableElimination</span><br><span class="line">inference = VariableElimination(model)</span><br><span class="line">result = inference.query(variables=[<span class="string">"C"</span>])</span><br><span class="line">print(result[<span class="string">"C"</span>])</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51101318-84a47780-181d-11e9-92da-b71f6c1adc55.png" alt=""></p>
+<h3 id="베이지안-네트워크의-결합확률분포"><a href="#베이지안-네트워크의-결합확률분포" class="headerlink" title="베이지안 네트워크의 결합확률분포"></a>베이지안 네트워크의 결합확률분포</h3><p>베이지안 네트워크를 만들려면 조사 대상이 되는 확률변수를 노드(node)로 생성하고 인과관계가 있는 노드를 방향성 간선(directed edge)로 연결하는 것이다. 이렇게 베이지안 네트워크가 만들어지면 이 확률변수들의 결합확률분포는 다음처럼 주어진다.</p>
+<script type="math/tex; mode=display">
+P(X_1, \cdots, X_N) = \prod_{i=1}^N P(X_i \mid Pa(X_i))</script><p>이 식에서 $Pa(X_i)$ 는 $X_i$ 의 부모 노드이다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">g1 = nx.DiGraph()</span><br><span class="line">g1.add_edge(<span class="string">"X1"</span>, <span class="string">"X3"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X1"</span>, <span class="string">"X4"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X3"</span>, <span class="string">"X4"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X2"</span>, <span class="string">"X4"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X2"</span>, <span class="string">"X7"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X4"</span>, <span class="string">"X5"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X4"</span>, <span class="string">"X6"</span>)</span><br><span class="line"></span><br><span class="line">d1 = to_pydot(g1)</span><br><span class="line">d1.set_dpi(<span class="number">300</span>)</span><br><span class="line">d1.set_margin(<span class="number">0.2</span>)</span><br><span class="line">d1.set_rankdir(<span class="string">"LR"</span>)</span><br><span class="line">Image(d1.create_png(), width=<span class="number">800</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51101438-fd0b3880-181d-11e9-8bfb-05dd34c1ba7a.png" alt=""></p>
+<p>예를 들어 $X_1, \cdots, X_6$ 의 관계가 앞 그래프와 같다면 결합확률분포는 다음과 같다.</p>
+<script type="math/tex; mode=display">
+P(X_1, X_2, X_3, X_4, X_5, X_6, X_7) = \\
+P(X_1)P(X_2)P(X_3 \mid X_1)P(X_4 \mid X_2,X_3)p(X_5 \mid X_4)P(X_6 \mid X_4)P(X_7 \mid X_2)</script><h3 id="조건부-독립"><a href="#조건부-독립" class="headerlink" title="조건부 독립"></a>조건부 독립</h3><p>베이지안 네트워크를 만들 때 중요한 것은 확률변수간의 조건부 독립 관계가 그래프에 나타나고 있어야 한다는 점이다. 조건부 독립(conditional independence)은 일반적인 독립과 달리 조건이 되는 확률변수가 존재해야 한다. 일반적으로는 확률변수 A, B가 독립인 정의는 다음과 같다.</p>
+<script type="math/tex; mode=display">
+P(A, B) = P(A)P(B)</script><p>조건부 독립은 조건이 되는 C라는 확률변수에 대한 조건부 결합확률분포에 대해 다음이 만족되어야 한다.</p>
+<script type="math/tex; mode=display">
+P(A, B \mid C) = P(A \mid C) P(B \mid C)</script><p>즉, C에 대한 조건부 결합확률분포가 조건부 확률분포의 곱으로 나타난다.</p>
+<p>기호로는 다음과 같이 표기한다.</p>
+<script type="math/tex; mode=display">
+A \text{⫫} B \;\vert\; C</script><p>같은 방식으로 무조건부 독립은 다음과 같이 표기하기도 한다.</p>
+<script type="math/tex; mode=display">
+A \text{⫫} B \; \vert\; \emptyset</script><p>A, B가 C에 대해 조건부 독립이면 다음도 만족한다.</p>
+<script type="math/tex; mode=display">
+P(A \mid B, C) = P(A \mid C)\\
+P(B \mid A, C) = P(B \mid C)</script><p>주의할 점은 조건부 독립과 (무조건부) 독립은 관계가 없다는 점이다. 즉, 두 확률변수가 독립이라고 항상 조건부 독립이 되는 것도 아니고 조건부 독립이라고 꼭 독립이 되는 것도 아니다.</p>
+<script type="math/tex; mode=display">
+P(A, B) = P(A)P(B) \;\; \bcancel{\implies} \;\; P(A,B \mid C) = P(A \mid C)P(B \mid C) \\
+P(A,B \mid C) = P(A \mid C)P(B \mid C) \;\; \bcancel{\implies} \;\;  P(A, B) = P(A)P(B)</script><h3 id="방향성-분리"><a href="#방향성-분리" class="headerlink" title="방향성 분리"></a>방향성 분리</h3><p>방향성 분리(d-separation, directed separation) 정리는 방향성 그래프 모형에서 어떤 두 노드(확률변수)가 조건부 독립인지 아닌지 알아보는 방법이다. 다음과 같은 세가지 간선 결합을 알아야 한다.</p>
+<ul>
+<li>꼬리-꼬리 결합</li>
+<li>머리-꼬리 결합</li>
+<li>머리-머리 결합</li>
+</ul>
+<h4 id="꼬리-꼬리-결합"><a href="#꼬리-꼬리-결합" class="headerlink" title="꼬리-꼬리 결합"></a>꼬리-꼬리 결합</h4><p>우선 다음과 같이 확률변수 A, B가 공통의 부모 C를 가지는 경우를 보자. C에서는 간선(화살표)의 꼬리가 2개 붙어 있기 때문에 C는 꼬리-꼬리(tail-to-tail) 결합이라고 한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">g2 = nx.DiGraph()</span><br><span class="line">g2.add_path([<span class="string">"C"</span>, <span class="string">"A"</span>])</span><br><span class="line">g2.add_path([<span class="string">"C"</span>, <span class="string">"B"</span>])</span><br><span class="line">d2 = to_pydot(g2)</span><br><span class="line">d2.set_dpi(<span class="number">300</span>)</span><br><span class="line">d2.set_margin(<span class="number">0.2</span>)</span><br><span class="line">Image(d2.create_png(), width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51186606-573ef300-191d-11e9-9d9f-2ab8a7ada6f1.png" alt=""></p>
+<p>이 때 A와 B는 독립은 아니지만 조건부 독립이 성립한다.</p>
+<script type="math/tex; mode=display">
+P(A,B \mid C) = \dfrac{P(A, B, C)}{P(C)} = \dfrac{P(A \mid C)P(B \mid C)P(C)}{P(C)} = P(A \mid C)P(B \mid C)</script><p>이런 상태를 C가 A, B 사이를 막고있다(block)고 한다.</p>
+<h4 id="머리-꼬리-결합"><a href="#머리-꼬리-결합" class="headerlink" title="머리-꼬리 결합"></a>머리-꼬리 결합</h4><p>다음으로는 인과관계인 확률변수 A, B 사이에 C가 끼어 있는 경우를 살펴보자. 이때 노드 C에서 간선의 머리와 꼬리가 만나기 때문에 머리-꼬리(head-to-tail) 결합이라고 한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">g3 = nx.DiGraph()</span><br><span class="line">g3.add_path([<span class="string">"A"</span>, <span class="string">"C"</span>, <span class="string">"B"</span>])</span><br><span class="line">d3 = to_pydot(g3)</span><br><span class="line">d3.set_dpi(<span class="number">300</span>)</span><br><span class="line">d3.set_rankdir(<span class="string">"LR"</span>)</span><br><span class="line">d3.set_margin(<span class="number">0.2</span>)</span><br><span class="line">Image(d3.create_png(), width=<span class="number">600</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51187070-5f4b6280-191e-11e9-8018-3533634e78e1.png" alt=""></p>
+<p>이 경우에도 A와 B는 독립이 아니지만 조건부 독립이 성립한다.</p>
+<script type="math/tex; mode=display">
+P(A,B|C) = \dfrac{P(A, B, C)}{P(C)} = \dfrac{P(A)P(C|A)P(B|C)}{P(C)} = \dfrac{P(A,C)P(B|C)}{P(C)} = P(A|C)P(B|C)</script><p>위의 경우와 마찬가지로 C가 A, B 사이를 막고(block) 있다고 한다.</p>
+<h4 id="머리-머리-결합"><a href="#머리-머리-결합" class="headerlink" title="머리-머리 결합"></a>머리-머리 결합</h4><p>마지막으로 두 확률변수 A, B를 부모로 가지는 C가 있는 경우를 살펴보자. 이러한 구조는 V-구조(V-structure) 또는 머리-머리(head-to-head) 결합이라고 한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">g4 = nx.DiGraph()</span><br><span class="line">g4.add_path([<span class="string">"A"</span>, <span class="string">"C"</span>])</span><br><span class="line">g4.add_path([<span class="string">"B"</span>, <span class="string">"C"</span>])</span><br><span class="line">d4 = to_pydot(g4)</span><br><span class="line">d4.set_dpi(<span class="number">300</span>)</span><br><span class="line">d4.set_margin(<span class="number">0.2</span>)</span><br><span class="line">Image(d4.create_png(), width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51187339-fb756980-191e-11e9-9b4f-6a470bf4499e.png" alt=""></p>
+<p>이 경우에는 앞의 두 경우와 달리 A와 B가 독립이다.</p>
+<script type="math/tex; mode=display">
+P(A,B,C) = P(A)P(B)P(C|A,B) \\
+P(A,B) = \sum_c P(A)P(B)P(C|A,B) = P(A)P(B)</script><p>하지만 조건부 독립은 성립하지 않는다. 예를 들어 A가 늦잠을 자는 것을 나타내는 확률변수, B가 길이 막히는 것을 나타내는 확률변수, C가 지각하는 것을 나타내는 확률변수라고 할 때, 늦잠을 자는 것과 길이 막히는 것은 서로 독립이다.</p>
+<p>하지만 일단 지각(C)이 발생한 상황에서는 A, B는 서로 독립이 아니며 이 경우에는 반-상관관계를 가진다. 즉, 늦잠을 자지 않았다면 길이 막혔을 가능성이 높아지고 길이 막히지 않았다면 늦잠을 잤을 가능성이 높아진다. 이러한 것을 explaining-out이라고 한다.</p>
+<p>이러한 상황은 C가 A, B의 직접적 자식이 아니라 후손(descendent)인 경우에도 성립한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">g5 = nx.DiGraph()</span><br><span class="line">g5.add_path([<span class="string">"A"</span>, <span class="string">"D"</span>])</span><br><span class="line">g5.add_path([<span class="string">"B"</span>, <span class="string">"D"</span>])</span><br><span class="line">g5.add_path([<span class="string">"D"</span>, <span class="string">"C"</span>])</span><br><span class="line">d5 = to_pydot(g5)</span><br><span class="line">d5.set_dpi(<span class="number">300</span>)</span><br><span class="line">d5.set_margin(<span class="number">0.2</span>)</span><br><span class="line">Image(d5.create_png(), width=<span class="number">400</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51249021-4e115d00-19d5-11e9-91f4-f3c86b264e1c.png" alt=""></p>
+<p>이상의 상황을 정리한 것이 바로 방향성 분리(d-separation) 정리이다. 방향성 분리(d-separation) 정리에 따르면 A와 B가 C에 대해서 조건부 독립인 경우는 다음 조건이 만족되어야 한다</p>
+<ol>
+<li>C가 A, B 사이의 경로에 있는 꼬리-꼬리 결합이거나 머리-꼬리 결합이다.</li>
+<li>C가 A, B 사이의 경로상에 있는 머리-머리 결합 노드 혹은 그 자손이 아니어야 한다.</li>
+</ol>
+<h3 id="마코프-네트워크"><a href="#마코프-네트워크" class="headerlink" title="마코프 네트워크"></a>마코프 네트워크</h3><p>때로는 변수간의 인과관계가 순환(cycle)관계를 이루기 때문에 방향성이 있는 베이지안 네트워크로 구현할 수 없는 경우도 있다. 이 때는 무방향성 그래프(undirected graph)인 마코프 네트워크(Markov network)를 사용한다. 마코프 무작위장(Markov random field)라고도 한다.</p>
+<p>예를 들어 3 X 3 이미지의 픽셀 9개의 값이 확률변수라고 하면 이 4개의 확률변수 중 어떤 2개도 서로 관련성을 가진다. 이 때는 다음과 같은 마코프 네트워크를 사용할 수 있다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> networkx <span class="keyword">as</span> nx</span><br><span class="line"><span class="keyword">from</span> IPython.core.display <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> networkx.drawing.nx_pydot <span class="keyword">import</span> to_pydot</span><br><span class="line"></span><br><span class="line">g1 = nx.Graph()</span><br><span class="line">g1.add_edge(<span class="string">"X11"</span>, <span class="string">"X12"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X11"</span>, <span class="string">"X21"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X12"</span>, <span class="string">"X22"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X12"</span>, <span class="string">"X13"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X21"</span>, <span class="string">"X31"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X21"</span>, <span class="string">"X22"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X22"</span>, <span class="string">"X23"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X22"</span>, <span class="string">"X32"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X31"</span>, <span class="string">"X32"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X32"</span>, <span class="string">"X33"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X13"</span>, <span class="string">"X23"</span>)</span><br><span class="line">g1.add_edge(<span class="string">"X23"</span>, <span class="string">"X33"</span>)</span><br><span class="line">d1 = to_pydot(g1)</span><br><span class="line">d1.set_dpi(<span class="number">300</span>)</span><br><span class="line">d1.set_margin(<span class="number">0.5</span>)</span><br><span class="line">d1.set_rankdir(<span class="string">"LR"</span>)</span><br><span class="line">Image(d1.create_png(), width=<span class="number">600</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51249517-e3612100-19d6-11e9-90c0-01c31e192bda.png" alt=""></p>
+<h3 id="클리크와-팩터"><a href="#클리크와-팩터" class="headerlink" title="클리크와 팩터"></a>클리크와 팩터</h3><p>마코프 네트워크는 클리크(clique)로 구성되는데 클리크를 구성하는 확률변수의 분포는 포텐셜 함수(potential function)또는 팩터(factor)로 표현할 수 있다. 팩터는 결합확률분포에 양의 상수를 곱한 함수이다. 결합확률분포에 비례하지만 모든 확률을 더해서 1이 되어야 한다는 조건이 없다.</p>
+<h3 id="마코프-네트워크의-확률분포"><a href="#마코프-네트워크의-확률분포" class="headerlink" title="마코프 네트워크의 확률분포"></a>마코프 네트워크의 확률분포</h3><p>마코프 네트워크의 결합확률분포는 마코프 네트워크를 구성하는 모든 클리크의 팩터의 곱으로 나타난다.</p>
+<script type="math/tex; mode=display">
+P(X) = \dfrac{1}{Z(X)} \prod_{\{C\}} \psi_C(X_C)</script><p>이 식에서 $C$는 클리크, $X_C$ 는 그 클리크 안의 확률변수, $\psi_C$ 는 그 클리크의 팩터, $\{C\}$ 는 모든 클리크의 집합, $Z$ 는 파티션 함수(partition)함수를 나타낸다.</p>
+<p>예를 들어 3 X 3 이미지의 경우 9개의 확률변수의 결합확률분포는 다음처럼 표현할 수 있다.</p>
+<script type="math/tex; mode=display">
+P(X_{11}, \ldots, X_{33}) = 
+\dfrac{1}{Z}
+\prod 
+\psi(X_{11}, X_{12}) 
+\psi(X_{11}, X_{21}) 
+\psi(X_{12}, X_{13}) 
+\cdots
+\psi(X_{23}, X_{33}) 
+\psi(X_{32}, X_{33})</script><h3 id="에너지-함수"><a href="#에너지-함수" class="headerlink" title="에너지 함수"></a>에너지 함수</h3><p>팩터 함수는 다음과 같은 형태로 표시할 수 있다.</p>
+<script type="math/tex; mode=display">
+\psi(X) = \exp(−E(X))</script><p>이 식에서 $E(X)$ 를 에너지 함수(energy function)라고 한다. 확률이 높을수록 에너지 함수의 값은 작아진다. 예를 들어 0과 1이라는 값을 가지는 베르누이 확률변수 $X_1, X_2$가 다음과 같은 에너지 함수로 표현되는 경우,</p>
+<script type="math/tex; mode=display">
+E(X_1, X_2) = -3(2X_1 - 1)(2X_2 - 1)</script><p>팩터의 값을 구하면</p>
+<script type="math/tex; mode=display">
+\psi(X_1 = 1, X_2 = 1) = e^3 \\
+\psi(X_1 = 0, X_2 = 0) = e^3 \\
+\psi(X_1 = 1, X_2 = 0) = e^{-3} \\
+\psi(X_1 = 0, X_2 = 1) = e^{-3} \\</script><p>즉 $X_1, X_2$ 둘 다 같은 값을 가질 확률은 서로 다른 값을 가질 확률에 비해 높아진다. 즉 서로 양의 상관관계를 가지게 된다.</p>
+<p>pgmpy에서는 <code>MarkovModel</code> 클래스로 마코프 네트워크 모형을 구현한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pgmpy.models <span class="keyword">import</span> MarkovModel</span><br><span class="line"></span><br><span class="line">n = <span class="number">3</span></span><br><span class="line">ginfo = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="keyword">if</span> j &lt; n - <span class="number">1</span>:</span><br><span class="line">            v1 = <span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">1</span>, (j + <span class="number">1</span>))</span><br><span class="line">            v2 = <span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">1</span>, (j + <span class="number">2</span>))</span><br><span class="line">            ginfo.append((v1, v2))</span><br><span class="line">        <span class="keyword">if</span> i &lt; n - <span class="number">1</span>:</span><br><span class="line">            v1 = <span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">1</span>, (j + <span class="number">1</span>))</span><br><span class="line">            v2 = <span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">2</span>, (j + <span class="number">1</span>))</span><br><span class="line">            ginfo.append((v1, v2))</span><br><span class="line">            </span><br><span class="line">model = MarkovModel(ginfo)</span><br><span class="line"></span><br><span class="line">d = to_pydot(model)</span><br><span class="line">d.set_dpi(<span class="number">300</span>)</span><br><span class="line">d.set_margin(<span class="number">0.2</span>)</span><br><span class="line">d.set_rankdir(<span class="string">"LR"</span>)</span><br><span class="line">Image(d.create_png(), width=<span class="number">600</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51249913-3a1b2a80-19d8-11e9-8d18-97a3ddeb9daf.png" alt=""></p>
+<p>팩터는 <code>DiscreteFactor</code> 클래스로 구현할 수 있다. 예를 들어 $X_{11}, X_{12}$ 의 팩터 함수가</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>𝑋12=0</th>
+<th>𝑋12=1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>𝑋11=0</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr>
+<td>𝑋11=1</td>
+<td>1</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>이면 다음처럼 구현한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pgmpy.factors.discrete <span class="keyword">import</span> DiscreteFactor</span><br><span class="line"></span><br><span class="line">factor = DiscreteFactor([<span class="string">'X11'</span>, <span class="string">'X12'</span>], cardinality=[<span class="number">2</span>, <span class="number">2</span>], </span><br><span class="line">                        values=[[<span class="number">10</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">10</span>]])</span><br><span class="line">model.add_factors(factor)</span><br></pre></td></tr></table></figure>
+<h3 id="이미지-완성"><a href="#이미지-완성" class="headerlink" title="이미지 완성"></a>이미지 완성</h3><p>마코프 네트워크의 예로 다음과 같은 두 종류의 5 X 5 이미지 데이터를 생각하자.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">n_char = <span class="number">2</span></span><br><span class="line">images = np.zeros((n_char, <span class="number">5</span>, <span class="number">5</span>))</span><br><span class="line">idx = []</span><br><span class="line">idx.append(np.array([</span><br><span class="line">    (<span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">2</span>), (<span class="number">0</span>, <span class="number">3</span>), (<span class="number">1</span>, <span class="number">0</span>), (<span class="number">1</span>, <span class="number">4</span>), (<span class="number">2</span>, <span class="number">0</span>), (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">4</span>), (<span class="number">3</span>, <span class="number">0</span>), (<span class="number">3</span>, <span class="number">4</span>), (<span class="number">4</span>, <span class="number">1</span>), (<span class="number">4</span>, <span class="number">2</span>), (<span class="number">4</span>, <span class="number">3</span>), </span><br><span class="line">]))</span><br><span class="line">idx.append(np.array([</span><br><span class="line">    (<span class="number">0</span>, <span class="number">0</span>), (<span class="number">0</span>, <span class="number">4</span>), (<span class="number">1</span>, <span class="number">1</span>), (<span class="number">1</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">2</span>), (<span class="number">3</span>, <span class="number">1</span>), (<span class="number">3</span>, <span class="number">3</span>), (<span class="number">4</span>, <span class="number">0</span>), (<span class="number">4</span>, <span class="number">4</span>),</span><br><span class="line">]))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k, idx <span class="keyword">in</span> enumerate(idx):</span><br><span class="line">    <span class="keyword">for</span> i, j <span class="keyword">in</span> idx:</span><br><span class="line">        images[k, i, j] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">6</span>, <span class="number">2</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n_char):</span><br><span class="line">    plt.subplot(<span class="number">1</span>, n_char, i + <span class="number">1</span>)</span><br><span class="line">    plt.imshow(images[i], cmap=plt.cm.bone_r)</span><br><span class="line">    plt.grid(<span class="keyword">False</span>)</span><br><span class="line">    plt.xticks(())</span><br><span class="line">    plt.yticks(())</span><br><span class="line">    plt.title(i)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51250059-a007b200-19d8-11e9-94ea-be044c98c71d.png" alt=""></p>
+<p>다음과 같이 팩터 함수를 학습한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pgmpy.models <span class="keyword">import</span> MarkovModel</span><br><span class="line"><span class="keyword">from</span> pgmpy.factors.discrete <span class="keyword">import</span> DiscreteFactor</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_factor</span><span class="params">(v1, v2, idx1, idx2)</span>:</span></span><br><span class="line">    p00 = p01 = p10 = p11 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(num_images):</span><br><span class="line">        <span class="keyword">if</span> images[k, idx1[<span class="number">0</span>], idx1[<span class="number">1</span>]] == <span class="number">0</span> <span class="keyword">and</span> images[k, idx2[<span class="number">0</span>], idx2[<span class="number">1</span>]] == <span class="number">0</span>:</span><br><span class="line">            p00 += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> images[k, idx1[<span class="number">0</span>], idx1[<span class="number">1</span>]] == <span class="number">0</span> <span class="keyword">and</span> images[k, idx2[<span class="number">0</span>], idx2[<span class="number">1</span>]] == <span class="number">1</span>:</span><br><span class="line">            p01 += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> images[k, idx1[<span class="number">0</span>], idx1[<span class="number">1</span>]] == <span class="number">1</span> <span class="keyword">and</span> images[k, idx2[<span class="number">0</span>], idx2[<span class="number">1</span>]] == <span class="number">0</span>:</span><br><span class="line">            p10 += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> images[k, idx1[<span class="number">0</span>], idx1[<span class="number">1</span>]] == <span class="number">1</span> <span class="keyword">and</span> images[k, idx2[<span class="number">0</span>], idx2[<span class="number">1</span>]] == <span class="number">1</span>:</span><br><span class="line">            p11 += <span class="number">1</span></span><br><span class="line">    factor = DiscreteFactor([v1, v2], cardinality=[<span class="number">2</span>, <span class="number">2</span>], </span><br><span class="line">                values=[[p00, p01], [p10, p11]])</span><br><span class="line">    <span class="keyword">return</span> factor</span><br><span class="line"></span><br><span class="line">model = MarkovModel()</span><br><span class="line"></span><br><span class="line">num_images = images.shape[<span class="number">0</span>]</span><br><span class="line">n1 = images.shape[<span class="number">1</span>]</span><br><span class="line">n2 = images.shape[<span class="number">2</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n1):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n2):</span><br><span class="line">        <span class="keyword">if</span> j &lt; n2 - <span class="number">1</span>:</span><br><span class="line">            v1 = <span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">1</span>, (j + <span class="number">1</span>))</span><br><span class="line">            v2 = <span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">1</span>, (j + <span class="number">2</span>))</span><br><span class="line">            model.add_edge(v1, v2)</span><br><span class="line">            factor = get_factor(v1, v2, (i, j), (i, j + <span class="number">1</span>))</span><br><span class="line">            model.add_factors(factor)</span><br><span class="line">        <span class="keyword">if</span> i &lt; n1 - <span class="number">1</span>:</span><br><span class="line">            v1 = <span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">1</span>, (j + <span class="number">1</span>))</span><br><span class="line">            v2 = <span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">2</span>, (j + <span class="number">1</span>))</span><br><span class="line">            model.add_edge(v1, v2)</span><br><span class="line">            factor = get_factor(v1, v2, (i, j), (i + <span class="number">1</span>, j))</span><br><span class="line">            model.add_factors(factor)</span><br><span class="line"></span><br><span class="line">model.check_model()</span><br><span class="line"></span><br><span class="line"><span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+<p>학습된 팩터의 일부를 살펴보자. 일례로 $X_{11}$ 과 $X_{12}$ 의 결합확률 팩터는 다음과 같다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">f = model.get_factors(<span class="string">"X11"</span>)[<span class="number">0</span>]</span><br><span class="line">f</span><br><span class="line"></span><br><span class="line"><span class="comment"># &lt;discretefactor representing phi(x11:2, x12:2) at 0x7f3b741f2c18&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(f)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51250186-ef4de280-19d8-11e9-97b6-15b603524281.png" alt=""></p>
+<p>다음은 전체 네트워크 모양이다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">d = to_pydot(model)</span><br><span class="line">d.set_dpi(<span class="number">300</span>)</span><br><span class="line">d.set_margin(<span class="number">0.2</span>)</span><br><span class="line">d.set_rankdir(<span class="string">"LR"</span>)</span><br><span class="line">Image(d.create_png(), width=<span class="number">600</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-images.githubusercontent.com/17154958/51250225-13a9bf00-19d9-11e9-839e-24d3a3405d96.png" alt=""></p>
+<p>다음 코드는 이미지의 일부를 알고 있을 때 나머지 이미지를 추정한 결과이다. 코드에서 <code>evidence</code>는 관측된 이미지의 일부이다. 여기에서 사용하는 <code>BeliefPropagation</code> 클래스는 다음 절에서 공부한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pgmpy.inference <span class="keyword">import</span> BeliefPropagation</span><br><span class="line">inference = BeliefPropagation(model)</span><br><span class="line"></span><br><span class="line">vars = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n1):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n2):</span><br><span class="line">        vars.append(<span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">1</span>, j + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">evidence1 = &#123;</span><br><span class="line">    <span class="string">"X11"</span>: <span class="number">0</span>, <span class="string">"X21"</span>: <span class="number">1</span>, <span class="string">"X31"</span>: <span class="number">1</span>, <span class="string">"X41"</span>: <span class="number">1</span>, <span class="string">"X51"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">"X15"</span>: <span class="number">0</span>, <span class="string">"X25"</span>: <span class="number">1</span>, <span class="string">"X35"</span>: <span class="number">1</span>, <span class="string">"X45"</span>: <span class="number">1</span>, <span class="string">"X55"</span>: <span class="number">0</span>,</span><br><span class="line">&#125;</span><br><span class="line">evidence2 = &#123;</span><br><span class="line">    <span class="string">"X11"</span>: <span class="number">1</span>, <span class="string">"X21"</span>: <span class="number">0</span>, <span class="string">"X31"</span>: <span class="number">0</span>, <span class="string">"X41"</span>: <span class="number">0</span>, <span class="string">"X51"</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">"X15"</span>: <span class="number">1</span>, <span class="string">"X25"</span>: <span class="number">0</span>, <span class="string">"X35"</span>: <span class="number">0</span>, <span class="string">"X45"</span>: <span class="number">0</span>, <span class="string">"X55"</span>: <span class="number">1</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">evidence = evidence1</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> evidence:</span><br><span class="line">    vars.remove(x)</span><br><span class="line">    </span><br><span class="line">result = inference.map_query(variables=vars, evidence=evidence)</span><br><span class="line">result.update(evidence)</span><br><span class="line"></span><br><span class="line">image = np.zeros((n1, n2))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n1):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n2):</span><br><span class="line">        image[i, j] = result[<span class="string">"X&#123;&#125;&#123;&#125;"</span>.format(i + <span class="number">1</span>, j + <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">print(image)</span><br><span class="line"></span><br><span class="line">[[<span class="number">0.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">0.</span>]</span><br><span class="line"> [<span class="number">1.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">1.</span>]</span><br><span class="line"> [<span class="number">1.</span> <span class="number">0.</span> <span class="number">1.</span> <span class="number">0.</span> <span class="number">1.</span>]</span><br><span class="line"> [<span class="number">1.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">1.</span>]</span><br><span class="line"> [<span class="number">0.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">0.</span>]]</span><br></pre></td></tr></table></figure>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://p829911.github.io/2019/01/16/그래프-확률-모형/" data-id="cjqz6vt1r0000382xn7ux3n88" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/p829911" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/01/16/주식-가격/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">주식 가격</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Network/">Network</a></p>
+                            <p class="item-title"><a href="/2019/01/16/그래프-확률-모형/" class="title">그래프 확률 모형</a></p>
+                            <p class="item-date"><time datetime="2019-01-16T12:54:47.000Z" itemprop="datePublished">2019-01-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Algorithm/">Algorithm</a></p>
+                            <p class="item-title"><a href="/2019/01/16/주식-가격/" class="title">주식 가격</a></p>
+                            <p class="item-date"><time datetime="2019-01-16T11:49:35.000Z" itemprop="datePublished">2019-01-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Algorithm/">Algorithm</a></p>
+                            <p class="item-title"><a href="/2019/01/16/문자열-내-마음대로-정렬하기/" class="title">문자열 내 마음대로 정렬하기</a></p>
+                            <p class="item-date"><time datetime="2019-01-16T11:19:39.000Z" itemprop="datePublished">2019-01-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Algorithm/">Algorithm</a></p>
+                            <p class="item-title"><a href="/2019/01/15/체육복/" class="title">체육복</a></p>
+                            <p class="item-date"><time datetime="2019-01-15T14:15:29.000Z" itemprop="datePublished">2019-01-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Algorithm/">Algorithm</a></p>
+                            <p class="item-title"><a href="/2019/01/15/K번째수/" class="title">K번째수</a></p>
+                            <p class="item-date"><time datetime="2019-01-14T17:10:10.000Z" itemprop="datePublished">2019-01-15</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Classification/">Classification</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Clustering/">Clustering</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Regression/">Regression</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mysql/">Mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">6</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">18</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Affinity-Propagation/">Affinity Propagation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classification/">Classification</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clustering/">Clustering</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawling/">Crawling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crontab/">Crontab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBSCAN/">DBSCAN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MATH/">MATH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regression/">Regression</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/">Server</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Teffaform/">Teffaform</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unsupervised-Learning/">Unsupervised Learning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/계층적-클러스터링/">계층적 클러스터링</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Affinity-Propagation/" style="font-size: 10px;">Affinity Propagation</a> <a href="/tags/Algorithm/" style="font-size: 17.14px;">Algorithm</a> <a href="/tags/Blog/" style="font-size: 12.86px;">Blog</a> <a href="/tags/Classification/" style="font-size: 11.43px;">Classification</a> <a href="/tags/Clustering/" style="font-size: 15.71px;">Clustering</a> <a href="/tags/Crawling/" style="font-size: 10px;">Crawling</a> <a href="/tags/Crontab/" style="font-size: 10px;">Crontab</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Git/" style="font-size: 14.29px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 11.43px;">Jupyter</a> <a href="/tags/MATH/" style="font-size: 10px;">MATH</a> <a href="/tags/Math/" style="font-size: 20px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Network/" style="font-size: 11.43px;">Network</a> <a href="/tags/Python/" style="font-size: 15.71px;">Python</a> <a href="/tags/Regression/" style="font-size: 12.86px;">Regression</a> <a href="/tags/Server/" style="font-size: 10px;">Server</a> <a href="/tags/Teffaform/" style="font-size: 10px;">Teffaform</a> <a href="/tags/Ubuntu/" style="font-size: 18.57px;">Ubuntu</a> <a href="/tags/Unsupervised-Learning/" style="font-size: 11.43px;">Unsupervised Learning</a> <a href="/tags/계층적-클러스터링/" style="font-size: 10px;">계층적 클러스터링</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Seungwoo Hyun</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://p829911.github.io/2019/01/16/그래프-확률-모형/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
