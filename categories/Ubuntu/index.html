@@ -169,7 +169,10 @@
         <p class="article-excerpt">
             Windows 에서 압축(zip)한 파일을 Linux에서 압축풀때, 한글로 되어 있는 파일이 깨져서 나올 때가 있다. 이는 Windows의 한글 문자셋(CP949)과 Linux의 한글 문자셋(UTF-8)이 다르기에 발생하는 문제이다.
 압축해제 명령
-123456unzip filename.zipunzip -O cp949 filename.zipvi ~/.prof
+1unzip filename.zip
+인코딩 지정
+1unzip -O cp949 filename.zip
+기본 환경
         </p>
     </div>
 </article>
