@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>통계 검정 | data science study blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Math,Statistics">
+    
+    <meta name="description" content="추론 통계란 모집단에서 샘플링한 표본을 가지고 모집단의 특성을 추론하고 그 결과가 신뢰성이 있는지 검정하는 것이다.  요즘에는 빅데이터라는 개념과 함께 모집단과 표본집단을 구분하기 보다는 내가 가지고 있는 데이터 전체를 표본으로 보고 내가 수집하지 못한 현실 세계 전체의 데이터나 미래에 대한 데이터를 모집단이라고 본다. 추론 통계시 집중하는 부분 표본집단은">
+<meta name="keywords" content="Math,Statistics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="통계 검정">
+<meta property="og:url" content="https://p829911.github.io/2019/11/11/통계-검정/index.html">
+<meta property="og:site_name" content="data science study blog">
+<meta property="og:description" content="추론 통계란 모집단에서 샘플링한 표본을 가지고 모집단의 특성을 추론하고 그 결과가 신뢰성이 있는지 검정하는 것이다.  요즘에는 빅데이터라는 개념과 함께 모집단과 표본집단을 구분하기 보다는 내가 가지고 있는 데이터 전체를 표본으로 보고 내가 수집하지 못한 현실 세계 전체의 데이터나 미래에 대한 데이터를 모집단이라고 본다. 추론 통계시 집중하는 부분 표본집단은">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17154958/68277016-99564280-00b1-11ea-8892-efe11e5a5a67.png">
+<meta property="og:updated_time" content="2019-11-11T05:00:16.838Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="통계 검정">
+<meta name="twitter:description" content="추론 통계란 모집단에서 샘플링한 표본을 가지고 모집단의 특성을 추론하고 그 결과가 신뢰성이 있는지 검정하는 것이다.  요즘에는 빅데이터라는 개념과 함께 모집단과 표본집단을 구분하기 보다는 내가 가지고 있는 데이터 전체를 표본으로 보고 내가 수집하지 못한 현실 세계 전체의 데이터나 미래에 대한 데이터를 모집단이라고 본다. 추론 통계시 집중하는 부분 표본집단은">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17154958/68277016-99564280-00b1-11ea-8892-efe11e5a5a67.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/images/icon.png">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Data Science Study Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Classification/">Classification</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Clustering/">Clustering</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Regression/">Regression</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math-Statistics/">Math - Statistics</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Mysql/">Mysql</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/">Python</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/Flask/">Flask</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Server/">Server</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="https://about.me/p829911">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Math-Statistics/">Math - Statistics</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-통계-검정" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        통계 검정
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/11/11/통계-검정/" class="article-date">
+            <time datetime="2019-11-11T04:54:21.000Z" itemprop="datePublished">2019-11-11</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Math/">Math</a>, <a class="tag-link" href="/tags/Statistics/">Statistics</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>추론 통계란 모집단에서 샘플링한 표본을 가지고 모집단의 특성을 추론하고 그 결과가 신뢰성이 있는지 검정하는 것이다.</p>
+<p><img src="https://user-images.githubusercontent.com/17154958/68277016-99564280-00b1-11ea-8892-efe11e5a5a67.png" alt=""></p>
+<p>요즘에는 빅데이터라는 개념과 함께 모집단과 표본집단을 구분하기 보다는 <strong>내가 가지고 있는 데이터 전체를 표본</strong>으로 보고 <strong>내가 수집하지 못한 현실 세계 전체의 데이터나 미래에 대한 데이터를 모집단</strong>이라고 본다.</p>
+<h5 id="추론-통계시-집중하는-부분"><a href="#추론-통계시-집중하는-부분" class="headerlink" title="추론 통계시 집중하는 부분"></a>추론 통계시 집중하는 부분</h5><ol>
+<li><p>표본집단은 모집단을 대표할 수 있는가?<br>모집단의 일부인 표본을 보고 모집단을 추정하기 때문에 표본의 특성이 모집단을 잘 반영하고 있어야 한다.</p>
+</li>
+<li><p>표본의 확률분포는 어떠한가?</p>
+<p>어떤 분포이냐에 따라 추정을 위한 기법이 달라지기 때문에 중요하다.<br>다만 표본의 수가 많아질 수록 정규분포에 근사하게 된다.</p>
+</li>
+<li><p>추정된 결과에 신뢰성이 있는가?<br>추정된 결과를 활용할 수 있는지를 결정하는 요소이기 때문에 중요하다.</p>
+</li>
+</ol>
+<h5 id="가설-검정의-절차"><a href="#가설-검정의-절차" class="headerlink" title="가설 검정의 절차"></a>가설 검정의 절차</h5><p><img src="https://user-images.githubusercontent.com/17154958/68276575-a161b280-00b0-11ea-8e4a-a7fad60d5227.png" alt=""></p>
+<h5 id="주요-용어-정리"><a href="#주요-용어-정리" class="headerlink" title="주요 용어 정리"></a>주요 용어 정리</h5><ol>
+<li><p><strong>가설</strong><br><strong>귀무가설 (=영가설=H0)</strong><br>일반적으로 맞다고 가정하는 가설을 말한다.</p>
+<p><strong>대립가설 (=H1)</strong><br>새롭게 맞다고 증명하려는 가설을 말한다.</p>
+<p>예를 들어 회귀분석의 경우 귀무가설은 “설명변수(x)는 반응변수(y)에 영향을 주지 않는다.” 이고 대립가설은 “설명변수(x)는 반응변수(y)에 영향을 준다” 이다.</p>
+<p><strong>귀무가설은 차이가 없다, 영향력이 없다, 연관성이 없다, 효과가 없다.</strong><br><strong>대립가설은 차이가 있다, 영향력이 있다, 연관성이 있다, 효과가 있다.</strong></p>
+</li>
+<li><p><strong>검정방법 (양측검정, 단측검정, 좌측검정, 우측검정)</strong><br><strong>양측검정</strong><br>귀무가설을 기각하는 영역이 양쪽에 있는 검정을 말한다.<br>대립가설이 000가 아니다 (크거나 작다) 라면 양측검정을 사용한다.<br><img src="https://user-images.githubusercontent.com/17154958/68276819-2fd63400-00b1-11ea-8e45-a1e8fc1737b6.png" alt=""></p>
+<p><strong>단측검정</strong></p>
+<p>귀무가설을 기각하는 영역이 한쪽 끝에 있는 검정을 말한다.<br>대립가설이 000 보다 작다 또는 크다 인 경우 단측 검정을 사용한다.</p>
+<p><strong>좌측검정</strong><br>단측검정 중 하나로, 귀무가설을 기각하는 영역이 왼쪽에 있는 검정을 말한다.<br>대립가설이 000 보다 작다 인 경우 좌측검정을 사용한다.<br><img src="https://user-images.githubusercontent.com/17154958/68276937-7592fc80-00b1-11ea-8ddc-62d22563e091.png" alt=""></p>
+<p><strong>우측검정</strong><br>단측검정 중 하나로, 귀무가설을 기각하는 영역이 오른쪽에 있는 검정을 말한다.<br>대립가설이 000보다 크다 인 경우 우측검정을 사용한다.<br><img src="https://user-images.githubusercontent.com/17154958/68277061-bf7be280-00b1-11ea-9ebc-c1b8763b10a2.png" alt=""></p>
+</li>
+<li><p><strong>신뢰/유의</strong><br><strong>신뢰수준</strong><br>가설을 검정할 때 얼마나 빡빡하게 검정할 것인지를 결정하는 수준을 말한다.<br>연구활동은 99%, 일반적으로는 95%, 단순설문조사는 90% 정도의 신뢰수준을 사용한다.</p>
+<p><strong>유의수준 ($\alpha$)</strong><br>가설을 검정할 때 이 정도까지 벗어나면 귀무가설이 오류라고 인정하겠다 하는 수준을 말한다.<br>유의수준 = 1 - 신뢰수준<br>유의수준 = $\sum$ 기각역</p>
+<p><strong>기각역</strong><br>확률분포에서 귀무가설을 기각하는 영역을 말한다.<br>기각역에 검정통계량이 위치하면 귀무가설을 기각한다.<br><strong>양측검정인 경우 기각역은 유의수준 / 2 이고, 단측검정인 경우 기각역은 유의수준과 같다.</strong></p>
+<p><strong>신뢰구간</strong><br>신뢰구간에 포함되는 x값 구간을 말한다.</p>
+<p><strong>임계치</strong><br>신뢰구간에서 기각역으로 넘어가는 기준이 되는 x값을 말한다.<br><img src="https://user-images.githubusercontent.com/17154958/68277332-4f219100-00b2-11ea-80d0-8fa7c5656d8f.png" alt=""></p>
+<p><strong>검정통계량</strong><br>가설을 검정하기 위한 기준으로 사용하는 값(t 값 등)을 말한다.<br>검정통계량이 확률분포 상에 어디에 위치하는지에 따라 귀무가설을 기각하거나 기각하지 않는다.</p>
+<script type="math/tex; mode=display">
+\text{검정통계량} = \frac{(\text{표본평균} - \text{모평균})}{\text{표본 표준편차}}</script><p><strong>유의확률 (p-value)</strong><br>자유도를 고려했을 때 검정통계량에 대한 확률을 말한다. (귀무가설의 신뢰구간을 벗어나는 확률)<br>기각역보다 유의확률이 작아야 귀무가설을 기각할 수 있다.</p>
+<p><strong>자유도</strong><br>x값이 가질 수 있는 값의 범위를 말한다.<br>자유도가 주어지지 않는 경우, $\text{자유도}=\text{표본수}(n) - 1$</p>
+</li>
+<li><p><strong>가설 검정 예시</strong></p>
+</li>
+</ol>
+<h5 id="출처"><a href="#출처" class="headerlink" title="출처"></a>출처</h5><ul>
+<li><a href="https://kkokkilkon.tistory.com/36" target="_blank" rel="noopener">https://kkokkilkon.tistory.com/36</a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://p829911.github.io/2019/11/11/통계-검정/" data-id="ck2tymweu0045z90n68pyzmh3" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/p829911" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/09/18/Zip-압축-풀-때-한글-파일명-오류-해결법/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Zip 압축 풀 때 한글 파일명 오류 해결법</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math-Statistics/">Math - Statistics</a></p>
+                            <p class="item-title"><a href="/2019/11/11/통계-검정/" class="title">통계 검정</a></p>
+                            <p class="item-date"><time datetime="2019-11-11T04:54:21.000Z" itemprop="datePublished">2019-11-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Ubuntu/">Ubuntu</a></p>
+                            <p class="item-title"><a href="/2019/09/18/Zip-압축-풀-때-한글-파일명-오류-해결법/" class="title">Zip 압축 풀 때 한글 파일명 오류 해결법</a></p>
+                            <p class="item-date"><time datetime="2019-09-18T11:43:12.000Z" itemprop="datePublished">2019-09-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Python/">Python</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Python/Flask/">Flask</a></p>
+                            <p class="item-title"><a href="/2019/02/10/Python-Flask-Tutorial-Full-Featured-Web-App-Part-1-Getting-Started/" class="title">Python Flask Tutorial: Full-Featured Web App Part 1 - Getting Started</a></p>
+                            <p class="item-date"><time datetime="2019-02-10T08:05:20.000Z" itemprop="datePublished">2019-02-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Algorithm/">Algorithm</a></p>
+                            <p class="item-title"><a href="/2019/02/06/타겟-넘버/" class="title">타겟 넘버</a></p>
+                            <p class="item-date"><time datetime="2019-02-06T14:48:02.000Z" itemprop="datePublished">2019-02-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Algorithm/">Algorithm</a></p>
+                            <p class="item-title"><a href="/2019/02/02/올바른-괄호/" class="title">올바른 괄호</a></p>
+                            <p class="item-date"><time datetime="2019-02-02T12:37:59.000Z" itemprop="datePublished">2019-02-02</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">12</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Classification/">Classification</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Clustering/">Clustering</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Regression/">Regression</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math-Statistics/">Math - Statistics</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mysql/">Mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/Flask/">Flask</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Affinity-Propagation/">Affinity Propagation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classification/">Classification</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clustering/">Clustering</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawling/">Crawling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crontab/">Crontab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBSCAN/">DBSCAN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flask/">Flask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MATH/">MATH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Package/">Package</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regression/">Regression</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/">Server</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Teffaform/">Teffaform</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unsupervised-Learning/">Unsupervised Learning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/계층적-클러스터링/">계층적 클러스터링</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Affinity-Propagation/" style="font-size: 10px;">Affinity Propagation</a> <a href="/tags/Algorithm/" style="font-size: 20px;">Algorithm</a> <a href="/tags/Blog/" style="font-size: 12.5px;">Blog</a> <a href="/tags/Classification/" style="font-size: 11.25px;">Classification</a> <a href="/tags/Clustering/" style="font-size: 15px;">Clustering</a> <a href="/tags/Crawling/" style="font-size: 10px;">Crawling</a> <a href="/tags/Crontab/" style="font-size: 10px;">Crontab</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Flask/" style="font-size: 10px;">Flask</a> <a href="/tags/Git/" style="font-size: 13.75px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 11.25px;">Jupyter</a> <a href="/tags/MATH/" style="font-size: 10px;">MATH</a> <a href="/tags/Math/" style="font-size: 18.75px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Network/" style="font-size: 11.25px;">Network</a> <a href="/tags/Package/" style="font-size: 10px;">Package</a> <a href="/tags/Python/" style="font-size: 16.25px;">Python</a> <a href="/tags/Regression/" style="font-size: 12.5px;">Regression</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Server/" style="font-size: 10px;">Server</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Teffaform/" style="font-size: 10px;">Teffaform</a> <a href="/tags/Ubuntu/" style="font-size: 17.5px;">Ubuntu</a> <a href="/tags/Unsupervised-Learning/" style="font-size: 11.25px;">Unsupervised Learning</a> <a href="/tags/계층적-클러스터링/" style="font-size: 10px;">계층적 클러스터링</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Seungwoo Hyun</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://p829911.github.io/2019/11/11/통계-검정/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
