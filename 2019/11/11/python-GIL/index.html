@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>python GIL | data science study blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Python,GIL">
+    
+    <meta name="description" content="Python GILGlobal Interpreter Lock In CPython, the global interpreter lock, or GIL, is a mutex that protects access to python objects, preventing multiple threads from executing Python bytecodes at onc">
+<meta name="keywords" content="Python,GIL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python GIL">
+<meta property="og:url" content="https://p829911.github.io/2019/11/11/python-GIL/index.html">
+<meta property="og:site_name" content="data science study blog">
+<meta property="og:description" content="Python GILGlobal Interpreter Lock In CPython, the global interpreter lock, or GIL, is a mutex that protects access to python objects, preventing multiple threads from executing Python bytecodes at onc">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17154958/68179529-99801080-ffd3-11e9-9da8-a41e31077e66.png">
+<meta property="og:updated_time" content="2019-11-11T05:12:51.524Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python GIL">
+<meta name="twitter:description" content="Python GILGlobal Interpreter Lock In CPython, the global interpreter lock, or GIL, is a mutex that protects access to python objects, preventing multiple threads from executing Python bytecodes at onc">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17154958/68179529-99801080-ffd3-11e9-9da8-a41e31077e66.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/images/icon.png">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Data Science Study Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Classification/">Classification</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Clustering/">Clustering</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Regression/">Regression</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Statistics/">Statistics</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Mysql/">Mysql</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/">Python</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/Flask/">Flask</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Server/">Server</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="https://about.me/p829911">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Python/">Python</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-python-GIL" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        python GIL
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/11/11/python-GIL/" class="article-date">
+            <time datetime="2019-11-11T05:12:22.000Z" itemprop="datePublished">2019-11-11</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/GIL/">GIL</a>, <a class="tag-link" href="/tags/Python/">Python</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h3 id="Python-GIL"><a href="#Python-GIL" class="headerlink" title="Python GIL"></a>Python GIL</h3><h5 id="Global-Interpreter-Lock"><a href="#Global-Interpreter-Lock" class="headerlink" title="Global Interpreter Lock"></a>Global Interpreter Lock</h5><blockquote>
+<p>In CPython, the global interpreter lock, or GIL, is a mutex that protects access to python objects, preventing multiple threads from executing Python bytecodes at once. This lock is necessary mainly because CPython’s memory management is not thread-safe.</p>
+</blockquote>
+<h5 id="Process-amp-Thread"><a href="#Process-amp-Thread" class="headerlink" title="Process &amp; Thread"></a>Process &amp; Thread</h5><p><img src="https://user-images.githubusercontent.com/17154958/68179529-99801080-ffd3-11e9-9da8-a41e31077e66.png" alt=""></p>
+<p>운영체제가 생성하는 작업 단위를 process라고 한다. 이 process 안에서 공유되는 메모리를 바탕으로 여러 작업을 또 생성할 수 있는데, 이 때의 작업 단위를 thread라고 한다 따라서 각 thread 마다 할당된 개인적인 메모리가 있으면서, thread가 속한 process가 가지는 메모리에도 접근할 수 있다.</p>
+<p><code>Thread-safe</code> 하지 않다는 것은 무슨 의미인지 부터 알아보겠다. 위에서 thread들은 process가 공유하는 메모리에 접근할 수 있다고 언급했는데, 이로 인해 참사가 발생할 수 있다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line">x = <span class="number">0</span> <span class="comment"># A shared value</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> x</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">        x += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> x</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">        x -= <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">t1 = threading.Thread(target=foo)</span><br><span class="line">t2 = threading.Thread(target=bar)</span><br><span class="line">t1.start()</span><br><span class="line">t2.start()</span><br><span class="line">t1.join()</span><br><span class="line">t2.join() <span class="comment"># Wait for completion</span></span><br><span class="line"></span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+<p><code>print(x)</code> 의 결과가 0으로 나오는게 정상적으로 작동한 것이다. 하지만 실제 계산을 해보면 <code>x</code>의 값은 전혀 이상한 숫자가 된다. 전역 변수 <code>x</code>에 두 개의 thread가 동시에 접근해서 각자의 작업을 하면서 어느 한 쪽의 작업 결과가 반영이 되지 않기 때문이다. 이렇게 여러 thread가 공유된 데이터를 변경함으로써 발생하는 문제를 <code>race condition</code> 이라고도 부른다.</p>
+<p>따라서 <code>thread-safe</code> 하다는 것은 thread들이 <code>race condition</code>을 발생시키지 않으면서 각자의 일을 수행한다는 뜻임을 알 수 있다.</p>
+<h5 id="mutex"><a href="#mutex" class="headerlink" title="mutex"></a>mutex</h5><p><code>Thread-safe</code>한 코드를 만들기 위해서 사용하는 것 중 하나가 mutex (mutual exclusion)이다. <code>race condition</code>을 막기 위해서, 공유되는 메모리의 데이터를 여러 thread가 동시에 사용할 수 없도록 잠그는 일을 mutex가 맡는다.</p>
+<blockquote>
+<p>휴대폰이 없던 시절에는 공중 전화를 주로 이용했었다. 거리의 모든 남자들은 각자의 아내에게 전화를 너무나 걸고 싶어한다.</p>
+<p>어떤 한 남자가 처음으로 공중 전화 부스에 들어가서 그의 사랑하는 아내에게 전화를 걸었다면, 그는 꼭 전화 부스의 문을 꼭 잡고 있어야 한다. 왜냐하면 사랑에 눈이 먼 다른 남자들이 전화를 걸기 위해 시도때도 없이 달려들고 있기 때문이다. 줄 서는 질서 문화 따위는 없다. 심지어 그 문을 놓친다면, 전화 부스에 들이닥친 남자들이 수화기를 뺏어 당신의 아내에게 애정 표현을 할 지도 모른다.</p>
+<p>아내와의 즐거운 통화를 무사히 마쳤다면, 이제 문을 잡고 있던 손을 놓고 부스 밖으로 나가면 된다. 그러면 공중 전화를 쓰기 위해 달려드는 다른 남자들 중 제일 빠른 한 명이 부스에 들어가서 똑같이 문을 꼭 잡고 그의 아내와 통화할 수 있다.</p>
+</blockquote>
+<ul>
+<li>thread: 각 남자들</li>
+<li>mutex: 공중 전화 부스의 문</li>
+<li>lock: 그 문을 잡고 있는 남자의 손</li>
+<li>resource: 공중 전화</li>
+</ul>
+<p>CPython이 <code>reference counting</code>을 하는 과정에서 문제가 일어날 수 있음을 알 수 있다.<br>Reference counting 중에 <code>race condition</code>이 일어난다면, 그 결과는 결국 메모리 유실(memory leak)일 것이다. (반대로 살아있어야 할 Object를 죽여버릴 수도 있다.)<br>이를 해결하기 위해서는 mutex를 이용하면 된다고 했다.<br>CPython의 결정은 mutex를 통해 모든 reference 개수를 일일이 보호하지 말고, Python interpreter 자체를 잠그기로 한 것이다. 이거 하나만 mutex로 보호하면 그동안 우려했던 문제를 해결할 수 있다. 하지만, 얼마나 많은 thread를 사용하던지에 상관없이 오직 한 thread만이 Python code를 실행할 수 있다는 의미이기도 하다.</p>
+<h5 id="왜-GIL을-선택했나"><a href="#왜-GIL을-선택했나" class="headerlink" title="왜 GIL을 선택했나?"></a>왜 GIL을 선택했나?</h5><p>Python이 태동하던 시기에는 thread라는 개념이 없었을 당시였고, 쉽고 간결한 언어를 표방했던 Python에 많은 사용자들이 모여들고 있었다. 수 많은 C extension들이 이미 만들어졌는데, 시간이 지나서 thread 개념으로 인한 문제를 해결하기 위해서 가장 현실적인 방안은 GIL이었다. 거대한 커뮤니티에서 만들어낸 C extension들을 새로운 메모리 관리 방법에 맞춰서 모두 바꾸는 것은 불가능하다. 대신 Python이 GIL을 도입하면 C extension들을 바꾸지 않아도 됐던 것이다.</p>
+<h5 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h5><ul>
+<li>병렬 처리에 관해서는 굳이 thread가 아니더라도 multiprocessing이나 asyncio 등의 많은 선택지가 있다.</li>
+</ul>
+<h5 id="출처"><a href="#출처" class="headerlink" title="출처"></a>출처</h5><ul>
+<li><a href="https://dgkim5360.tistory.com/entry/understanding-the-global-interpreter-lock-of-cpython" target="_blank" rel="noopener">https://dgkim5360.tistory.com/entry/understanding-the-global-interpreter-lock-of-cpython</a></li>
+<li><a href="https://magi82.github.io/process-thread/" target="_blank" rel="noopener">https://magi82.github.io/process-thread/</a></li>
+<li><a href="https://118k.tistory.com/606" target="_blank" rel="noopener">https://118k.tistory.com/606</a></li>
+<li>H3 2011 파이썬으로 클라우드 하고 싶어요_분산기술Lab 하용호 From KTH, 케이티하이텔</li>
+</ul>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/5CUCEe3yKs2LyP?startSlide=56" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border: 1px solid rgb(204, 204, 204); margin-bottom: 5px; max-width: 100%; width: 820px; height: 668.403px;" allowfullscreen> </iframe> </p>
+
+<ul>
+<li>[2D4]Python에서의 동시성_병렬성 from NAVER D2</li>
+</ul>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/hNgCkfPVcKCUbL?startSlide=15" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border: 1px solid rgb(204, 204, 204); margin-bottom: 5px; max-width: 100%; width: 820px; height: 668.403px;" allowfullscreen> </iframe> </p>
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://p829911.github.io/2019/11/11/python-GIL/" data-id="ck2tz1n4q001qq10n2gx4yo5o" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/p829911" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/11/11/python-gc-collect/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            python gc collect
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/11/11/프로세스와-스레드의-차이/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">프로세스와 스레드의 차이</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Python/">Python</a></p>
+                            <p class="item-title"><a href="/2019/11/11/python-gc-collect/" class="title">python gc collect</a></p>
+                            <p class="item-date"><time datetime="2019-11-11T05:13:05.000Z" itemprop="datePublished">2019-11-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Python/">Python</a></p>
+                            <p class="item-title"><a href="/2019/11/11/python-GIL/" class="title">python GIL</a></p>
+                            <p class="item-date"><time datetime="2019-11-11T05:12:22.000Z" itemprop="datePublished">2019-11-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Python/">Python</a></p>
+                            <p class="item-title"><a href="/2019/11/11/프로세스와-스레드의-차이/" class="title">프로세스와 스레드의 차이</a></p>
+                            <p class="item-date"><time datetime="2019-11-11T05:10:40.000Z" itemprop="datePublished">2019-11-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Python/">Python</a></p>
+                            <p class="item-title"><a href="/2019/11/11/동시성과-병렬성/" class="title">동시성과 병렬성</a></p>
+                            <p class="item-date"><time datetime="2019-11-11T05:09:04.000Z" itemprop="datePublished">2019-11-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Math/">Math</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Math/Statistics/">Statistics</a></p>
+                            <p class="item-title"><a href="/2019/11/11/통계-검정/" class="title">통계 검정</a></p>
+                            <p class="item-date"><time datetime="2019-11-11T04:54:21.000Z" itemprop="datePublished">2019-11-11</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Classification/">Classification</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Clustering/">Clustering</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Regression/">Regression</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Statistics/">Statistics</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mysql/">Mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/Flask/">Flask</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Affinity-Propagation/">Affinity Propagation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classification/">Classification</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clustering/">Clustering</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawling/">Crawling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crontab/">Crontab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBSCAN/">DBSCAN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flask/">Flask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC-Collect/">GC Collect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIL/">GIL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MATH/">MATH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multiprocessing/">Multiprocessing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Package/">Package</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Parmap/">Parmap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Process/">Process</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regression/">Regression</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/">Server</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Teffaform/">Teffaform</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread/">Thread</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Threading/">Threading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unsupervised-Learning/">Unsupervised Learning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/계층적-클러스터링/">계층적 클러스터링</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Affinity-Propagation/" style="font-size: 10px;">Affinity Propagation</a> <a href="/tags/Algorithm/" style="font-size: 20px;">Algorithm</a> <a href="/tags/Blog/" style="font-size: 12.5px;">Blog</a> <a href="/tags/Classification/" style="font-size: 11.25px;">Classification</a> <a href="/tags/Clustering/" style="font-size: 15px;">Clustering</a> <a href="/tags/Crawling/" style="font-size: 10px;">Crawling</a> <a href="/tags/Crontab/" style="font-size: 10px;">Crontab</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Flask/" style="font-size: 10px;">Flask</a> <a href="/tags/GC-Collect/" style="font-size: 10px;">GC Collect</a> <a href="/tags/GIL/" style="font-size: 10px;">GIL</a> <a href="/tags/Git/" style="font-size: 13.75px;">Git</a> <a href="/tags/Jupyter/" style="font-size: 11.25px;">Jupyter</a> <a href="/tags/MATH/" style="font-size: 10px;">MATH</a> <a href="/tags/Math/" style="font-size: 18.75px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Multiprocessing/" style="font-size: 10px;">Multiprocessing</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Network/" style="font-size: 11.25px;">Network</a> <a href="/tags/Package/" style="font-size: 10px;">Package</a> <a href="/tags/Parmap/" style="font-size: 10px;">Parmap</a> <a href="/tags/Process/" style="font-size: 10px;">Process</a> <a href="/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/tags/Regression/" style="font-size: 12.5px;">Regression</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Server/" style="font-size: 10px;">Server</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Teffaform/" style="font-size: 10px;">Teffaform</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/Threading/" style="font-size: 10px;">Threading</a> <a href="/tags/Ubuntu/" style="font-size: 16.25px;">Ubuntu</a> <a href="/tags/Unsupervised-Learning/" style="font-size: 11.25px;">Unsupervised Learning</a> <a href="/tags/계층적-클러스터링/" style="font-size: 10px;">계층적 클러스터링</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Seungwoo Hyun</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://p829911.github.io/2019/11/11/python-GIL/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
