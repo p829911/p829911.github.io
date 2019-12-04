@@ -21,7 +21,7 @@
 <meta property="og:description" content="2.1.4 어떻게 $f$ 를 추정하는가?우리의 목적은 통계학습방법을 훈련 데이터에 적용하여 알려지지 않은 함수 $f$를 추정하는 것이다.다시 말하면, 임의의 관측치 $(X, Y)$ 에 대해 $Y \approx \hat{f}(X)$ 을 만족하는 함수 $f$를 찾고자 한다.넓게 얘기하면, 이 일을 위한 대부분의 통계학습방법들은 모수적(parametric) 또는">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17154958/69787831-922dda80-1200-11ea-9ccd-67bbe811a79b.png">
-<meta property="og:updated_time" content="2019-12-04T11:57:19.155Z">
+<meta property="og:updated_time" content="2019-12-04T12:03:35.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="어떻게 $f$ 를 추정하는가?">
 <meta name="twitter:description" content="2.1.4 어떻게 $f$ 를 추정하는가?우리의 목적은 통계학습방법을 훈련 데이터에 적용하여 알려지지 않은 함수 $f$를 추정하는 것이다.다시 말하면, 임의의 관측치 $(X, Y)$ 에 대해 $Y \approx \hat{f}(X)$ 을 만족하는 함수 $f$를 찾고자 한다.넓게 얘기하면, 이 일을 위한 대부분의 통계학습방법들은 모수적(parametric) 또는">
@@ -197,7 +197,7 @@ Y \approx \beta_0 + \beta_1X_1+\beta_2X_2 + \cdots + \beta_pX_p</script><p>선�
 <li><p>Income 자료에 대한 모수적 방법의 예를 보여준다. 아래와 같은 형태의 선형모델을 적합한다.</p>
 <script type="math/tex; mode=display">
 \text{income} \approx \beta_0 + \beta_1 \times \text{education} + \beta_2 \times \text{seniority}</script></li>
-<li><p>실제 $f$ 는 선형적합으로는 포착되지 않는 곡선 부분이 있다. 하지만, 선형적합은 여전히 교육기관과 income 사이의 양의 상관관계뿐만 아니라 seniority와 income 사이의 약간 덜 긍정적인 상관관계를 합리적으로 포착하는것처럼 보인다. 이렇게 적은 수의 관측치로는 이것이 할 수 있는 최선일 수 있다.</p>
+<li><p>실제 $f$ 는 선형적합으로는 포착되지 않는 곡선 부분이 있다. 하지만, 선형적합은 여전히 교육기간과 income 사이의 양의 상관관계뿐만 아니라 seniority와 income 사이의 약간 덜 긍정적인 상관관계를 합리적으로 포착하는것처럼 보인다. 이렇게 적은 수의 관측치로는 이것이 할 수 있는 최선일 수 있다.</p>
 </li>
 </ul>
 <h5 id="비모수적-방법-Non-parametric-Methods"><a href="#비모수적-방법-Non-parametric-Methods" class="headerlink" title="비모수적 방법 (Non-parametric Methods)"></a>비모수적 방법 (Non-parametric Methods)</h5><p>비모수적 방법은 $f$의 함수 형태에 대해 명시적인 가정을 하지 않는다. 대신에 너무 거칠거나 왔다갔다 하지 않으면서 데이터 포인트들에 가능하면 가까워지는 $f$의 추정을 얻으려고 한다. 이러한 접근법은 모수적 방법에 비해 주요한 장점이 있을 수 있다. 즉, <strong>$f$의 함수 형태에 대한 가정을 하지 않아도 되므로 더 넓은 범위의 $f$ 형태에 정확하게 적합될 가능성이 있다.</strong><br>어떠한 모수적 방법이라도 $f$를 추정하는 데 사용된 함수 형태가 실제 $f$와 많이 다를 수 있으며, 이 경우 결과 모델은 데이터에 잘 적합되지 않을 것이다. 이에 반해, 비모수적 방법은 $f$의 형태에 대한 어떠한 가정도 하지 않기 때문에 이러한 위험을 완전히 회피한다. 하지만, 비모수적 방법은 중요한 단점이 있다. <strong>이 방법은 $f$를 추정하는 문제를 작은 수의 파라미터 추정 문제로 축소하지 않으므로, $f$에 대한 정확한 추정을 얻기 위해서는 아주 많은 수의 관측치가 필요하다.</strong></p>
