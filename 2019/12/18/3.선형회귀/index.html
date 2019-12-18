@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>선형회귀 | data science study blog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="ISLR,Statistical Learning,Linear Regression,RSS">
+    
+    <meta name="description" content="3. 선형회귀 선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들  광고예산과 판매 사이에 상관관계가 있는가? 광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가? 어느 매체가 판매에 기여하는가? 판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가? 미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가? 상관관계는 선형인가? 광고 매체 사이">
+<meta name="keywords" content="ISLR,Statistical Learning,Linear Regression,RSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="선형회귀">
+<meta property="og:url" content="https://p829911.github.io/2019/12/18/3.선형회귀/index.html">
+<meta property="og:site_name" content="data science study blog">
+<meta property="og:description" content="3. 선형회귀 선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들  광고예산과 판매 사이에 상관관계가 있는가? 광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가? 어느 매체가 판매에 기여하는가? 판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가? 미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가? 상관관계는 선형인가? 광고 매체 사이">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17154958/71067318-b3f2ff80-21b7-11ea-9476-445e1767058d.JPG">
+<meta property="og:updated_time" content="2019-12-18T11:56:26.143Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="선형회귀">
+<meta name="twitter:description" content="3. 선형회귀 선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들  광고예산과 판매 사이에 상관관계가 있는가? 광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가? 어느 매체가 판매에 기여하는가? 판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가? 미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가? 상관관계는 선형인가? 광고 매체 사이">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17154958/71067318-b3f2ff80-21b7-11ea-9476-445e1767058d.JPG">
+    
+
+    
+
+    
+        <link rel="icon" href="/images/icon.png">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Data Science Study Blog</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Git/">Git</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/ISLR/">ISLR</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Classification/">Classification</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Clustering/">Clustering</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Network/">Network</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Regression/">Regression</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/Statistics/">Statistics</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Mysql/">Mysql</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/">Python</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Python/Flask/">Flask</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Server/">Server</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Ubuntu/">Ubuntu</a></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="https://about.me/p829911">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/ISLR/">ISLR</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-3.선형회귀" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        선형회귀
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/18/3.선형회귀/" class="article-date">
+            <time datetime="2019-12-18T11:54:45.000Z" itemprop="datePublished">2019-12-18</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ISLR/">ISLR</a>, <a class="tag-link" href="/tags/Linear-Regression/">Linear Regression</a>, <a class="tag-link" href="/tags/RSS/">RSS</a>, <a class="tag-link" href="/tags/Statistical-Learning/">Statistical Learning</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="3-선형회귀"><a href="#3-선형회귀" class="headerlink" title="3. 선형회귀"></a>3. 선형회귀</h2><ul>
+<li>선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들 <ol>
+<li>광고예산과 판매 사이에 상관관계가 있는가?</li>
+<li>광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가?</li>
+<li>어느 매체가 판매에 기여하는가?</li>
+<li>판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가?</li>
+<li>미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가?</li>
+<li>상관관계는 선형인가?</li>
+<li>광고 매체 사이에 시너지 효과가 있는가?</li>
+</ol>
+</li>
+<li>회귀 분석의 표준 가정<ol>
+<li>오차항은 모든 독립변수 값에 대하여 동일한 분산을 갖는다.</li>
+<li>오차항의 평균 (기대값) 은 0이다.</li>
+<li>수집된 데이터의 확률 분포는 정규분포를 이루고 있다.</li>
+<li>독립변수 상호 간에는 상관관계가 없어야 한다.</li>
+<li>시간에 따라 수집한 데이터들은 잡음의 영향을 받지 않아야 한다.</li>
+</ol>
+</li>
+</ul>
+<h3 id="3-1-단순-선형회귀"><a href="#3-1-단순-선형회귀" class="headerlink" title="3.1 단순 선형회귀"></a>3.1 단순 선형회귀</h3><p>단순선형회귀는 매우 간단한 기법으로, 하나의 설명변수 $X$에 기초하여 양적 반응변수 $Y$를 예측한다.<br>이 기법은 $X$와 $Y$ 사이에 선형적 상관관계가 있다고 가정한다. 수학적으로 선형적인 상관관계는 다음과 같이 나타낼 수 있다.</p>
+<script type="math/tex; mode=display">
+Y \approx \beta_0 + \beta_1X \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;(3.1)</script><p>위의 식은 $X$에 대한 $Y$의 회귀라고 한다. $\beta_0$와 $\beta_1$은 알려지지 않은 상수로, 선형모델의 <code>절편(intercept)</code>과 <code>기울기</code>를 나타내며 모델 <code>계수</code> 또는 <code>파라미터</code>로 알려져 있다. 훈련 데이터를 사용하여 모델 계수에 대한 추정치 $\hat{\beta_0}$와 $\hat{\beta_1}$ 을 구하면, $\hat{y}$를 다음과 같이 예측할 수 있다.</p>
+<script type="math/tex; mode=display">
+\hat{y} = \hat{\beta_0} + \hat{\beta_1}x</script><h4 id="3-1-1-계수-추정"><a href="#3-1-1-계수-추정" class="headerlink" title="3.1.1 계수 추정"></a>3.1.1 계수 추정</h4><p>실제로 $\beta_0$과 $\beta_1$은 알려져 있지 않다. 그러므로 (3.1)의 식을 사용하여 예측하기 전에 데이터를 이용하여 계수를 추정해야 한다. 다음은 $X$와 $Y$ 측정값으로 구성된 $n$개의 관측치 쌍을 나타낸다고 하자.</p>
+<script type="math/tex; mode=display">
+(x_1, y_1), (x_2, y_2), \cdots, (x_n, y_n)</script><p>여기서의 목적은 <strong>선형모델(3.1)이 이용가능한 데이터에 잘 적합되도록하는, 즉 $i = 1, \cdots, n$ 에 대해 $y_i \approx \hat{\beta_0} + \hat{\beta_1}x_i$ 가 되도록 하는 계수 추정값 $\hat{\beta_0}$와 $\hat{\beta_1}$을 얻는 것이다.</strong> 다시 말하면, 직선이 $n$ 개의 데이터 포인트에 가능한 한 가깝게 되도록 하는 절편과 기울기를 찾고자 한다. <code>가까움(closeness)</code>을 측정하는 방법은 여러 가지가 있다. 하지만 가장 흔하게 사용되는 기법은 <code>최소제곱</code> 기준을 최소화 하는 것이다.</p>
+<p>$X$의 $i$번째 값에 기초한 $Y$의 예측값을 $\hat{y_i} = \hat{\beta_0} + \hat{\beta_1}x_i$ 라고 하자. 그러면 $e_i = y_i - \hat{y_i}$는 $i$ 번째 <code>잔차(residual)</code>을 나타내며, 이것은 $i$ 번째 관측된 반응변수 값과 선형모델에 의해 예측된 $i$ 번째 반응변수 값 사이의 차이다.</p>
+<p><code>잔차제곱합(residual sum of squares (RSS))</code> 은 다음과 같이 정의한다.</p>
+<script type="math/tex; mode=display">
+\text{RSS} = e_1^2 + e_2^2 + \cdots + e_n^2</script><p>이것은 또한 아래와 같이 쓸 수 있다.</p>
+<script type="math/tex; mode=display">
+\text{RSS} = (y_1-\hat{\beta_0}-\hat{\beta_1}x_1)^2 + (y_2 - \hat{\beta_0}-\hat{\beta_1}x_2)^2 + \cdots + (y_n - \hat{\beta_0}-\hat{\beta_1}x_n)^2</script><p>최소제곱법은 RSS를 최소화 하는 $\beta_0$와 $\beta_1$를 선택한다.<br>미적분을 사용하여 수식을 정리하면 다음을 얻을 수 있다.</p>
+<script type="math/tex; mode=display">
+\begin{eqnarray}
+\hat{\beta_1} &=& \dfrac{\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{(x_i - \bar{x})^2} \\
+\hat{\beta_0} &=& \bar{y} - \hat{\beta_1}\bar{x}
+\end{eqnarray}</script><h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://user-images.githubusercontent.com/17154958/71067318-b3f2ff80-21b7-11ea-9476-445e1767058d.JPG" alt=""></h4><p><img src="https://user-images.githubusercontent.com/17154958/71063079-5a86d280-21af-11ea-82bc-80318c21af06.png" alt=""></p>
+<ul>
+<li><p>$\hat{\beta_0} = 7.03$이고 $\hat{\beta_1} = 0.0475$ 이다. </p>
+<p>즉, 광고에 1천 달러를 더 사용하면 sales는 대략 47.5 유닛 늘어난다.<br>Advertising 자료에서 TV 광고에 대한 sales의 회귀를 최소제곱으로 적합한 것이다. 적합은 오차제곱합을 최소로 함으로써 구해진다. 각 회색 선분은 오차를 나타내고 적합은 이 오차들의 제곱을 평균하여 절충한다. 이 값들은 명백히 <code>RSS</code>를 최소화 한다.</p>
+</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://p829911.github.io/2019/12/18/3.선형회귀/" data-id="ck4b8qb3o0005go2xf68r48yk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/p829911" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/12/11/2.2.2/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">편향-분산 절충</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="no-thumbnail">
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ISLR/">ISLR</a></p>
+                            <p class="item-title"><a href="/2019/12/18/3.선형회귀/" class="title">선형회귀</a></p>
+                            <p class="item-date"><time datetime="2019-12-18T11:54:45.000Z" itemprop="datePublished">2019-12-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ISLR/">ISLR</a></p>
+                            <p class="item-title"><a href="/2019/12/11/2.2.2/" class="title">편향-분산 절충</a></p>
+                            <p class="item-date"><time datetime="2019-12-11T05:52:30.000Z" itemprop="datePublished">2019-12-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ISLR/">ISLR</a></p>
+                            <p class="item-title"><a href="/2019/12/11/2.2/" class="title">모델의 정확도 평가</a></p>
+                            <p class="item-date"><time datetime="2019-12-11T04:42:41.000Z" itemprop="datePublished">2019-12-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ISLR/">ISLR</a></p>
+                            <p class="item-title"><a href="/2019/12/11/2.1.3/" class="title">예측 정확도와 모델 해석력 사이의 절충 (Trade-Off)</a></p>
+                            <p class="item-date"><time datetime="2019-12-11T04:40:38.000Z" itemprop="datePublished">2019-12-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ISLR/">ISLR</a></p>
+                            <p class="item-title"><a href="/2019/11/30/2.1.2/" class="title">어떻게 $f$ 를 추정하는가?</a></p>
+                            <p class="item-date"><time datetime="2019-11-29T16:28:13.000Z" itemprop="datePublished">2019-11-30</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ISLR/">ISLR</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Classification/">Classification</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Clustering/">Clustering</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Network/">Network</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Regression/">Regression</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/Statistics/">Statistics</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Mysql/">Mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">11</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/Flask/">Flask</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Server/">Server</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a><span class="category-list-count">7</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">11</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/">AWS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Affinity-Propagation/">Affinity Propagation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bias/">Bias</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classification/">Classification</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clustering/">Clustering</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crawling/">Crawling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crontab/">Crontab</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBSCAN/">DBSCAN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flask/">Flask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GC-Collect/">GC Collect</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIL/">GIL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ISLR/">ISLR</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Inference/">Inference</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Regression/">Linear Regression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MATH/">MATH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mathjax/">Mathjax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multiprocessing/">Multiprocessing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network/">Network</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Package/">Package</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Parmap/">Parmap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Prediction/">Prediction</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Process/">Process</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RSS/">RSS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regression/">Regression</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/">Server</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistical-Learning/">Statistical Learning</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Teffaform/">Teffaform</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thread/">Thread</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Threading/">Threading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trade-Off/">Trade-Off</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unsupervised-Learning/">Unsupervised Learning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Variances/">Variances</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/계층적-클러스터링/">계층적 클러스터링</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/Affinity-Propagation/" style="font-size: 10px;">Affinity Propagation</a> <a href="/tags/Algorithm/" style="font-size: 20px;">Algorithm</a> <a href="/tags/Bias/" style="font-size: 10px;">Bias</a> <a href="/tags/Blog/" style="font-size: 12.22px;">Blog</a> <a href="/tags/Classification/" style="font-size: 11.11px;">Classification</a> <a href="/tags/Clustering/" style="font-size: 14.44px;">Clustering</a> <a href="/tags/Crawling/" style="font-size: 10px;">Crawling</a> <a href="/tags/Crontab/" style="font-size: 10px;">Crontab</a> <a href="/tags/DBSCAN/" style="font-size: 10px;">DBSCAN</a> <a href="/tags/Flask/" style="font-size: 10px;">Flask</a> <a href="/tags/GC-Collect/" style="font-size: 10px;">GC Collect</a> <a href="/tags/GIL/" style="font-size: 10px;">GIL</a> <a href="/tags/Git/" style="font-size: 13.33px;">Git</a> <a href="/tags/ISLR/" style="font-size: 15.56px;">ISLR</a> <a href="/tags/Inference/" style="font-size: 13.33px;">Inference</a> <a href="/tags/Jupyter/" style="font-size: 11.11px;">Jupyter</a> <a href="/tags/Linear-Regression/" style="font-size: 10px;">Linear Regression</a> <a href="/tags/MATH/" style="font-size: 10px;">MATH</a> <a href="/tags/Math/" style="font-size: 18.89px;">Math</a> <a href="/tags/Mathjax/" style="font-size: 10px;">Mathjax</a> <a href="/tags/Multiprocessing/" style="font-size: 10px;">Multiprocessing</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Network/" style="font-size: 11.11px;">Network</a> <a href="/tags/Package/" style="font-size: 10px;">Package</a> <a href="/tags/Parmap/" style="font-size: 10px;">Parmap</a> <a href="/tags/Prediction/" style="font-size: 13.33px;">Prediction</a> <a href="/tags/Process/" style="font-size: 10px;">Process</a> <a href="/tags/Python/" style="font-size: 17.78px;">Python</a> <a href="/tags/RSS/" style="font-size: 10px;">RSS</a> <a href="/tags/Regression/" style="font-size: 12.22px;">Regression</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Server/" style="font-size: 10px;">Server</a> <a href="/tags/Statistical-Learning/" style="font-size: 15.56px;">Statistical Learning</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Teffaform/" style="font-size: 10px;">Teffaform</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/Threading/" style="font-size: 10px;">Threading</a> <a href="/tags/Trade-Off/" style="font-size: 10px;">Trade-Off</a> <a href="/tags/Ubuntu/" style="font-size: 16.67px;">Ubuntu</a> <a href="/tags/Unsupervised-Learning/" style="font-size: 11.11px;">Unsupervised Learning</a> <a href="/tags/Variances/" style="font-size: 10px;">Variances</a> <a href="/tags/계층적-클러스터링/" style="font-size: 10px;">계층적 클러스터링</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 Seungwoo Hyun</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'https://p829911.github.io/2019/12/18/3.선형회귀/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
