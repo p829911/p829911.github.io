@@ -12,19 +12,19 @@
     
         <meta name="keywords" content="ISLR,Statistical Learning,Linear Regression,RSS">
     
-    <meta name="description" content="3. 선형회귀 선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들  광고예산과 판매 사이에 상관관계가 있는가? 광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가? 어느 매체가 판매에 기여하는가? 판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가? 미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가? 상관관계는 선형인가? 광고 매체 사이">
+    <meta name="description" content="3. 선형회귀선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들 광고예산과 판매 사이에 상관관계가 있는가? 광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가? 어느 매체가 판매에 기여하는가? 판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가? 미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가? 상관관계는 선형인가? 광고 매체 사이에">
 <meta name="keywords" content="ISLR,Statistical Learning,Linear Regression,RSS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="선형회귀">
 <meta property="og:url" content="https://p829911.github.io/2019/12/18/3.선형회귀/index.html">
 <meta property="og:site_name" content="data science study blog">
-<meta property="og:description" content="3. 선형회귀 선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들  광고예산과 판매 사이에 상관관계가 있는가? 광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가? 어느 매체가 판매에 기여하는가? 판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가? 미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가? 상관관계는 선형인가? 광고 매체 사이">
+<meta property="og:description" content="3. 선형회귀선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들 광고예산과 판매 사이에 상관관계가 있는가? 광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가? 어느 매체가 판매에 기여하는가? 판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가? 미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가? 상관관계는 선형인가? 광고 매체 사이에">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17154958/71067318-b3f2ff80-21b7-11ea-9476-445e1767058d.JPG">
-<meta property="og:updated_time" content="2019-12-18T11:56:26.143Z">
+<meta property="og:updated_time" content="2019-12-18T12:40:24.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="선형회귀">
-<meta name="twitter:description" content="3. 선형회귀 선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들  광고예산과 판매 사이에 상관관계가 있는가? 광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가? 어느 매체가 판매에 기여하는가? 판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가? 미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가? 상관관계는 선형인가? 광고 매체 사이">
+<meta name="twitter:description" content="3. 선형회귀선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들 광고예산과 판매 사이에 상관관계가 있는가? 광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가? 어느 매체가 판매에 기여하는가? 판매에 대한 각 매체의 효과를 얼마나 정확하게 추정할 수 있는가? 미래의 판매에 대해 얼마나 정확하게 예측할 수 있는가? 상관관계는 선형인가? 광고 매체 사이에">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/17154958/71067318-b3f2ff80-21b7-11ea-9476-445e1767058d.JPG">
     
 
@@ -177,8 +177,7 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="3-선형회귀"><a href="#3-선형회귀" class="headerlink" title="3. 선형회귀"></a>3. 선형회귀</h2><ul>
-<li>선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들 <ol>
+            <h2 id="3-선형회귀"><a href="#3-선형회귀" class="headerlink" title="3. 선형회귀"></a>3. 선형회귀</h2><h4 id="선형회귀에서-답을-찾아봐야하는-몇-가지-중요한-질문들"><a href="#선형회귀에서-답을-찾아봐야하는-몇-가지-중요한-질문들" class="headerlink" title="선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들"></a>선형회귀에서 답을 찾아봐야하는 몇 가지 중요한 질문들</h4><ol>
 <li>광고예산과 판매 사이에 상관관계가 있는가?</li>
 <li>광고예산과 판매 사이에 얼마나 강한 상관관계가 있는가?</li>
 <li>어느 매체가 판매에 기여하는가?</li>
@@ -187,16 +186,13 @@
 <li>상관관계는 선형인가?</li>
 <li>광고 매체 사이에 시너지 효과가 있는가?</li>
 </ol>
-</li>
-<li>회귀 분석의 표준 가정<ol>
+<h4 id="회귀-분석의-표준-가정"><a href="#회귀-분석의-표준-가정" class="headerlink" title="회귀 분석의 표준 가정"></a>회귀 분석의 표준 가정</h4><ol>
 <li>오차항은 모든 독립변수 값에 대하여 동일한 분산을 갖는다.</li>
 <li>오차항의 평균 (기대값) 은 0이다.</li>
 <li>수집된 데이터의 확률 분포는 정규분포를 이루고 있다.</li>
 <li>독립변수 상호 간에는 상관관계가 없어야 한다.</li>
 <li>시간에 따라 수집한 데이터들은 잡음의 영향을 받지 않아야 한다.</li>
 </ol>
-</li>
-</ul>
 <h3 id="3-1-단순-선형회귀"><a href="#3-1-단순-선형회귀" class="headerlink" title="3.1 단순 선형회귀"></a>3.1 단순 선형회귀</h3><p>단순선형회귀는 매우 간단한 기법으로, 하나의 설명변수 $X$에 기초하여 양적 반응변수 $Y$를 예측한다.<br>이 기법은 $X$와 $Y$ 사이에 선형적 상관관계가 있다고 가정한다. 수학적으로 선형적인 상관관계는 다음과 같이 나타낼 수 있다.</p>
 <script type="math/tex; mode=display">
 Y \approx \beta_0 + \beta_1X \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;(3.1)</script><p>위의 식은 $X$에 대한 $Y$의 회귀라고 한다. $\beta_0$와 $\beta_1$은 알려지지 않은 상수로, 선형모델의 <code>절편(intercept)</code>과 <code>기울기</code>를 나타내며 모델 <code>계수</code> 또는 <code>파라미터</code>로 알려져 있다. 훈련 데이터를 사용하여 모델 계수에 대한 추정치 $\hat{\beta_0}$와 $\hat{\beta_1}$ 을 구하면, $\hat{y}$를 다음과 같이 예측할 수 있다.</p>
@@ -212,7 +208,7 @@ Y \approx \beta_0 + \beta_1X \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;(
 \text{RSS} = (y_1-\hat{\beta_0}-\hat{\beta_1}x_1)^2 + (y_2 - \hat{\beta_0}-\hat{\beta_1}x_2)^2 + \cdots + (y_n - \hat{\beta_0}-\hat{\beta_1}x_n)^2</script><p>최소제곱법은 RSS를 최소화 하는 $\beta_0$와 $\beta_1$를 선택한다.<br>미적분을 사용하여 수식을 정리하면 다음을 얻을 수 있다.</p>
 <script type="math/tex; mode=display">
 \begin{eqnarray}
-\hat{\beta_1} &=& \dfrac{\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{(x_i - \bar{x})^2} \\
+\hat{\beta_1} &=& \dfrac{\sum_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n(x_i - \bar{x})^2} \\
 \hat{\beta_0} &=& \bar{y} - \hat{\beta_1}\bar{x}
 \end{eqnarray}</script><h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://user-images.githubusercontent.com/17154958/71067318-b3f2ff80-21b7-11ea-9476-445e1767058d.JPG" alt=""></h4><p><img src="https://user-images.githubusercontent.com/17154958/71063079-5a86d280-21af-11ea-82bc-80318c21af06.png" alt=""></p>
 <ul>
