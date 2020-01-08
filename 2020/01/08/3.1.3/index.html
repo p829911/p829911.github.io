@@ -6,24 +6,26 @@
     
 
     
-    <title>ubuntu apt 명령어 | data science study blog</title>
+    <title>3.1.3 모델의 정확도 평가 | data science study blog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="Ubuntu">
+        <meta name="keywords" content="ISLR,Statistical Learning,Linear Regression,RSS,RSE,TSS">
     
-    <meta name="description" content="우분투에서 패키지를 관리하는 명령어가 몇 가지 있다. 그 중 apt-get과 apt-cache를 결합한 apt에 관한 명령어를 알아보겠다.  패키지 목록 갱신 1apt update  모든 패키지를 최신 버전으로 업그레이드 12apt install upgradeapt full-upgrade # 의존성 고려한 패키지 업그레이드  패키지 설치 1apt insta">
-<meta name="keywords" content="Ubuntu">
+    <meta name="description" content="귀무가설을 기각하고 대립가설을 채택했다면, 모델이 데이터에 적합한 정도를 수량화 하고자 할 것이다.선형회귀적합의 질(quality)은 보통 잔차표준오차(RSE)와 $R^2$ 통계량을 사용하여 평가한다.   Advertising 자료의 TV 광고예산에 대한 판매량의 회귀에서 최소제곱모델에 대한 추가 정보.  잔차표준오차 (RSE)$Y = \beta_0 + \">
+<meta name="keywords" content="ISLR,Statistical Learning,Linear Regression,RSS,RSE,TSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ubuntu apt 명령어">
-<meta property="og:url" content="https://p829911.github.io/2018/11/27/ubuntu-apt-명령어/index.html">
+<meta property="og:title" content="3.1.3 모델의 정확도 평가">
+<meta property="og:url" content="https://p829911.github.io/2020/01/08/3.1.3/index.html">
 <meta property="og:site_name" content="data science study blog">
-<meta property="og:description" content="우분투에서 패키지를 관리하는 명령어가 몇 가지 있다. 그 중 apt-get과 apt-cache를 결합한 apt에 관한 명령어를 알아보겠다.  패키지 목록 갱신 1apt update  모든 패키지를 최신 버전으로 업그레이드 12apt install upgradeapt full-upgrade # 의존성 고려한 패키지 업그레이드  패키지 설치 1apt insta">
+<meta property="og:description" content="귀무가설을 기각하고 대립가설을 채택했다면, 모델이 데이터에 적합한 정도를 수량화 하고자 할 것이다.선형회귀적합의 질(quality)은 보통 잔차표준오차(RSE)와 $R^2$ 통계량을 사용하여 평가한다.   Advertising 자료의 TV 광고예산에 대한 판매량의 회귀에서 최소제곱모델에 대한 추가 정보.  잔차표준오차 (RSE)$Y = \beta_0 + \">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-27T08:05:17.000Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/17154958/71957753-f0070680-3231-11ea-980a-cf847935558c.png">
+<meta property="og:updated_time" content="2020-01-08T11:48:20.922Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ubuntu apt 명령어">
-<meta name="twitter:description" content="우분투에서 패키지를 관리하는 명령어가 몇 가지 있다. 그 중 apt-get과 apt-cache를 결합한 apt에 관한 명령어를 알아보겠다.  패키지 목록 갱신 1apt update  모든 패키지를 최신 버전으로 업그레이드 12apt install upgradeapt full-upgrade # 의존성 고려한 패키지 업그레이드  패키지 설치 1apt insta">
+<meta name="twitter:title" content="3.1.3 모델의 정확도 평가">
+<meta name="twitter:description" content="귀무가설을 기각하고 대립가설을 채택했다면, 모델이 데이터에 적합한 정도를 수량화 하고자 할 것이다.선형회귀적합의 질(quality)은 보통 잔차표준오차(RSE)와 $R^2$ 통계량을 사용하여 평가한다.   Advertising 자료의 TV 광고예산에 대한 판매량의 회귀에서 최소제곱모델에 대한 추가 정보.  잔차표준오차 (RSE)$Y = \beta_0 + \">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/17154958/71957753-f0070680-3231-11ea-980a-cf847935558c.png">
     
 
     
@@ -147,19 +149,19 @@ ga('send', 'pageview');
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/Ubuntu/">Ubuntu</a>
+    <a class="page-title-link" href="/categories/ISLR/">ISLR</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-ubuntu-apt-명령어" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+                            <article id="post-3.1.3" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        ubuntu apt 명령어
+        3.1.3 모델의 정확도 평가
         </h1>
     
 
@@ -169,8 +171,8 @@ ga('send', 'pageview');
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2018/11/27/ubuntu-apt-명령어/" class="article-date">
-            <time datetime="2018-11-27T07:50:51.000Z" itemprop="datePublished">2018-11-27</time>
+        <a href="/2020/01/08/3.1.3/" class="article-date">
+            <time datetime="2020-01-08T11:46:34.000Z" itemprop="datePublished">2020-01-08</time>
         </a>
     </div>
 
@@ -179,48 +181,35 @@ ga('send', 'pageview');
                 
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Ubuntu/">Ubuntu</a>
+        <a class="tag-link" href="/tags/ISLR/">ISLR</a>, <a class="tag-link" href="/tags/Linear-Regression/">Linear Regression</a>, <a class="tag-link" href="/tags/RSE/">RSE</a>, <a class="tag-link" href="/tags/RSS/">RSS</a>, <a class="tag-link" href="/tags/Statistical-Learning/">Statistical Learning</a>, <a class="tag-link" href="/tags/TSS/">TSS</a>
     </div>
 
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p>우분투에서 패키지를 관리하는 명령어가 몇 가지 있다.</p>
-<p>그 중 apt-get과 apt-cache를 결합한 apt에 관한 명령어를 알아보겠다.</p>
-<ol>
-<li><p><strong>패키지 목록 갱신</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>모든 패키지를 최신 버전으로 업그레이드</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install upgrade</span><br><span class="line">apt full-upgrade <span class="comment"># 의존성 고려한 패키지 업그레이드</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>패키지 설치</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install package_name</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>패키지 삭제</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt remove package_name</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>패키지 삭제(설정 파일 포함)</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt purge package_name</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>불필요한 패키지 제거</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt autoremove</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>패키지 검색</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt search package_name</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>패키지 상세 정보 출력</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt show package_name</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>apt 명령어 사용법 &amp; 옵션</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt -h</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>패키지 리스트 출력</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt list</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><strong>권한 문제가 발생할 경우 sudo 명령을 붙여 root로 실행할 수 있다.</strong></p>
+            <p>귀무가설을 기각하고 대립가설을 채택했다면, 모델이 데이터에 적합한 정도를 수량화 하고자 할 것이다.<br>선형회귀적합의 질(quality)은 보통 <code>잔차표준오차(RSE)</code>와 $R^2$ 통계량을 사용하여 평가한다.</p>
+<p><img src="https://user-images.githubusercontent.com/17154958/71957753-f0070680-3231-11ea-980a-cf847935558c.png" alt=""></p>
+<ul>
+<li>Advertising 자료의 TV 광고예산에 대한 판매량의 회귀에서 최소제곱모델에 대한 추가 정보.</li>
+</ul>
+<h4 id="잔차표준오차-RSE"><a href="#잔차표준오차-RSE" class="headerlink" title="잔차표준오차 (RSE)"></a>잔차표준오차 (RSE)</h4><p>$Y = \beta_0 + \beta_1X + \epsilon$ 는 각 관측치에 오차항 $\epsilon$ 이 관련되어 있다. 이러한 오차항 때문에 실제 회귀선을 알아도 (즉, $\beta_0$ 와 $\beta_1$ 이 알려져 있어도) $X$ 로부터 $Y$ 를 정확하게 예측할 수는 없을 것이다. <code>RSE</code>는 $\epsilon$ 의 표준편차에 대한 추정값으로, 대략 반응변수 값이 실제 회귀선으로부터 벗어나게 될 평균값을 의미한다.<br><code>RSE</code>는 다음 식을 사용하여 계산된다.</p>
+<script type="math/tex; mode=display">
+\text{RSE} = \sqrt{\frac{1}{n-2}\text{RSS}} = \sqrt{\frac{1}{n-2}\sum_{i=1}^n(y_i - \hat{y}_i)^2}</script><p><code>RSS</code>는 아래식과 같다.</p>
+<script type="math/tex; mode=display">
+\text{RSS} = \sum_{i=1}^n(y_i - \hat{y}_i)^2</script><p>광고자료에 대한 위의 표의 선형회귀 결과를 보면 <code>RSE</code>는 3.26이다. 다시 말하면, 각 마켓의 실제 판매량은 평균적으로 실제 회귀선으로부터 대략 3,260대 정도 벗어난다. 다른 각도에서 살펴보면, 심지어 모델이 정확하고 $\beta_0$ 와 $\beta_1$ 의 실제값을 정확하게 알고 있더라도 TV 광고에 기초한 판매량의 예측값은 여전히 평균적으로 3,260대만큼 다를 수 있다. 물론, 3,260의 예측오차가 수용가능한 수준인지는 문제 상황에 따라 다르다. 모든 마켓에 대한 평균 판매 수치는 대략 14,000대이다. 따라서 백분률오차는 3,260 / 14,000 = 23%이다.</p>
+<p><code>RSE</code>는 데이터에 대한 모델의 <code>적합성결여(lack of fit)</code>를 나타내는 측도로 간주된다. 만약 모델을 사용하여 얻은 예측값이 실제 결과값에 아주 가까우면 (즉, $i = 1, \cdots, n$에 대해 $\hat{y}_i \approx y_i$ 이면) <code>RSE</code>는 작을 것이고 모델이 데이터를 잘 적합한다고 결론을 내릴 수 있다. 반면에, 만약 $\hat{y}_i$ 가 하나 또는 그 이상의 관측치에 대해 $y_i$ 와 아주 크게 다르면 <code>RSE</code>는 상당히 큰 값이 될 수 있으며, 이것은 모델이 데이터를 잘 적합하지 않는다는 것을 나타낸다.</p>
+<h4 id="R-2-통계량"><a href="#R-2-통계량" class="headerlink" title="$R^2$ 통계량"></a>$R^2$ 통계량</h4><p><code>RSE</code>는 데이터에 대한 모델의 적합성결여를 나타내는 절대적 측도가 된다. 하지만 이것은 $Y$ 의 단위로 측정되므로 적정한 <code>RSE</code>가 무엇인지 항상 명확한 것은 아니다. $R^2$ 통계량은 적합도에 대한 다른 측도를 제공한다. 이것은 설명된 분산의 비율의 형태를 취하므로 항상 0과 1사이의 값을 가지며 $Y$ 의 크기와는 무관하다.</p>
+<p>$R^2$는 다음 식을 사용하여 계산된다.</p>
+<script type="math/tex; mode=display">
+R^2 = \frac{\text{TSS} - \text{RSS}}{\text{TSS}} = 1 - \frac{\text{RSS}}{\text{TSS}}</script><p>여기서, $\text{TSS} = \sum(y_i - \bar{y})^2$ 는 <code>총제곱합(total sum of squares)</code> 이다. <code>TSS</code>는 반응변수 $Y$ 의 총분산을 측정하며 회귀가 수행되기 전에 반응변수에 내재하는 변동량으로 생각할 수 있다. 이에 반해 <code>RSS</code>는 회귀가 수행된 후에 설명되지 않고 남아있는 변동량을 측정한다. 그러므로 <code>TSS</code> - <code>RSS</code> 는 회귀를 수행함으로써 설명된(또는 제거된) 반응변수의 변동량을 측정하고, $R^2$ 은 $X$ 를 사용하여 설명될 수 있는 $Y$ 의 변동비율(proportion of variability)을 측정한다. $R^2$ 통계량이 1에 가까우면 반응변수의 변동 중 많은 부분이 회귀에 의해 설명되었다는 것을 나타낸다. $R^2$ 통계량이 거의 0이면 반응변수의 변동 중 대부분이 회귀에 의해 설명되지 않았다는 것을 나타낸다.</p>
+<p>$R^2$ 통계량은 <code>RSE</code> 에 비해 해석이 쉽다는 장점이 있다. 왜냐하면 <code>RSE</code> 와는 달리 그 값이 항상 0과 1 사이에 있기 때문이다. 하지만 좋은 $R^2$ 값이 무엇인지에 대한 결정은 여전히 어려울 수 있고 일반적으로 응용에 따라 다를 것이다.</p>
+<blockquote>
+<p>예를 들어, 어떤 물리학 문제에서는 데이터가 명백히 작은 잔차오차를 가지는 선형모델에서 나온 것임을 알 수도 있다. 이러한 경우, $R^2$ 값은 1에 아주 가까울 것으로 예상할 것이며, 만약 그렇지 않다면 데이터가 생성된 실험에 심각한 문제가 있음을 나타낼 수도 있다. 반면에 생물학, 심리학, 마케팅 및 다른 영역의 전형적인 응용에서 선형모델은 데이터에 대한 아주 대략적인 근사에 불과하며, 잔차오차는 다른 측정되지 않은 요인들로 인해 보통 아주 크다. 이러한 환경에서는 반응변수의 분산 중 아주 작은 비율이 설명변수에 의해 설명될 것으로 예상되며, 0.1보다 훨씬 작은 $R^2$ 값이 현실적일 수도 있다.</p>
+</blockquote>
+<p>$R^2$ 통계량은 $X$ 와 $Y$ 사이의 선형상관관계에 대한 측도이다. 다음과 같이 정의되는 상관(correlation) 계수도 $X$ 와 $Y$ 사이의 선형상관관계의 측도임을 기억해야한다.</p>
+<script type="math/tex; mode=display">
+Cor(X, Y) = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^n(y_i - \bar{y})^2}}</script><p>이것은 선형 모델의 적합성을 평가하기 위해 $R^2$ 대신 $r = Cor(X, Y)$ 를 사용할 수도 있음을 의미한다. 사실, 단순선형회귀에서 $R^2 = r^2$ 임을 보여줄 수 있다. 다시 말해, 상관계수의 제곱과 $R^2$ 통계량은 동일하다. </p>
 
         </div>
         <footer class="article-footer">
@@ -228,7 +217,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="https://p829911.github.io/2018/11/27/ubuntu-apt-명령어/" data-id="ck558oot5002oii2xyoe9n1fu" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://p829911.github.io/2020/01/08/3.1.3/" data-id="ck558oory000bii2x9t99awwo" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -326,20 +315,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2018/11/27/ubuntu-permission/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            ubuntu permission
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2018/11/27/교차-검증/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2020/01/04/ubuntu-virtualbox-용량-늘리기/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">교차 검증</p>
+        <p class="article-nav-title">ubuntu virtualbox 용량 늘리기</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -498,7 +477,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'hexo-theme-hueman';
     
     
-    var disqus_url = 'https://p829911.github.io/2018/11/27/ubuntu-apt-명령어/';
+    var disqus_url = 'https://p829911.github.io/2020/01/08/3.1.3/';
     
     (function() {
     var dsq = document.createElement('script');
