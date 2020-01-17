@@ -21,7 +21,7 @@
 <meta property="og:description" content="다중선형회귀단순선형회귀는 단일 설명변수를 기반으로 반응변수를 예측하는 유용한 기법이다. 하지만 실제로는 보통 하나보다 많은 설명변수가 관련된다. 예를 들어, Advertising 자료에서 판매량과 TV 광고의 상관관계를 조사하였다. 광고자료에는 또한 라디오와 신문광고에 지출에 대한 데이터도 있으며, 이들 두 매체가 판매량과 상관성이 있는지 알고 싶을 수 있">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://user-images.githubusercontent.com/17154958/72316519-c8081f00-36d9-11ea-89d7-3346fd4aa0ea.png">
-<meta property="og:updated_time" content="2020-01-16T14:31:38.092Z">
+<meta property="og:updated_time" content="2020-01-17T11:56:42.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="다중선형회귀">
 <meta name="twitter:description" content="다중선형회귀단순선형회귀는 단일 설명변수를 기반으로 반응변수를 예측하는 유용한 기법이다. 하지만 실제로는 보통 하나보다 많은 설명변수가 관련된다. 예를 들어, Advertising 자료에서 판매량과 TV 광고의 상관관계를 조사하였다. 광고자료에는 또한 라디오와 신문광고에 지출에 대한 데이터도 있으며, 이들 두 매체가 판매량과 상관성이 있는지 알고 싶을 수 있">
@@ -213,12 +213,12 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \cdots + \beta_pX_p + \epsilon</script><
 </ul>
 <p>표의 결과를 해석해 보면, 주어진 TV 및 신문 광고에 대해 추가로 1,000 달러를 라디오 광고에 지출하면 대략 189 유닛의 판매량 증가를 이룰 수 있다. 여기서의 계수 추정값을 다중선형회귀의 표와 아래의 단순선형회귀의 표와 비교해보면</p>
 <p><img src="https://user-images.githubusercontent.com/17154958/72316519-c8081f00-36d9-11ea-89d7-3346fd4aa0ea.png" alt=""></p>
-<p><img src="https://user-images.githubusercontent.com/17154958/72317904-128b9a80-36de-11ea-997e-4927d0e6c1b9.png" alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/17154958/72317904-128b9a80-36de-11ea-997e-4927d0e6c1b9.png" alt=""></p>
 <p>TV와 radio에 대한 다중회귀계수 추정값들은 단순선형회귀의 계수추정값들과 아주 유사하다. 하지만 newspaper에 대한 단순선형회귀 추정값은 영과 큰 차이가 있지만 다중회귀모델의 newspaper에 대한 계수 추정값은 영에 가깝고 대응하는 $p-$ 값은 0.86으로 더 이상 유의하지 않다. <strong>이것은 단순회귀계수와 다중회귀계수는 상당히 다를 수 있다는 것을 보여준다.</strong></p>
 <p>이러한 차이는 <strong>단순회귀의 경우 기울기 항이 TV와 radio 같은 다른 설명변수의 고려없이 신문광고 지출의 1,000 달러 증가에 대한 평균 효과를 나타내기 때문에 발생된다. 반면에 다중회귀의 경우 newspaper에 대한 계수는 TV와 radio 광고 지출은 변하지 않을 때 신문광고 지출의 1,000 달러 증가에 대한 평균 효과를 나타낸다.</strong></p>
 <p>단순선형회귀는 sales와 newspaper 사이에 상관관계가 있음을 나타내는데 다중회귀는 그 반대 결과를 보이는 것이 이치에 맞는가? 사실은 충분히 그럴 수 있다. </p>
 <p><img src="https://user-images.githubusercontent.com/17154958/72318723-5f707080-36e0-11ea-9daa-9948780ece26.png" alt=""></p>
-<p>위의 표에 나타낸 세 설명변수와 반응변수에 대한 상관행렬을 고려해 보자. <strong>radio와 newspaper의 상관성은 0.35이다. 이것은 라디오 광고에 지출을 많이 하는 마켓일수록 신문 광고에도 더 많이 지출하는 경향이 있다는 것을 보여준다.</strong> 다중회귀 결과가 맞고, 신문 광고가 판매량에 미치는 직접적 영향은 없지만 라디오 광고는 판매량을 증가시킨다고 해보자. 그러면 라디오 광고에 더 많이 지출하는 마켓에서의 판매량이 더 높을 것이고, 상관행렬이 보여주듯이 그러한 마켓에서는 신문 광고에도 더 많이 지출하는 경향이 있다. 그러므로, <strong>비록 신문광고가 실질적으로는 판매량에 아무 영향을 주지 않더라도 sales와 newspaper 사이의 관계만을 검사하는 단순선형회귀에서는 newspaper 값이 클수록 sales가 높게 나타나는 상관성을 보일 것이다. 따라서 신문광고에 의한 판매량은 실제로는 라디오 광고에 의한 것이며 신문은 라디오가 판매에 미치는 효과를 가지가는 것이다.</strong></p>
+<p>위의 표에 나타낸 세 설명변수와 반응변수에 대한 상관행렬을 고려해 보자. <strong>radio와 newspaper의 상관성은 0.35이다. 이것은 라디오 광고에 지출을 많이 하는 마켓일수록 신문 광고에도 더 많이 지출하는 경향이 있다는 것을 보여준다.</strong> 다중회귀 결과가 맞고, 신문 광고가 판매량에 미치는 직접적 영향은 없지만 라디오 광고는 판매량을 증가시킨다고 해보자. 그러면 라디오 광고에 더 많이 지출하는 마켓에서의 판매량이 더 높을 것이고, 상관행렬이 보여주듯이 그러한 마켓에서는 신문 광고에도 더 많이 지출하는 경향이 있다. 그러므로, <strong>비록 신문광고가 실질적으로는 판매량에 아무 영향을 주지 않더라도 sales와 newspaper 사이의 관계만을 검사하는 단순선형회귀에서는 newspaper 값이 클수록 sales가 높게 나타나는 상관성을 보일 것이다. 따라서 신문광고에 의한 판매량은 실제로는 라디오 광고에 의한 것이며 신문은 라디오가 판매에 미치는 효과를 가져가는 것이다.</strong></p>
 <p>이러한 약간은 직관에 어긋나는 결과가 실제로 많은 경우에 발생한다. 요점을 보여주기 위해 터무니없는 예를 하나 고려해보자. 특정기간 동안 어떤 해변에서 아이스크림 판매에 대한 상어 공격의 회귀는 판매량과 신문광고 사이에서 보인 것과 유사한 상관관계가 있음을 보일 것이다. 실제로 기온이 올라가면 더 많은 사람이 해변을 방문하게 되고, 그리하여 아이스크림 판매가 높아지고 상어에 의한 공격횟수도 늘어난다. 아이스크림 판매와 기온에 대한 상어 공격의 다중회귀는 직관적으로 알 수 있듯이 기온을 조정하고 나면 아이스크림이란 설명변수는 더 이상 유의하지 않다는 것을 보여준다.</p>
 
         </div>
@@ -227,7 +227,7 @@ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \cdots + \beta_pX_p + \epsilon</script><
 
 
 
-    <a data-url="https://p829911.github.io/2020/01/16/3.2.1/" data-id="ck5gu1lpv000kc12xi2qnrlns" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="https://p829911.github.io/2020/01/16/3.2.1/" data-id="ck5i3ycdm000fqh2xizdr3lay" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
